@@ -4,42 +4,35 @@ import { I } from '../icons.jsx';
 import { Logo } from './Header.jsx';
 
 export function Hero() {
+  const { eyebrow, title, titleLine2, titleEm, desc, blocks } = OQ.hero;
+
   return (
     <section className="hero">
-      <div
-        className="hero-bg"
-        style={{ backgroundImage: 'url(/images/hero.jpg)' }}
-      ></div>
       <div className="wrap">
-        <div className="hero-content">
-          <h1>
-            Горный курорт
-            <br />в часе от <em>Алматы</em>
-          </h1>
-          <p className="lede">
-            Катание, рестораны на высоте, кедровые бани и шале с видом на
-            Тянь-Шань. Всесезонный отдых для всей семьи.
-          </p>
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="n">
-                <b>18</b> км
-              </div>
-              <div className="l">подготовленных трасс</div>
-            </div>
-            <div className="hero-stat">
-              <div className="n">
-                <b>12</b>
-              </div>
-              <div className="l">вариантов размещения</div>
-            </div>
-            <div className="hero-stat">
-              <div className="n">
-                <b>1850</b> м
-              </div>
-              <div className="l">над уровнем моря</div>
-            </div>
+        <header className="hero-intro">
+          <div className="hero-intro-main">
+            <span className="hero-eyebrow">{eyebrow}</span>
+            <h1>
+              {title} {titleLine2} <em>{titleEm}</em>
+            </h1>
           </div>
+          <p className="hero-lede">{desc}</p>
+        </header>
+
+        <div className="hero-bento" aria-label="Направления курорта">
+          {blocks.map((b, i) => (
+            <a
+              className={'hero-card' + (i === 0 ? ' hero-card--lead' : '')}
+              href={b.href}
+              key={b.title}
+              style={{ '--hero-i': i }}
+              aria-label={b.title}
+            >
+              <span className="hero-card-zoom">
+                <img src={b.img} alt={b.title} loading={i === 0 ? 'eager' : 'lazy'} />
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -57,8 +50,10 @@ export function QuickEntries() {
               <span className="quick-ic">
                 <Ic size={25} />
               </span>
-              <span className="t">{q.t}</span>
-              <span className="d">{q.d}</span>
+              <span className="quick-txt">
+                <span className="t">{q.t}</span>
+                <span className="d">{q.d}</span>
+              </span>
             </a>
           );
         })}

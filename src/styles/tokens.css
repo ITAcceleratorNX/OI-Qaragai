@@ -21,6 +21,9 @@
   --r-lg: 20px;
   --r-xl: 28px;
   --container: 1320px;
+  --topbar-h: 40px;
+  --header-h: 66px;
+  --hero-chrome: calc(var(--topbar-h) + var(--header-h));
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 

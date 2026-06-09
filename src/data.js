@@ -99,6 +99,34 @@ export const OQ = {
     { t: '3D-тур', d: 'карта курорта', icon: 'cube' },
   ],
 
+  hero: {
+    eyebrow: 'Всесезонный курорт',
+    title: 'Горный курорт',
+    titleLine2: 'в часе от',
+    titleEm: 'Алматы',
+    desc: 'Катание, рестораны, бани и шале с видом на Тянь-Шань.',
+    blocks: [
+      {
+        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e94707741a500180a04f7678d1fc84cb.jpg',
+        title: 'Проживание',
+        detail: '12 объектов · от шале до глэмпинга',
+        href: '#tabs',
+      },
+      {
+        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/a60880837954b3f599fa9bf993e716bd.jpg',
+        title: 'Активности',
+        detail: 'лыжи, зиплайн, тюбинг круглый год',
+        href: '#tabs',
+      },
+      {
+        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/bee8fe2a4da6225678175d7f4c8a15ae.jpg',
+        title: 'Рестораны и SPA',
+        detail: '5 заведений · кедровая баня и хаммам',
+        href: '#tabs',
+      },
+    ],
+  },
+
   offers: [
     {
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/766b42f1e7f3533af60e997a726f61d5.jpg',
