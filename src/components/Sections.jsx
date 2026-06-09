@@ -12,9 +12,6 @@ export function Hero() {
       ></div>
       <div className="wrap">
         <div className="hero-content">
-          <div className="status-badge">
-            <span className="dot"></span>Курорт открыт · Зимний сезон 2025/26
-          </div>
           <h1>
             Горный курорт
             <br />в часе от <em>Алматы</em>
@@ -23,15 +20,6 @@ export function Hero() {
             Катание, рестораны на высоте, кедровые бани и шале с видом на
             Тянь-Шань. Всесезонный отдых для всей семьи.
           </p>
-          <div className="hero-cta">
-            <a className="btn btn-accent" href="#offers">
-              Забронировать
-              <I.arrowRight size={18} />
-            </a>
-            <a className="btn btn-outline" href="#tabs">
-              Чем заняться?
-            </a>
-          </div>
           <div className="hero-stats">
             <div className="hero-stat">
               <div className="n">
@@ -67,7 +55,7 @@ export function QuickEntries() {
           return (
             <a className="quick-item" href="#tabs" key={i}>
               <span className="quick-ic">
-                <Ic size={24} />
+                <Ic size={25} />
               </span>
               <span className="t">{q.t}</span>
               <span className="d">{q.d}</span>

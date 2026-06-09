@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import { I } from './icons.jsx';
+import { useState, useRef } from 'react';
 import { TopBar, Header, MobileDrawer } from './components/Header.jsx';
 import {
   Hero,
@@ -39,15 +38,7 @@ export default function App() {
   const [toast, setToast] = useState(null);
   const [drawer, setDrawer] = useState(false);
   const [lb, setLb] = useState(null);
-  const [vp, setVp] = useState('desktop');
-  const [theme, setTheme] = useState('dark');
   const toastTimer = useRef();
-
-  useEffect(() => {
-    const bg = theme === 'light' ? '#ffffff' : '#070706';
-    document.documentElement.style.background = bg;
-    document.body.style.background = bg;
-  }, [theme]);
 
   const onBuy = (name) => {
     setCart((c) => c + 1);
@@ -56,32 +47,15 @@ export default function App() {
     toastTimer.current = setTimeout(() => setToast(null), 2600);
   };
 
-  const mobile = vp === 'mobile';
-
   return (
-    <div className={'stage' + (mobile ? ' is-mobile' : '')} data-theme={theme}>
-      {mobile ? (
-        <div className="phone">
-          <div className="phone-notch"></div>
-          <SiteContent
-            cart={cart}
-            onBuy={onBuy}
-            onLightbox={setLb}
-            onBurger={() => setDrawer(true)}
-          />
-          <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
-        </div>
-      ) : (
-        <>
-          <SiteContent
-            cart={cart}
-            onBuy={onBuy}
-            onLightbox={setLb}
-            onBurger={() => setDrawer(true)}
-          />
-          <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
-        </>
-      )}
+    <div className="stage">
+      <SiteContent
+        cart={cart}
+        onBuy={onBuy}
+        onLightbox={setLb}
+        onBurger={() => setDrawer(true)}
+      />
+      <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
 
       {lb !== null && (
         <Lightbox index={lb} onClose={() => setLb(null)} onIndex={setLb} />
@@ -91,7 +65,7 @@ export default function App() {
         <div
           style={{
             position: 'fixed',
-            bottom: 84,
+            bottom: 24,
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 320,
@@ -119,40 +93,6 @@ export default function App() {
           {toast}
         </div>
       )}
-
-      <div className="theme-toggle">
-        <button
-          className={theme === 'dark' ? 'on' : ''}
-          onClick={() => setTheme('dark')}
-        >
-          <I.moon size={17} />
-          <span>Тёмная</span>
-        </button>
-        <button
-          className={theme === 'light' ? 'on' : ''}
-          onClick={() => setTheme('light')}
-        >
-          <I.sun size={17} />
-          <span>Светлая</span>
-        </button>
-      </div>
-
-      <div className="vp-toggle">
-        <button
-          className={vp === 'desktop' ? 'on' : ''}
-          onClick={() => setVp('desktop')}
-        >
-          <I.desktop size={17} />
-          <span>Desktop</span>
-        </button>
-        <button
-          className={vp === 'mobile' ? 'on' : ''}
-          onClick={() => setVp('mobile')}
-        >
-          <I.mobile size={17} />
-          <span>Mobile</span>
-        </button>
-      </div>
     </div>
   );
 }

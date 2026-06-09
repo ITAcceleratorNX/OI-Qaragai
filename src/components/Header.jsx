@@ -2,39 +2,6 @@ import { useState, useRef } from 'react';
 import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
 
-const Flag = ({ c }) => {
-  const flags = {
-    RU: (
-      <g>
-        <rect width="18" height="4.33" y="0" fill="#fff" />
-        <rect width="18" height="4.33" y="4.33" fill="#0039A6" />
-        <rect width="18" height="4.34" y="8.66" fill="#D52B1E" />
-      </g>
-    ),
-    KZ: (
-      <g>
-        <rect width="18" height="13" fill="#00AFCA" />
-        <circle cx="9" cy="6" r="2.4" fill="#FEC50C" />
-      </g>
-    ),
-    EN: (
-      <g>
-        <rect width="18" height="13" fill="#012169" />
-        <path d="M0 0l18 13M18 0L0 13" stroke="#fff" strokeWidth="2.4" />
-        <path d="M9 0v13M0 6.5h18" stroke="#fff" strokeWidth="3.4" />
-        <path d="M9 0v13M0 6.5h18" stroke="#C8102E" strokeWidth="1.8" />
-      </g>
-    ),
-  };
-  return (
-    <span className="flag">
-      <svg viewBox="0 0 18 13" width="18" height="13">
-        {flags[c]}
-      </svg>
-    </span>
-  );
-};
-
 export const Logo = ({ onClick }) => (
   <a href="#top" className="logo" onClick={onClick}>
     <span className="mark">
@@ -168,7 +135,6 @@ export function Header({ cart, onBurger }) {
               onClick={() => setLangOpen((o) => !o)}
               onBlur={() => setTimeout(() => setLangOpen(false), 150)}
             >
-              <Flag c={lang} />
               {lang}
               <I.chevDown size={13} />
             </button>
@@ -183,7 +149,6 @@ export function Header({ cart, onBurger }) {
                       setLangOpen(false);
                     }}
                   >
-                    <Flag c={l} />
                     {l === 'KZ' ? 'Қазақша' : l === 'RU' ? 'Русский' : 'English'}
                   </button>
                 ))}
