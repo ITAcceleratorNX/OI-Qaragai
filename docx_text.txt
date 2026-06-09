@@ -1,0 +1,353 @@
+Oi-QaragaiSprint 1 / ТЗ на новый frontend сайта
+Версия для разработки: frontend MVP за 2–3 дня
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="10540"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="689C3C39" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="10540" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="FCE4D6"/></w:tcPr><w:p w14:paraId="17105511" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r w:rsidRPr="00177E06"><w:rPr><w:b/><w:sz w:val="18"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Важно: Делаем новый frontend. Текущий сайт не ломаем и не правим напрямую. Первый результат — визуальный MVP, а не полная замена сайта.
+1. Контекст и цель
+Клиент хочет обновить web-версию Oi-Qaragai, улучшить UX/UI и быстрее видеть результат разработки. В первом спринте нужно собрать новую frontend-версию сайта на основе текущего сайта, клиентского ТЗ, аудита и референса Красной Поляны.
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="2268"/><w:gridCol w:w="6804"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="0963012F" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5614A17B" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Источник
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7083BFD3" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Что использовать
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3631218C" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Текущий сайт
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="15E0B78D" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>https://oiqaragai.com/ru
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1BB8FD94" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Референс
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="22E4D555" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>https://next.krasnayapolyanaresort.ru/
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7FBE555E" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Контент / фото
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="43DDFCD2" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Strapi Media Library
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3EF3668F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Исходное ТЗ
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1AB23F2A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Файл клиента со скринами и комментариями
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="51D51F7F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Аудит
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="78261B4F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Таблица с текущими сценариями сайта/приложения
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3C1ECB58" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Подход
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="046BBA33" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Текущий функционал сохраняем как основу, визуал и подачу обновляем
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="10540"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="76FA7BBD" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="10540" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="E2F0D9"/></w:tcPr><w:p w14:paraId="54A5C81A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r w:rsidRPr="00177E06"><w:rPr><w:b/><w:sz w:val="18"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Цель Sprint 1: За 2–3 дня показать клиенту новую web-версию: header, главная, mega menu, карточки, адаптив и базовая интерактивность. Данные можно использовать mock, фото — из Strapi.
+2. Что входит в Sprint 1
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="567"/><w:gridCol w:w="2381"/><w:gridCol w:w="6123"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="5F71518B" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="343E766B" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>№
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5B51AF41" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Блок
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="67BD2CEC" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Описание результата
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="19522C59" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>1
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="007C0690" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Новый header
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="31146694" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Новая структура верхнего меню, burger, языки, Instagram, камеры, 3D-тур, погода, поиск, корзина, аккаунт
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5BBB3E2C" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>2
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="394CFB92" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Mega menu «Чем заняться?»
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="595BE4DB" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Dropdown с категориями: отели, развлечения, рестораны, SPA и Баня, мероприятия, для бизнеса
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="621B94DC" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>3
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="572A9769" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Главная страница
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="17FF68AB" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Большой hero, спецпредложения, единый блок «Чем заняться», мероприятия, баннер приложения, footer
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="2B4A64DF" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>4
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="600C8A03" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Карточки
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5C178E79" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Единый стиль карточек для отелей, ресторанов, развлечений, предложений и мероприятий
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="347E7FB6" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>5
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="73F63B9C" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Акцентный цвет
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4859CF59" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Применить #E84444 к кнопкам, стрелкам, цифрам, иконкам, активным элементам
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="67043E83" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>6
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="28DF198F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Галерея фото
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="11E440FE" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Клик по любому фото открывает просмотр, увеличить фото в отелях/номерах
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="574D140A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>7
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4306A078" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Правила курорта
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7046F774" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Компонент accordion: название + раскрытие полного текста
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4AFC5F26" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>8
+<w:tcPr><w:tcW w:w="2381" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4EDB1430" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Footer
+<w:tcPr><w:tcW w:w="6123" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="45A2580B" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Обновленный footer + место под логотипы компаний/партнеров
+3. Сценарии из аудита, которые нужно сохранить в новой версии
+Аудит используется не как отдельное ТЗ, а как проверка: в новом дизайне не должны потеряться ключевые сценарии текущего сайта.
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="1814"/><w:gridCol w:w="3288"/><w:gridCol w:w="3969"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="4FA2A423" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="039F147A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Сценарий
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="08E13A41" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Что есть сейчас
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4384905A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Что повторить в MVP
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="2D7FAB95" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Главная /ru
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="15E636F1" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Баннер, статус курорта/погода, быстрые переходы, акции, footer
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3BD67DCA" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>На новой главной должны быть быстрые входы в основные разделы и актуальные блоки
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="769260D4" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Проживание /ru/hotels
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="689996AE" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Список объектов, фото, описание, фильтры/переход к бронированию
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="6736802D" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Показать карточки проживания и удобный переход к деталям/брони
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="25DAD840" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:lastRenderedPageBreak/><w:t>Рестораны /ru/restaurants
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="57A6D408" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Список ресторанов, фото, часы, меню/подробнее
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="36212D5E" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Карточки ресторанов и понятный переход к меню/деталям
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="05BAB813" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>SPA /ru/spa
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="673474C9" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Описание услуг, прайс, форма записи
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="62713296" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Вывести как часть «Чем заняться» и отдельный переход SPA и Баня
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="62DA95E6" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Развлечения /ru/activities
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="76B586B2" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Активности, цены, ограничения, кнопка покупки
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="2CFD5B51" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Карточки активностей + кнопка «Купить»
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="6C222664" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Мероприятия /ru/news
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7527BD0A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Будущие/прошедшие события, акции, новости
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="108C2C6F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Блок мероприятий и структура Event / Корпоративные
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="20E75586" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Карта / 3D-тур /ru/tour
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="65C8AB8D" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Карта курорта, объекты, навигация
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5E6A3110" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Быстрая ссылка в header
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4CC1CFDF" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Веб-камеры /ru/live
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="42506C2A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Список камер и трансляции
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="22524C0B" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Быстрая ссылка в header
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="1814" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7D8F0339" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Контакты /ru/contacts
+<w:tcPr><w:tcW w:w="3288" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="727BA01C" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Телефоны, адрес, карта, соцсети, форма
+<w:tcPr><w:tcW w:w="3969" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="0BBA3C80" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Сохранить в footer и быстрых ссылках
+4. Задачи Sprint 1
+4.1. Header / верхнее меню
+Ответственный: Frontend developer
+Цель: Собрать новый header для web-версии, который будет визуально легче и понятнее текущего.
+Что сделать:
+Уменьшить шрифт в header примерно на 30%.
+Слева разместить burger menu вместо текущего “For you”.
+Меню должно быть видно сразу, без прокрутки страницы.
+Добавить Instagram рядом с номером телефона.
+Добавить языки через флаг + 2 буквы языка.
+Добавить ссылки/иконки “Камеры” и “3D-тур”.
+Логотип поставить по центру и сделать кликабельным.
+Справа разместить погоду, поиск, корзину и аккаунт.
+Сделать desktop и mobile адаптацию.
+Скрины/комментарии из ТЗ: 
+[Скрин 1 — текущий header сайта https://prnt.sc/2fQAzWSLxgUX ]
+[Скрин 2 — клиентский комментарий по header: шрифт, For you, Instagram, языки, камеры, 3D-тур, погода https://prnt.sc/rGwmWABHlpLL ]
+[Скрин 3 — референс header/верхней навигации Красной Поляны https://next.krasnayapolyanaresort.ru/index ]
+Референс/ориентир: Текущий сайт + Красная Поляна. Не копировать 1:1, взять логику современного курортного портала.
+Готово, если: Header собран, адаптирован под mobile, основные элементы кликабельный или имеют временные заглушки.
+4.2. Mega menu «Чем заняться?»
+Ответственный: Frontend developer + Fullstack developer 1
+Цель: Заменить разрозненные входы в разделы на понятное выпадающее меню с категориями.
+Что сделать:
+В header добавить раздел “Чем заняться?”.
+По клику/hover открывать mega menu.
+Категории: Отели, Развлечения, Рестораны, SPA и Баня, Мероприятия, Для бизнеса.
+Внутри категорий показать список объектов/подкатегорий.
+В Sprint 1 использовать mock-данные.
+Будущее управление через Strapi зафиксировать для Sprint 2.
+Скрины/комментарии из ТЗ: 
+[Клиентский комментарий по mega menu “Чем заняться?”]
+В header новый раздел “Чем заняться?” должен открываться в формате всплывающего mega menu (dropdown) с блоками категорий. Пример: категория “Отели” и ниже список подкатегорий/объектов - список всех отелей.
+[Скрин 5 — пример dropdown/mega menu из референса или клиентского ТЗ https://prnt.sc/pdnEglLmSt2l ]
+Референс/ориентир: Красная Поляна как логика навигации: курорт должен восприниматься как единая экосистема.
+Готово, если: Mega menu открывается, категории визуально разделены, mobile-версия не ломается.
+4.3. Главная страница
+Ответственный: Fullstack developer 1
+Цель: Собрать новую главную как витрину курорта и быстрый навигатор по основным сценариям.
+Что сделать:
+Собрать структуру: Header, большой hero, спецпредложения, “Чем заняться”, мероприятия, баннер приложения, footer.
+Увеличить главный баннер и растянуть его на ширину экрана.
+Расширить блоки ниже баннера ближе к краям страницы.
+Нижний баннер мобильного приложения сделать на всю ширину страницы.
+Использовать реальные фото из Strapi, если успеваем подготовить.
+Если данных не хватает — использовать mock-данные, но структура должна быть готова.
+Скрины/комментарии из ТЗ: 
+[Скрин 6 — текущая главная страница https://oiqaragai.com/ru ]
+[Скрин 7 — клиентский комментарий по увеличению главного баннера https://prnt.sc/2fQAzWSLxgUXhttps://prnt.sc/rGwmWABHlpLL ]
+[Скрин 8 — клиентский комментарий по расширению блоков ниже баннера https://prnt.sc/YRrRf2bfXAxE ]
+[Скрин 9 — клиентский комментарий по баннеру мобильного приложения: “Нижний баннер с рекламой мобильного приложения расширить на всю ширину страницы.”
+Дополнительно можно сделать скрин текущего баннера приложения на сайте, если он есть внизу главной ]
+Референс/ориентир: Красная Поляна / Роза Хутор — крупный hero, курортные блоки, быстрые переходы.
+Готово, если: Главная выглядит как новая web-версия, а не косметическая правка старой страницы.
+4.4. Единый блок «Чем заняться?» на главной
+Ответственный: Fullstack developer 1
+Цель: Убрать ощущение разрозненности и объединить основные предложения курорта в один блок.
+Что сделать:
+На главной убрать отдельную логику блоков “Отели”, “Развлечения”, “Рестораны”.
+Сделать единый блок “Чем заняться?”.
+Внутри блока показать карточки разных типов: отели, рестораны, развлечения, SPA, сезонные активности.
+Добавить кнопку “Купить” там, где это уместно.
+Карточки должны быть едиными по стилю.
+Скрины/комментарии из ТЗ: 
+[Скрин 10 — текущие отдельные блоки Отели/Развлечения/Рестораны]
+[Скрин 11 — клиентский комментарий по объединению в “Чем заняться”]“По главной странице ниже мы уберем блоки: Отели, Развлечения и Рестораны. Вместо этого нужен единый блок “Чем заняться?” и в нем все отели, развлечения и рестораны.”
+Важно для Sprint 1: на главной должен появиться единый блок “Чем заняться?”, где карточками собраны разные категории: отели, рестораны, развлечения, SPA и сезонные активности.
+[Скрин 12 — клиентский комментарий по кнопке “Купить” https://prnt.sc/YRrRf2bfXAxE ]
+“Добавить кнопку “Купить” в блок “специальные предложения” и в блок “чем заняться?””
+Важно для Sprint 1: кнопку “Купить” добавлять только там, где она логична: билеты, развлечения, спецпредложения, активности. Для отелей/ресторанов можно использовать “Подробнее” или текущую логику перехода.
+Референс/ориентир: Красная Поляна: главная как навигатор по опыту на курорте.
+Готово, если: На главной есть единый блок “Чем заняться” с карточками разных категорий.
+4.5. Карточки и визуальный стиль блоков
+Ответственный: Fullstack developer 1
+Цель: Сделать единый визуальный язык карточек, чтобы сайт выглядел цельно.
+Что сделать:
+Сделать карточки для отелей, ресторанов, развлечений, спецпредложений и мероприятий.
+В карточке предусмотреть фото, название, короткое описание и кнопку.
+Кнопки: “Подробнее” или “Купить” в зависимости от типа карточки.
+Сделать одинаковую сетку, отступы, hover/active состояния.
+Использовать реальные фото из Strapi Media Library, если успеваем.
+Скрины/комментарии из ТЗ: 
+[Скрин 13 — текущие карточки сайта https://oiqaragai.com/ru ]
+[Скрин 14 — клиентский комментарий по размеру блоков/карточек https://prnt.sc/YRrRf2bfXAxE ]
+“Расширить все разделы ниже баннера до краев и увеличить размер блоков.” 
+[Скрин 15 — референс карточек Красной Поляны https://next.krasnayapolyanaresort.ru/index ]
+Важно: Красную Поляну использовать как ориентир по подаче и масштабу блоков, но не копировать визуал один в один.
+Референс/ориентир: Единый стиль карточек по всему сайту.
+Готово, если: Карточки можно переиспользовать в разных блоках без переделки компонента.
+4.6. Акцентный цвет сайта
+Ответственный: Fullstack developer 1
+Цель: Привести визуальные акценты к единому цвету, указанному клиентом.
+Что сделать:
+Заменить основной акцентный цвет на #E84444.
+Применить к кнопкам.
+Применить к стрелкам, цифрам, иконкам.
+Применить к активным элементам и состояниям.
+Скрины/комментарии из ТЗ: 
+[Скрин 16 — клиентский комментарий по цвету #E84444: рестораны/отели/инфо]
+“Изменить основной цвет сайта на #E84444 везде, где используется: цвет кнопок, цифры, стрелки, иконки.”
+https://prnt.sc/9nKWbJyDo76khttps://prnt.sc/_ZjwrpwRaJWlhttps://prnt.sc/t2Nnf4tU2kx_
+Применить цвет #E84444 в новой frontend-версии как основной акцентный цвет для кнопок, стрелок, цифр, иконок, активных элементов и hover/active состояний.
+Референс/ориентир: ТЗ клиента: единый цвет кнопок, цифр, стрелок и иконок.
+Готово, если: В новой frontend-версии не используются старые случайные акцентные цвета.
+4.7. Галерея фото отелей/номеров
+Ответственный: Fullstack developer 2
+Цель: Исправить неудобную кликабельность фото и сделать просмотр визуально крупнее.
+Что сделать:
+Сделать компонент галереи.
+Клик по любому фото открывает просмотр.
+Не заставлять пользователя нажимать только “Все фото”.
+Увеличить размер отображения фото в отелях/бронировании.
+Использовать структуру данных hotel -&gt; rooms -&gt; images как ориентир.
+Скрины/комментарии из ТЗ: 
+[Скрин 17 — клиентский комментарий по фото отелей и бронированию]
+“Неудобная кликабельность фотографий в Отелях и бронировании, нужно нажать на “Все фото”, нужно чтобы по нажатию на любое фото срабатывало. В Ресторанах работает корректно.”
+“Увеличить размер отображения фото в отелях и бронировании отелей. API ID: hotel -&gt; rooms -&gt; images.”
+[Скрин 18 — пример текущей галереи, где работает только “Все фото”]
+Референс/ориентир: Рестораны на текущем сайте как пример более корректной кликабельности фото.
+Готово, если: Любое фото открывает просмотрщик, фото отображаются крупнее.
+4.8. Правила курорта / accordion
+Ответственный: Fullstack developer 2
+Цель: Сделать правила компактными и удобными для чтения.
+Что сделать:
+Сделать компонент accordion.
+Сначала показывать название/короткий блок правила.
+По клику раскрывать полный текст.
+Сделать mobile-адаптацию.
+Данные можно временно использовать mock.
+Скрины/комментарии из ТЗ: 
+[Скрин 19 — клиентский комментарий по разделу правил курорта]
+“Раздел Правил курорта сделать так, чтобы правила были в общем виде и по нажатию раскрывался весь текст.”
+[Скрин 20 — пример раскрытия через стрелочки]
+Референс/ориентир: Логика: компактный список + раскрытие по клику.
+Готово, если: Правила не занимают слишком много места и удобно раскрываются.
+4.9. Мероприятия: Event / Корпоративные
+Ответственный: Fullstack developer 2
+Цель: Заложить frontend-структуру для будущего разделения мероприятий.
+Что сделать:
+Предусмотреть страницу/блок “Мероприятия”.
+Предусмотреть 2 подраздела: Event и Корпоративные.
+В Event оставить текущую логику мероприятий.
+В Корпоративных предусмотреть блок по логике MICE / Для бизнеса.
+Предусмотреть 2 кнопки: “Изучить возможности Курорта” и “Калькулятор мероприятия”.
+В Sprint 1 можно сделать статично или на mock-данных.
+Скрины/комментарии из ТЗ: 
+[Скрин 21 — клиентский комментарий по разделу Мероприятия]
+“В разделе Мероприятия отображать прошедшие по календарю, то есть отключить автоматическое скрытие после выставленной даты.”
+[Скрин 22 — клиентский комментарий по Event/Корпоративные]
+Раздел Мероприятия разделить на 2 подраздела: Корпоративные и Event (страница с кнопками перехода). В разделе Event все как сейчас, плюс как описано выше - отображение прошедших мероприятий по календарю.Корпоративные - это почти как нынешняя “Для бизнеса” mice можно прям ее логику перенести или связать. Внутри нужно все тоже самое плюс 2 кнопки, которыми можно управлять/изменять с админки (отключать или включать отображение кнопки, переименовывать).
+Кнопки: 1 кнопка “Изучить возможности Курорта” - по клику пдф с майс каталогом, 2 кнопка “Калькулятор мероприятия” - ведет на сайт https://oiqaragai.avm8.io/ )
+[Скрин 23 — пример страницы MICE / Для бизнеса https://oiqaragai.com/ru/business ]
+Референс/ориентир: Текущая логика MICE / Для бизнеса + новая структура мероприятий.
+Готово, если: Frontend-структура есть, кнопки предусмотрены, backend-управление вынесено в Sprint 2.
+4.10. Footer и логотипы партнеров
+Ответственный: Frontend developer
+Цель: Обновить нижнюю часть сайта и подготовить место под логотипы компаний.
+Что сделать:
+Обновить footer визуально под новый стиль.
+Сохранить контакты, соцсети, ссылки, правила и быстрые переходы.
+Добавить место под логотипы компаний/партнеров.
+В Sprint 1 можно сделать статично.
+Управление логотипами через Strapi зафиксировать на следующий этап.
+Скрины/комментарии из ТЗ: 
+[Скрин 24 — клиентский комментарий по логотипам компаний в футере]
+в новой frontend-версии footer должен предусматривать отдельное место под логотипы компаний/партнеров. На первом этапе можно сделать статично, без управления через Strapi.
+[Скрин 25 — текущий footer сайта]
+Референс/ориентир: Текущий сайт + новая визуальная система.
+Готово, если: Footer выглядит завершенным и не конфликтует с новым дизайном главной.
+5. Распределение задач между 3 разработчиками
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="2494"/><w:gridCol w:w="8046"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="6C18BE57" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2494" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="01144C19" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Роль
+<w:tcPr><w:tcW w:w="6577" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="02B81C0D" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Зона ответственности
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2494" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="0C4B0DF9" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Frontend developer
+<w:tcPr><w:tcW w:w="6577" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3663C613" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Header, burger menu, language switcher, Instagram, камеры/3D-тур, логотип, правая часть header, mobile header, footer
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2494" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5B7FCE30" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Fullstack developer 1
+<w:tcPr><w:tcW w:w="6577" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5115DD01" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Главная страница, hero/banner, спецпредложения, блок “Чем заняться”, карточки, цвет #E84444, кнопки “Купить”
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2494" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="109F44DB" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Fullstack developer 2
+<w:tcPr><w:tcW w:w="6577" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="49213E6E" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Mock-данные, фото из Strapi Media Library, структура данных под будущий Strapi, галерея фото, accordion правил, структура мероприятий, список задач для Sprint 2
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="10540" w:type="dxa"/><w:gridSpan w:val="2"/><w:shd w:val="clear" w:color="auto" w:fill="FFF2CC"/></w:tcPr><w:p w14:paraId="068AC212" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r w:rsidRPr="00177E06"><w:rPr><w:b/><w:sz w:val="18"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Важно по работе команды: Один разработчик должен быть назначен ответственным за сборку проекта, структуру компонентов и merge. Иначе за 2–3 дня получится три отдельных куска.
+6. Данные, mock и Strapi
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="2268"/><w:gridCol w:w="6804"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="3950DC87" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="39EBF53F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Блок
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="2C2C449C" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Как работаем в Sprint 1
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="6E29084C" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Фото
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="373042F9" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t xml:space="preserve">Брать из Strapi Media Library. Если нужного фото нет, временно использовать placeholder и отметить в списке недостающего контента.
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1E76B3F6" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Карточки
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4AE2A8A0" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">В Sprint 1 можно использовать mock JSON. Структуру сразу делать так, чтобы потом заменить на Strapi API.
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="6B9CE4F9" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Mega menu
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7D09204F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">В Sprint 1 mock. Управление порядком/названиями/элементами через Strapi — Sprint 2.
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="6D38FCDA" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Мероприятия
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3E4918E7" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">В Sprint 1 frontend-структура. Реальное отображение прошедших/будущих и управление через админку — Sprint 2.
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4C5F0076" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Правила
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="73A17E10" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">В Sprint 1 mock/текущий текст. Подключение к Strapi collection rules — Sprint 2.
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3E92C783" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Footer логотипы
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1FFCD258" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">В Sprint 1 статично. Управление из Strapi — Sprint 2.
+7. Что НЕ входит в Sprint 1
+TravelLine и пакетные предложения через бронирование отелей.
+TNG и синхронизация SPA-тарифов.
+Google Excel / автоматическое обновление подъемников.
+Push-уведомления, deep links, фото в push, аналитика Amplitude.
+Loyalty, бонусы, birthday popup.
+Мобильное приложение.
+Авторизация, оплата, Kaspi, корзина как реальная бизнес-логика.
+Полноценная Strapi-админка страниц и таблиц.
+Управление mega menu через Strapi.
+OQ Shop и баги магазина.
+8. Критерии готовности Sprint 1
+Запущена новая frontend-версия сайта отдельно от текущего production-сайта.
+Есть новая главная страница.
+Есть новый header с основной структурой из ТЗ.
+Есть mega menu “Чем заняться”.
+Есть блок “Специальные предложения”.
+Есть единый блок “Чем заняться” на главной.
+Карточки выглядят единообразно.
+Используется акцентный цвет #E84444.
+Есть базовый адаптив под mobile.
+Есть базовая интерактивность: меню, галерея, accordion.
+Фото взяты из Strapi или временно заменены на mock/placeholder.
+Составлен список, что подключать к Strapi/backend в Sprint 2.
+9. Чеклист скринов, которые нужно вставить перед отправкой
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="567"/><w:gridCol w:w="2268"/><w:gridCol w:w="6237"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="052DBE2F" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4DBED541" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>№
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="2D07EA98" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Куда вставить
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="23BF83BD" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Какой скрин нужен
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="46E5C05B" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>1
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="77112E22" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Header
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="6923CEB4" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Текущий header + клиентский комментарий по шрифту, burger, Instagram, языкам, камерам, 3D-туру, погоде
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="10F24405" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>2
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="39283EAC" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Mega menu
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="57F91191" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Скрин из ТЗ по “Чем заняться” / dropdown categories
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="3E7B5754" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>3
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1CD20B0F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Главный баннер
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="40FEF43F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Скрин текущего баннера + клиентский комментарий по увеличению на всю ширину
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="11F64B92" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>4
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="30BDD384" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Блоки главной
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7D68409F" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Скрин по расширению блоков ниже баннера
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1CED7D41" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>5
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5DEAF955" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Кнопка “Купить”
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1A6C201A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Скрин по кнопке в “Специальные предложения” и “Чем заняться”
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5A691A9A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>6
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="0D2E6D5A" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Цвет #E84444
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4925BC48" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Скрин с примером цвета кнопок/цифр/стрелок/иконок
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="0689D73B" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>7
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7112A695" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Галерея фото
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="738D8C26" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Скрин по фото отелей/бронирования
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="65E532EB" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>8
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="24DF5D01" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Правила курорта
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="27FFBDF7" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Скрин по accordion/раскрытию правил
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="19BEDF1B" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>9
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4A81CB33" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Мероприятия
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="705D4CCD" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Скрин по разделению Event / Корпоративные
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="567" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="41235728" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>10
+<w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="03D36836" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Footer
+<w:tcPr><w:tcW w:w="6237" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="60518874" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t>Скрин по логотипам компаний/партнеров
+10. Backlog на Sprint 2 / после первого MVP
+<w:tblPr><w:tblStyle w:val="aff0"/><w:tblW w:w="0" w:type="auto"/><w:jc w:val="center"/><w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/></w:tblPr><w:tblGrid><w:gridCol w:w="2268"/><w:gridCol w:w="6804"/></w:tblGrid><w:tr w:rsidR="000C1020" w14:paraId="5A7DA595" w14:textId="77777777"><w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="7B235E46" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Направление
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:shd w:val="clear" w:color="auto" w:fill="262626"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="16E496E6" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:b/><w:color w:val="FFFFFF"/><w:sz w:val="17"/></w:rPr><w:t>Задача
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="21462F87" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Strapi
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1C9A2530" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Управление mega menu: порядок, названия, добавление/удаление элементов
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4406D341" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Strapi
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="54E34BB7" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Страницы с title/image/url/description/feedback/buttonText и таблицами внутри description
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="5C977099" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Strapi
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="38C787C2" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Видео в description как embed, а не обычная ссылка
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="4B2638D6" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Мероприятия
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="145F3CEA" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Не скрывать прошедшие мероприятия автоматически, разделение Event / Корпоративные
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="2835CD98" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Подъемники
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="331D1377" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Табличное отображение графика и статуса, возможная интеграция с Google Excel
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="47E7AF46" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Footer
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1E3BE421" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Управление логотипами компаний через Strapi
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1EC18305" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Галерея
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="00CC0666" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Подключить hotel -&gt; rooms -&gt; images и проверить мультиязычность медиа
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="58497E72" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:proofErr w:type="spellStart"/><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Правила
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="1684C807" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>Подключить accordion к rules в Strapi
+<w:trPr><w:jc w:val="center"/></w:trPr><w:tc><w:tcPr><w:tcW w:w="2268" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="663C0795" w14:textId="77777777" w:rsidR="000C1020" w:rsidRDefault="00000000"><w:r><w:rPr><w:sz w:val="17"/></w:rPr><w:t>MICE
+<w:tcPr><w:tcW w:w="6804" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr><w:p w14:paraId="27FBD3CB" w14:textId="77777777" w:rsidR="000C1020" w:rsidRPr="00177E06" w:rsidRDefault="00000000"><w:pPr><w:rPr><w:lang w:val="ru-RU"/></w:rPr></w:pPr><w:r w:rsidRPr="00177E06"><w:rPr><w:sz w:val="17"/><w:lang w:val="ru-RU"/></w:rPr><w:t xml:space="preserve">Проверить formCode и Bitrix-форму
