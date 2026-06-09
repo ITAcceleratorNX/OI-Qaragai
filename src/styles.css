@@ -145,7 +145,9 @@ ul{list-style:none}
 .nav-link .chev{transition:transform .25s var(--ease);color:var(--accent)}
 .nav-link.open .chev{transform:rotate(180deg)}
 
-.logo{display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1;flex:none;padding:0 6px}
+.logo{display:flex;flex-direction:row;align-items:center;gap:10px;line-height:1;flex:none;padding:0 6px}
+.logo-icon{flex:none;display:block;height:44px;width:auto}
+.logo-text{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
 .logo .mark{font-weight:800;font-size:21px;letter-spacing:.14em}
 .logo .mark b{color:var(--accent);font-weight:800}
 .logo .sub{font-size:9.5px;letter-spacing:.34em;color:var(--muted-2);text-transform:uppercase}

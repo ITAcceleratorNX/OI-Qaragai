@@ -502,7 +502,13 @@ export function Footer() {
               события круглый год.
             </p>
             <div className="soc-row">
-              <a className="soc" href="#">
+              <a
+                className="soc"
+                href={OQ.contacts.instaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={OQ.contacts.insta}
+              >
                 <I.insta size={18} />
               </a>
               <a className="soc" href="#">

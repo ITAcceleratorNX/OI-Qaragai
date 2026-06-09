@@ -4,10 +4,20 @@ import { I } from '../icons.jsx';
 
 export const Logo = ({ onClick }) => (
   <a href="#top" className="logo" onClick={onClick}>
-    <span className="mark">
-      OI·<b>QARAGAI</b>
+    <img
+      src="/images/header-logo.svg"
+      alt=""
+      className="logo-icon"
+      width={40}
+      height={44}
+      aria-hidden="true"
+    />
+    <span className="logo-text">
+      <span className="mark">
+        OI·<b>QARAGAI</b>
+      </span>
+      <span className="sub">Mountain Resort</span>
     </span>
-    <span className="sub">Mountain Resort</span>
   </a>
 );
 
@@ -21,7 +31,12 @@ export function TopBar() {
             <I.phone size={14} />
             {c.phone}
           </a>
-          <a className="topbar-item" href="#">
+          <a
+            className="topbar-item"
+            href={c.instaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <I.insta size={14} />
             {c.insta}
           </a>
@@ -257,7 +272,12 @@ export function MobileDrawer({ open, onClose }) {
             </a>
           </div>
           <div style={{ display: 'flex', gap: 18, color: 'var(--muted)', fontSize: 14 }}>
-            <a href="#" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <a
+              href={OQ.contacts.instaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'flex', gap: 8, alignItems: 'center' }}
+            >
               <I.insta size={15} style={{ color: 'var(--accent)' }} />
               {OQ.contacts.insta}
             </a>

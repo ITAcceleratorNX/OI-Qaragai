@@ -3,6 +3,7 @@ export const OQ = {
   contacts: {
     phone: '+7 727 000 00 00',
     insta: '@oiqaragai',
+    instaUrl: 'https://www.instagram.com/oiqaragai/',
     weather: '−4°C',
     address: 'Алматинская область, ущелье Ой-Карагай',
     email: 'hello@oiqaragai.kz',
