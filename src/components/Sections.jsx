@@ -219,7 +219,7 @@ export function Events() {
         </div>
         <div className="events-grid">
           <div className="event-big">
-            <img src="/images/event-big.jpg" alt="Новогодняя ночь" />
+            <img src="https://oq-prod.storage.yandexcloud.kz/media-test/9dc9a54825f5be9e69cc9dfeba062a69.jpg" alt="Новогодняя ночь" />
             <div className="ev-body">
               <span className="badge badge-accent" style={{ position: 'static' }}>
                 Event
@@ -250,7 +250,7 @@ export function Events() {
           </div>
           <div className="ev-side">
             <div className="event-sm">
-              <img src="/images/event-1.jpg" alt="Фрирайд" />
+              <img src="https://oq-prod.storage.yandexcloud.kz/media-test/4ab09cd056b46f8a04eb02a41cc9fdc4.jpg" alt="Фрирайд" />
               <div className="ev-body">
                 <span className="badge badge-dark" style={{ position: 'static' }}>
                   Event
@@ -260,7 +260,7 @@ export function Events() {
               </div>
             </div>
             <div className="event-sm">
-              <img src="/images/event-2.jpg" alt="Корпоратив" />
+              <img src="https://oq-prod.storage.yandexcloud.kz/media-test/c625a507521f98262ca3793138f93c1a.png" alt="Корпоратив" />
               <div className="ev-body">
                 <span className="badge badge-dark" style={{ position: 'static' }}>
                   Корпоративные

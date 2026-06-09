@@ -101,7 +101,7 @@ export const OQ = {
 
   offers: [
     {
-      img: '/images/offer-1.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/766b42f1e7f3533af60e997a726f61d5.jpg',
       badge: '−20%',
       badgeType: 'accent',
       tag: 'Пакет',
@@ -112,7 +112,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
-      img: '/images/offer-2.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/916bea98e22577b9ecff5c2fc98c7f46.jpg',
       badge: 'SPA',
       badgeType: 'dark',
       tag: 'Релакс',
@@ -123,7 +123,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
-      img: '/images/offer-3.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/00251d3dfb96c7ec69bcacaea04e83c4.jpg',
       badge: '−15%',
       badgeType: 'accent',
       tag: 'Ски-пасс',
@@ -139,7 +139,7 @@ export const OQ = {
     {
       type: 'Отели',
       typeLabel: 'Отель',
-      img: '/images/c-hotel-1.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
       title: 'Шале «Терренкур»',
       desc: 'Премиальные шале с камином, панорамным остеклением и личной террасой.',
       meta: [
@@ -153,7 +153,7 @@ export const OQ = {
     {
       type: 'Отели',
       typeLabel: 'Отель',
-      img: '/images/c-hotel-2.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
       title: 'Отель Pine Peak',
       desc: 'Уютные номера в главном корпусе, в шаге от подъёмника и ресторанов.',
       meta: [
@@ -167,7 +167,7 @@ export const OQ = {
     {
       type: 'Рестораны',
       typeLabel: 'Ресторан',
-      img: '/images/c-rest-1.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/9071cbfefc312116cb40b7c770e05063.jpg',
       title: '«Очаг» · Гриль-бар',
       desc: 'Мясо на открытом огне, локальные специалитеты и горячий глинтвейн.',
       meta: [
@@ -179,7 +179,7 @@ export const OQ = {
     {
       type: 'Рестораны',
       typeLabel: 'Ресторан',
-      img: '/images/c-rest-2.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/9e0626703298e0306cf381c539b25d8e.jpeg',
       title: '«Хвоя» · Авторская кухня',
       desc: 'Сет-меню от шефа из сезонных продуктов Тянь-Шаня. Панорамный зал.',
       meta: [
@@ -191,7 +191,7 @@ export const OQ = {
     {
       type: 'Развлечения',
       typeLabel: 'Активность',
-      img: '/images/c-act-1.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/be9de408fd6866bd1150c6b786569c94.jpg',
       title: 'Горные лыжи · Ски-пасс',
       desc: '18 км трасс всех уровней, ночное катание и школа инструкторов.',
       meta: [
@@ -205,7 +205,7 @@ export const OQ = {
     {
       type: 'Развлечения',
       typeLabel: 'Активность',
-      img: '/images/c-act-2.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/dc09954344ceef7c8730400ad93dd82d.jpg',
       title: 'Зиплайн над ущельем',
       desc: '800 метров полёта над зимним лесом со скоростью до 70 км/ч.',
       meta: [
@@ -219,7 +219,7 @@ export const OQ = {
     {
       type: 'SPA',
       typeLabel: 'SPA и Баня',
-      img: '/images/c-spa-1.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e2245f60b098f59536e15c3d431a7386.jpeg',
       title: 'Кедровая баня',
       desc: 'Парение на пихтовых вениках, травяной чай и купель с горной водой.',
       meta: [
@@ -233,7 +233,7 @@ export const OQ = {
     {
       type: 'SPA',
       typeLabel: 'SPA и Баня',
-      img: '/images/c-spa-2.jpg',
+      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/7fa7a1cdaa60112376a1aa35123825ce.jpg',
       title: 'SPA-ритуал «Тянь-Шань»',
       desc: '90 минут: скраб, обёртывание и массаж с маслами горных трав.',
       meta: [
@@ -247,14 +247,14 @@ export const OQ = {
   ],
 
   gallery: [
-    { img: '/images/g1.jpg', cap: 'Подъёмник на рассвете', tall: true },
-    { img: '/images/g2.jpg', cap: 'Закат над хребтом' },
-    { img: '/images/g3.jpg', cap: 'Снежные вершины' },
-    { img: '/images/g4.jpg', cap: 'Хвойный лес' },
-    { img: '/images/g5.jpg', cap: 'Утро в долине' },
-    { img: '/images/g6.jpg', cap: 'Звёздная ночь', tall: true },
-    { img: '/images/g7.jpg', cap: 'Тёплый свет шале' },
-    { img: '/images/g8.jpg', cap: 'Гриль у костра' },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg', cap: 'Подъёмник на рассвете', tall: true },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg', cap: 'Закат над хребтом' },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/672781f715c9dfff7e6f26a11daef8b6.jpg', cap: 'Снежные вершины' },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/35cbcb290585a502aa92f013e08e63f4.jpg', cap: 'Хвойный лес' },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/0804ee613beaed6769b1f1cc114b6c49.jpg', cap: 'Утро в долине' },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/21b9d22819c9d8ba4706a448d9ce6ea2.jpeg', cap: 'Звёздная ночь', tall: true },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/f86b7ca3f7e98d67458984dc8c5c7a12.jpg', cap: 'Тёплый свет шале' },
+    { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/7f023cdfe0db3b829a3434065a344d78.jpg', cap: 'Гриль у костра' },
   ],
 
   rules: [
