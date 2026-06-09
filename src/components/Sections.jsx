@@ -166,7 +166,7 @@ export function ThingsToDo({ onBuy }) {
     k === 'Все' ? OQ.things.length : OQ.things.filter((t) => t.type === k).length;
 
   return (
-    <section className="section" id="tabs" style={{ background: 'var(--bg-2)' }}>
+    <section className="section section-alt" id="tabs">
       <div className="wrap">
         <div className="sec-head">
           <div>
@@ -301,7 +301,7 @@ export function Events() {
 
 export function Gallery({ onOpen }) {
   return (
-    <section className="section" style={{ background: 'var(--bg-2)' }}>
+    <section className="section section-alt">
       <div className="wrap">
         <div className="sec-head">
           <div>
@@ -436,7 +436,7 @@ const QR = () => (
         for (let x = 0; x < 17; x++) {
           if (s[k++] === '1')
             cells.push(
-              <rect key={x + '-' + y} x={x + 1} y={y + 1} width="1" height="1" fill="#0e0d0c" />
+              <rect key={x + '-' + y} x={x + 1} y={y + 1} width="1" height="1" fill="currentColor" />
             );
         }
       return cells;

@@ -1,0 +1,135 @@
+/* ===================================================================
+   Global design tokens — use these variables on all current & future pages
+   =================================================================== */
+
+:root {
+  /* Brand (shared across themes) */
+  --accent: #e84444;
+  --accent-600: #d6342f;
+  --accent-700: #b82a26;
+  --accent-soft: rgba(232, 68, 68, 0.14);
+  --accent-glow: rgba(232, 68, 68, 0.45);
+  --on-accent: #ffffff;
+
+  /* Status */
+  --success: #39c07a;
+  --success-glow: #39c07a;
+
+  /* Layout & motion */
+  --r-sm: 8px;
+  --r: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --container: 1320px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Dark theme (default) */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #070706;
+  --bg-2: #0b0a09;
+  --surface: #131110;
+  --surface-2: #1a1715;
+  --surface-3: #221f1b;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+
+  --text: #f5f1ea;
+  --muted: #a59c90;
+  --muted-2: #79716a;
+
+  --shadow: 0 18px 50px -22px rgba(0, 0, 0, 0.75);
+  --shadow-lg: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+
+  --topbar-bg: #050504;
+  --header-bg: rgba(7, 7, 6, 0.88);
+  --stage-glow: rgba(232, 68, 68, 0.06);
+
+  --overlay-scrim: rgba(6, 6, 8, 0.92);
+  --drawer-backdrop: rgba(6, 6, 8, 0.6);
+
+  --text-on-media: #f6f2ec;
+  --text-on-media-soft: #e2dcd2;
+  --text-on-media-muted: #cdc6bc;
+  --text-on-media-dim: #d8d2c8;
+  --text-on-media-caption: #cfc9bf;
+
+  --hero-overlay-top: rgba(6, 5, 4, 0.5);
+  --hero-overlay-mid: rgba(6, 5, 4, 0.12);
+  --hero-overlay-bottom: rgba(6, 5, 4, 0.6);
+  --hero-overlay-side: rgba(6, 5, 4, 0.72);
+
+  --media-overlay: rgba(8, 8, 9, 0.88);
+  --media-overlay-heavy: rgba(8, 8, 9, 0.9);
+  --media-overlay-light: rgba(8, 8, 9, 0.25);
+  --media-overlay-banner: rgba(8, 8, 9, 0.94);
+  --media-overlay-banner-side: rgba(8, 8, 9, 0.5);
+
+  --glass-bg: rgba(10, 10, 11, 0.6);
+  --glass-bg-2: rgba(20, 19, 18, 0.7);
+  --card-media-gradient: rgba(14, 13, 12, 0.5);
+
+  --store-border: rgba(255, 255, 255, 0.18);
+  --store-bg: rgba(10, 10, 11, 0.5);
+
+  --qr-bg: #ffffff;
+  --qr-fg: #0e0d0c;
+}
+
+/* Light theme */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #faf8f5;
+  --bg-2: #f3efe9;
+  --surface: #ffffff;
+  --surface-2: #f7f4ef;
+  --surface-3: #ece7df;
+  --line: rgba(26, 23, 20, 0.08);
+  --line-2: rgba(26, 23, 20, 0.14);
+
+  --text: #1c1917;
+  --muted: #6b635a;
+  --muted-2: #918a82;
+
+  --shadow: 0 18px 50px -22px rgba(26, 23, 20, 0.12);
+  --shadow-lg: 0 40px 90px -30px rgba(26, 23, 20, 0.18);
+
+  --topbar-bg: #f0ebe4;
+  --header-bg: rgba(250, 248, 245, 0.92);
+  --stage-glow: rgba(232, 68, 68, 0.08);
+
+  --overlay-scrim: rgba(250, 248, 245, 0.94);
+  --drawer-backdrop: rgba(26, 23, 20, 0.35);
+
+  /* Text on photos stays light — overlays remain dark */
+  --text-on-media: #f6f2ec;
+  --text-on-media-soft: #e2dcd2;
+  --text-on-media-muted: #cdc6bc;
+  --text-on-media-dim: #d8d2c8;
+  --text-on-media-caption: #cfc9bf;
+
+  --hero-overlay-top: rgba(6, 5, 4, 0.45);
+  --hero-overlay-mid: rgba(6, 5, 4, 0.1);
+  --hero-overlay-bottom: rgba(6, 5, 4, 0.55);
+  --hero-overlay-side: rgba(6, 5, 4, 0.65);
+
+  --media-overlay: rgba(8, 8, 9, 0.82);
+  --media-overlay-heavy: rgba(8, 8, 9, 0.88);
+  --media-overlay-light: rgba(8, 8, 9, 0.22);
+  --media-overlay-banner: rgba(8, 8, 9, 0.9);
+  --media-overlay-banner-side: rgba(8, 8, 9, 0.45);
+
+  --glass-bg: rgba(10, 10, 11, 0.55);
+  --glass-bg-2: rgba(20, 19, 18, 0.65);
+  --card-media-gradient: rgba(14, 13, 12, 0.45);
+
+  --store-border: rgba(255, 255, 255, 0.2);
+  --store-bg: rgba(10, 10, 11, 0.45);
+
+  --qr-bg: #ffffff;
+  --qr-fg: #0e0d0c;
+}

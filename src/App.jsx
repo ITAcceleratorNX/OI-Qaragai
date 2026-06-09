@@ -62,34 +62,8 @@ export default function App() {
       )}
 
       {toast && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: 24,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 320,
-            background: 'var(--surface)',
-            border: '1px solid var(--line-2)',
-            borderRadius: 12,
-            padding: '13px 20px',
-            boxShadow: 'var(--shadow)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            fontWeight: 600,
-            fontSize: 14,
-            animation: 'fade .25s',
-          }}
-        >
-          <span
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              background: 'var(--accent)',
-            }}
-          ></span>
+        <div className="toast" role="status">
+          <span className="toast-dot" />
           {toast}
         </div>
       )}

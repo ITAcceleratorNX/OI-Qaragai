@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
+import { ThemeToggle } from './ThemeToggle.jsx';
 
 export const Logo = ({ onClick }) => (
   <a href="#top" className="logo" onClick={onClick}>
@@ -170,6 +171,7 @@ export function Header({ cart, onBurger }) {
               </div>
             )}
           </div>
+          <ThemeToggle />
           <button
             className="icon-btn"
             onClick={() => setSearch((s) => !s)}
@@ -211,6 +213,39 @@ export function Header({ cart, onBurger }) {
 
 export function MobileDrawer({ open, onClose }) {
   const [sec, setSec] = useState(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const scrollY = window.scrollY;
+    const { style } = document.body;
+    const prev = {
+      position: style.position,
+      top: style.top,
+      left: style.left,
+      right: style.right,
+      width: style.width,
+      overflow: style.overflow,
+    };
+
+    style.position = 'fixed';
+    style.top = `-${scrollY}px`;
+    style.left = '0';
+    style.right = '0';
+    style.width = '100%';
+    style.overflow = 'hidden';
+
+    return () => {
+      style.position = prev.position;
+      style.top = prev.top;
+      style.left = prev.left;
+      style.right = prev.right;
+      style.width = prev.width;
+      style.overflow = prev.overflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, [open]);
+
   if (!open) return null;
   return (
     <>
