@@ -27,39 +27,110 @@ export function TopBar() {
   const c = OQ.contacts;
   return (
     <div className="topbar">
-      <div className="wrap">
+      <div className="wrap topbar-wrap">
         <div className="topbar-l">
+          <a className="topbar-item" href="#">
+            <I.camera size={14} />
+            Камеры
+          </a>
+          <a className="topbar-item" href="#">
+            <I.cube size={14} />
+            3D-тур
+          </a>
+        </div>
+        <div className="topbar-r">
           <a className="topbar-item" href={'tel:' + c.phone.replace(/\s/g, '')}>
             <I.phone size={14} />
             {c.phone}
           </a>
           <a
-            className="topbar-item"
+            className="topbar-insta icon-btn"
             href={c.instaUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Instagram ${c.insta}`}
           >
-            <I.insta size={14} />
-            {c.insta}
+            <I.insta size={16} />
           </a>
-        </div>
-        <div className="topbar-r">
-          <a className="topbar-item hide-xs" href="#">
-            <I.camera size={14} />
-            Камеры
-          </a>
-          <a className="topbar-item hide-xs" href="#">
-            <I.cube size={14} />
-            3D-тур
-          </a>
-          <span className="topbar-item weather">
-            <I.cloud size={14} />
-            <span className="dot"></span>
-            Курорт открыт · <b>{c.weather}</b>
-          </span>
         </div>
       </div>
     </div>
+  );
+}
+
+const LANGS = [
+  { code: 'KZ', flag: '🇰🇿', name: 'Қазақша' },
+  { code: 'RU', flag: '🇷🇺', name: 'Русский' },
+  { code: 'EN', flag: '🇬🇧', name: 'English' },
+];
+
+function LangLabel({ code }) {
+  const item = LANGS.find((l) => l.code === code);
+  if (!item) return null;
+  return (
+    <>
+      <span className="lang-flag" aria-hidden="true">
+        {item.flag}
+      </span>
+      <span className="lang-code">{item.code}</span>
+    </>
+  );
+}
+
+function LangSwitcher({ lang, setLang, langOpen, setLangOpen }) {
+  const current = LANGS.find((l) => l.code === lang);
+  return (
+    <div className="lang-wrap">
+      <button
+        className="lang"
+        onClick={() => setLangOpen((o) => !o)}
+        onBlur={() => setTimeout(() => setLangOpen(false), 150)}
+        aria-label={current ? `Язык: ${current.name}` : 'Язык'}
+      >
+        <LangLabel code={lang} />
+        <I.chevDown size={13} />
+      </button>
+      {langOpen && (
+        <div className="lang-menu">
+          {LANGS.map((l) => (
+            <button
+              key={l.code}
+              className={l.code === lang ? 'sel' : ''}
+              onMouseDown={() => {
+                setLang(l.code);
+                setLangOpen(false);
+              }}
+              aria-label={l.name}
+            >
+              <LangLabel code={l.code} />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function WeatherWidget() {
+  const { city, resort } = OQ.weather;
+  return (
+    <>
+      <Link to="/weather" className="weather-widget" aria-label="Погода">
+        <span className="weather-loc">
+          <span className="weather-name">{city.name}</span>
+          <b>{city.temp}</b>
+        </span>
+        <span className="weather-divider" aria-hidden="true" />
+        <span className="weather-loc">
+          <span className="weather-name">{resort.name}</span>
+          <b>{resort.temp}</b>
+        </span>
+      </Link>
+      <Link to="/weather" className="weather-widget weather-widget--compact show-mobile" aria-label="Погода">
+        <I.cloud size={18} />
+        <b>{resort.temp}</b>
+      </Link>
+    </>
   );
 }
 
@@ -127,7 +198,13 @@ export function Header({ cart, onBurger }) {
             <I.menu size={20} />
             <span className="h-only-desk">Меню</span>
           </button>
-          <nav className="desk-nav" style={{ display: 'flex', gap: 4 }}>
+          <LangSwitcher
+            lang={lang}
+            setLang={setLang}
+            langOpen={langOpen}
+            setLangOpen={setLangOpen}
+          />
+          <nav className="desk-nav h-main-nav">
             <button
               className={'nav-link ' + (mega ? 'open' : '')}
               onMouseEnter={openMega}
@@ -146,32 +223,7 @@ export function Header({ cart, onBurger }) {
         <Logo onClick={() => setMega(false)} />
 
         <div className="h-right">
-          <div className="desk-nav" style={{ position: 'relative' }}>
-            <button
-              className="lang"
-              onClick={() => setLangOpen((o) => !o)}
-              onBlur={() => setTimeout(() => setLangOpen(false), 150)}
-            >
-              {lang}
-              <I.chevDown size={13} />
-            </button>
-            {langOpen && (
-              <div className="lang-menu">
-                {['KZ', 'RU', 'EN'].map((l) => (
-                  <button
-                    key={l}
-                    className={l === lang ? 'sel' : ''}
-                    onMouseDown={() => {
-                      setLang(l);
-                      setLangOpen(false);
-                    }}
-                  >
-                    {l === 'KZ' ? 'Қазақша' : l === 'RU' ? 'Русский' : 'English'}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          <WeatherWidget />
           <ThemeToggle />
           <button
             className="icon-btn"

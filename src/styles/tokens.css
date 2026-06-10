@@ -20,7 +20,10 @@
   --r: 14px;
   --r-lg: 20px;
   --r-xl: 28px;
-  --container: 1320px;
+  --container: 90%;
+  --gutter: 20px;
+  --section-pad: 90px;
+  --block-gap: 28px;
   --topbar-h: 40px;
   --header-h: 66px;
   --hero-chrome: calc(var(--topbar-h) + var(--header-h));

@@ -6,34 +6,62 @@ import { Logo } from './Header.jsx';
 import { Card } from './Card.jsx';
 
 export function Hero() {
-  const { eyebrow, title, titleLine2, titleEm, desc, blocks } = OQ.hero;
+  const { slides, interval } = OQ.hero;
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || slides.length < 2) return undefined;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return undefined;
+
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % slides.length);
+    }, interval);
+
+    return () => window.clearInterval(id);
+  }, [paused, slides.length, interval]);
 
   return (
-    <section className="hero">
-      <div className="wrap">
-        <header className="hero-intro">
-          <div className="hero-intro-main">
-            <span className="hero-eyebrow">{eyebrow}</span>
-            <h1>
-              {title} {titleLine2} <em>{titleEm}</em>
-            </h1>
-          </div>
-          <p className="hero-lede">{desc}</p>
-        </header>
+    <section className="hero" aria-label="Главный баннер">
+      <div
+        className="hero-carousel"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {slides.map((slide, i) => (
+          <Link
+            className={'hero-slide' + (i === active ? ' is-active' : '')}
+            to={slide.href || '/guide'}
+            key={slide.title}
+            aria-hidden={i !== active}
+            tabIndex={i === active ? 0 : -1}
+          >
+            <img
+              src={slide.img}
+              alt={slide.title}
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+            <div className="hero-slide-cap">
+              <span className="hero-slide-title">{slide.title}</span>
+              {slide.detail && (
+                <span className="hero-slide-detail">{slide.detail}</span>
+              )}
+            </div>
+          </Link>
+        ))}
 
-        <div className="hero-bento" aria-label="Направления курорта">
-          {blocks.map((b, i) => (
-            <Link
-              className={'hero-card' + (i === 0 ? ' hero-card--lead' : '')}
-              to="/guide"
-              key={b.title}
-              style={{ '--hero-i': i }}
-              aria-label={b.title}
-            >
-              <span className="hero-card-zoom">
-                <img src={b.img} alt={b.title} loading={i === 0 ? 'eager' : 'lazy'} />
-              </span>
-            </Link>
+        <div className="hero-dots" role="tablist" aria-label="Слайды баннера">
+          {slides.map((slide, i) => (
+            <button
+              key={slide.title}
+              type="button"
+              role="tab"
+              className={i === active ? 'active' : ''}
+              aria-selected={i === active}
+              aria-label={slide.title}
+              onClick={() => setActive(i)}
+            />
           ))}
         </div>
       </div>

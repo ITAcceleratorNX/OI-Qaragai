@@ -9,6 +9,35 @@ export const OQ = {
     email: 'hello@oiqaragai.kz',
   },
 
+  weather: {
+    city: {
+      name: 'Алматы',
+      temp: '−2°C',
+      condition: 'Облачно',
+      wind: '4 м/с',
+      humidity: '68%',
+    },
+    resort: {
+      name: 'Курорт',
+      temp: '−4°C',
+      condition: 'Ясно',
+      wind: '6 м/с',
+      humidity: '54%',
+      open: true,
+      lifts: '12/14',
+      slopes: '18/22',
+    },
+    forecast: [
+      { day: 'Сегодня', city: '−2°', resort: '−4°', icon: 'cloud' },
+      { day: 'Чт', city: '−1°', resort: '−3°', icon: 'sun' },
+      { day: 'Пт', city: '0°', resort: '−2°', icon: 'sun' },
+      { day: 'Сб', city: '−3°', resort: '−6°', icon: 'cloud' },
+      { day: 'Вс', city: '−4°', resort: '−7°', icon: 'cloud' },
+      { day: 'Пн', city: '−2°', resort: '−5°', icon: 'sun' },
+      { day: 'Вт', city: '−1°', resort: '−4°', icon: 'sun' },
+    ],
+  },
+
   mega: [
     {
       key: 'hotels',
@@ -100,31 +129,27 @@ export const OQ = {
   ],
 
   hero: {
-    eyebrow: 'Всесезонный курорт',
-    title: 'Горный курорт',
-    titleLine2: 'в часе от',
-    titleEm: 'Алматы',
-    desc: 'Катание, рестораны, бани и шале с видом на Тянь-Шань.',
-    blocks: [
+    slides: [
       {
         img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e94707741a500180a04f7678d1fc84cb.jpg',
         title: 'Проживание',
         detail: '12 объектов · от шале до глэмпинга',
-        href: '#tabs',
+        href: '/guide',
       },
       {
         img: 'https://oq-prod.storage.yandexcloud.kz/media-test/a60880837954b3f599fa9bf993e716bd.jpg',
         title: 'Активности',
         detail: 'лыжи, зиплайн, тюбинг круглый год',
-        href: '#tabs',
+        href: '/guide',
       },
       {
         img: 'https://oq-prod.storage.yandexcloud.kz/media-test/bee8fe2a4da6225678175d7f4c8a15ae.jpg',
         title: 'Рестораны и SPA',
         detail: '5 заведений · кедровая баня и хаммам',
-        href: '#tabs',
+        href: '/guide',
       },
     ],
+    interval: 5500,
   },
 
   offers: [
