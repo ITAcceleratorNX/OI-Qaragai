@@ -85,18 +85,22 @@ export function Hero() {
   const { slides, interval } = OQ.hero;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const count = slides.length;
+
+  const goPrev = () => setActive((i) => (i - 1 + count) % count);
+  const goNext = () => setActive((i) => (i + 1) % count);
 
   useEffect(() => {
-    if (paused || slides.length < 2) return undefined;
+    if (paused || count < 2) return undefined;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return undefined;
 
     const id = window.setInterval(() => {
-      setActive((i) => (i + 1) % slides.length);
+      setActive((i) => (i + 1) % count);
     }, interval);
 
     return () => window.clearInterval(id);
-  }, [paused, slides.length, interval]);
+  }, [paused, count, interval]);
 
   return (
     <section className="hero" aria-label="Главный баннер">
@@ -118,28 +122,37 @@ export function Hero() {
               alt={slide.title}
               loading={i === 0 ? 'eager' : 'lazy'}
             />
-            <div className="hero-slide-cap">
-              <span className="hero-slide-title">{slide.title}</span>
-              {slide.detail && (
-                <span className="hero-slide-detail">{slide.detail}</span>
-              )}
-            </div>
           </Link>
         ))}
 
-        <div className="hero-dots" role="tablist" aria-label="Слайды баннера">
-          {slides.map((slide, i) => (
+        {count > 1 && (
+          <>
             <button
-              key={slide.title}
               type="button"
-              role="tab"
-              className={i === active ? 'active' : ''}
-              aria-selected={i === active}
-              aria-label={slide.title}
-              onClick={() => setActive(i)}
-            />
-          ))}
-        </div>
+              className="hero-nav prev"
+              aria-label="Предыдущий слайд"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                goPrev();
+              }}
+            >
+              <I.arrowLeft size={20} />
+            </button>
+            <button
+              type="button"
+              className="hero-nav next"
+              aria-label="Следующий слайд"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                goNext();
+              }}
+            >
+              <I.arrowRight size={20} />
+            </button>
+          </>
+        )}
       </div>
     </section>
   );

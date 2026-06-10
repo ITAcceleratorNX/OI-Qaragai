@@ -144,6 +144,12 @@ export const OQ = {
   hero: {
     slides: [
       {
+        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/b9412961e77379e1beedf84c8108ed65.jpg',
+        title: 'Проживание',
+        detail: '12 объектов · от шале до глэмпинга',
+        href: '/guide',
+      },
+      {
         img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e94707741a500180a04f7678d1fc84cb.jpg',
         title: 'Проживание',
         detail: '12 объектов · от шале до глэмпинга',

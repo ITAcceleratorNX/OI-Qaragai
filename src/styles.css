@@ -193,48 +193,41 @@ ul{list-style:none}
 }
 .hero-carousel{
   position:relative;width:100%;
-  height:clamp(260px,38vw,480px);
   isolation:isolate;
 }
 .hero-slide{
-  position:absolute;inset:0;display:block;
+  display:block;
   opacity:0;visibility:hidden;pointer-events:none;
+  position:absolute;top:0;left:0;right:0;
   transition:opacity .85s var(--ease),visibility .85s;
 }
-.hero-slide.is-active{opacity:1;visibility:visible;pointer-events:auto;z-index:1}
+.hero-slide.is-active{
+  opacity:1;visibility:visible;pointer-events:auto;z-index:1;
+  position:relative;
+}
 .hero-slide img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  transform:scale(1.04);transition:transform 8s linear;
+  width:100%;height:auto;display:block;
+  object-fit:contain;object-position:center;
 }
-.hero-slide.is-active img{transform:scale(1)}
-.hero-slide::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(6,5,4,.12) 0%,rgba(6,5,4,.22) 42%,rgba(6,5,4,.72) 100%);
-  pointer-events:none;
+.hero-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--glass-bg-2);border:1px solid var(--line-2);color:var(--on-accent);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s,opacity .2s;
+  opacity:0;pointer-events:none;
 }
-.hero-slide-cap{
-  position:absolute;left:0;right:0;bottom:0;z-index:2;
-  padding:clamp(20px,4vw,40px) clamp(20px,6vw,56px) clamp(24px,5vw,48px);
-  display:flex;flex-direction:column;gap:6px;max-width:min(540px,52%);
+.hero-carousel:hover .hero-nav,.hero-carousel:focus-within .hero-nav{
+  opacity:1;pointer-events:auto;
 }
-.hero-slide-title{
-  font-size:var(--section-title);font-weight:800;letter-spacing:-.02em;line-height:1.05;
-  color:var(--text-on-media);
-}
-.hero-slide-detail{font-size:clamp(13px,1.4vw,16px);color:var(--text-on-media-dim);line-height:1.4}
-.hero-dots{
-  position:absolute;left:50%;bottom:clamp(14px,2.5vw,22px);transform:translateX(-50%);
-  z-index:3;display:flex;align-items:center;gap:8px;
-}
-.hero-dots button{
-  width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.42);
-  transition:width .25s var(--ease),background .25s;
-}
-.hero-dots button.active{width:28px;background:var(--accent)}
-.hero-dots button:hover{background:rgba(255,255,255,.72)}
+.hero-nav:hover{background:var(--accent);border-color:var(--accent)}
+.hero-nav.prev{left:clamp(12px,2.5vw,24px)}
+.hero-nav.next{right:clamp(12px,2.5vw,24px)}
 @media (prefers-reduced-motion:reduce){
   .hero-slide{transition:none}
-  .hero-slide img{transform:none;transition:none}
+}
+@media (hover:none){
+  .hero-nav{opacity:1;pointer-events:auto}
 }
 .status-badge{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;
   background:var(--glass-bg);border:1px solid var(--line-2);backdrop-filter:blur(8px);
@@ -1489,7 +1482,6 @@ ul{list-style:none}
   .quick-fab-item{--arc-r:clamp(128px,36vw,168px)}
   .quick-fab-chip{padding:4px 12px 4px 4px;gap:8px}
   .quick-fab-label{font-size:11.5px}
-  .hero-slide-cap{max-width:none;padding-right:20px}
   .cards-3{grid-template-columns:repeat(2,1fr)}
   .events-grid{grid-template-columns:1fr}
   .event-big{min-height:360px}
@@ -1502,7 +1494,6 @@ ul{list-style:none}
   .sec-head{flex-direction:column;align-items:flex-start}
   .partners-row{flex-direction:column;align-items:flex-start;gap:18px}
   .partner-logos{justify-content:flex-start}
-  .hero-carousel{height:clamp(220px,34vw,340px)}
   .biz-buttons{flex-direction:column;align-items:stretch}
   .page-hero-grid{flex-direction:column;align-items:flex-start}
   .page-hero-stats{width:100%;justify-content:space-between}
@@ -1529,8 +1520,6 @@ ul{list-style:none}
   .quick-fab-label{font-size:11px}
   .cards-3,.cards-4{grid-template-columns:1fr}
   .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}
-  .hero-carousel{height:clamp(180px,40vw,260px)}
-  .hero-slide-cap{padding:16px 16px 28px}
   .foot-top{grid-template-columns:1fr}
   .topbar-r .hide-xs{display:none}
   .lb-prev{left:4px}.lb-next{right:4px}
