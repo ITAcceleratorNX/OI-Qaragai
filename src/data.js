@@ -20,6 +20,18 @@ export const OQ = {
         alt: 'SkiPass и сервисы в приложении Oi-Qaragai',
       },
     ],
+    stores: {
+      ios: {
+        url: 'https://apps.apple.com/kz/app/oi-qaragai-mountain-resort/id6446198193',
+        icon: 'https://oq-prod.storage.yandexcloud.kz/media-test/dd23f8ee3a5364215a63a5766f120c17.svg',
+        label: 'App Store',
+      },
+      android: {
+        url: 'https://play.google.com/store/apps/details?id=kz.qaragai&_gl=1*1mop7rc*_gcl_au*MTYwODQzMTU5OS4xNzgwOTk3MDgz',
+        icon: 'https://oq-prod.storage.yandexcloud.kz/media-test/4b310ad591a3ea4e8bcf8cb4d9db02db.svg',
+        label: 'Google Play',
+      },
+    },
   },
 
   weather: {

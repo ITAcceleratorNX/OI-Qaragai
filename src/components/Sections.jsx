@@ -454,27 +454,9 @@ export function Rules() {
   );
 }
 
-const QR = () => (
-  <svg viewBox="0 0 29 29" shapeRendering="crispEdges">
-    {(() => {
-      const cells = [];
-      const s =
-        '111111101010111111100000101110100000110111010110110111011011101011011011101100000101010011111110101010101010100000001000111010010110111011001101011001000100101001110011111001101110000000011110010111111101011001010001010000010100110110111110100101111010100010001010010111000100111010101110101101111101110100010100000010101111010110110100010001110101011111';
-      let k = 0;
-      for (let y = 0; y < 17; y++)
-        for (let x = 0; x < 17; x++) {
-          if (s[k++] === '1')
-            cells.push(
-              <rect key={x + '-' + y} x={x + 1} y={y + 1} width="1" height="1" fill="currentColor" />
-            );
-        }
-      return cells;
-    })()}
-  </svg>
-);
-
 export function AppBanner() {
   const [shotA, shotB] = OQ.app.screenshots;
+  const { ios, android } = OQ.app.stores;
 
   return (
     <section className="section appban">
@@ -488,29 +470,33 @@ export function AppBanner() {
             <p>
               Управляйте вашими баллами лояльности,
               а также получайте актуальную информацию о трассах,
-              подъемниках и погоде - в мобильном приложении Oi-Qaragai Mountain Resort
+              подъемниках и погоде — в мобильном приложении Oi-Qaragai Mountain Resort
             </p>
             <div className="store-row">
-              <a className="store-btn" href="#">
-                <I.apple size={26} />
+              <a
+                className="store-btn"
+                href={ios.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img className="store-btn-icon" src={ios.icon} alt="" aria-hidden="true" />
                 <span className="st">
                   <small>Загрузите в</small>
-                  <b>App Store</b>
+                  <b>{ios.label}</b>
                 </span>
               </a>
-              <a className="store-btn" href="#">
-                <I.play size={24} />
+              <a
+                className="store-btn"
+                href={android.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img className="store-btn-icon" src={android.icon} alt="" aria-hidden="true" />
                 <span className="st">
                   <small>Доступно в</small>
-                  <b>Google Play</b>
+                  <b>{android.label}</b>
                 </span>
               </a>
-            </div>
-            <div className="app-qr">
-              <div className="qr">
-                <QR />
-              </div>
-              <span>Наведите камеру, чтобы скачать</span>
             </div>
           </div>
 
