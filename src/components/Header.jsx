@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
 import { ThemeToggle } from './ThemeToggle.jsx';
 
 export const Logo = ({ onClick }) => (
-  <a href="#top" className="logo" onClick={onClick}>
+  <Link to="/" className="logo" onClick={onClick}>
     <img
       src="/images/header-logo.svg"
       alt=""
@@ -19,7 +20,7 @@ export const Logo = ({ onClick }) => (
       </span>
       <span className="sub">Mountain Resort</span>
     </span>
-  </a>
+  </Link>
 );
 
 export function TopBar() {
@@ -77,15 +78,15 @@ function MegaMenu({ onClose }) {
               <ul>
                 {col.items.map((it, i) => (
                   <li key={i}>
-                    <a href="#tabs" onClick={onClose}>
+                    <Link to="/guide" onClick={onClose}>
                       {it}
-                    </a>
+                    </Link>
                   </li>
                 ))}
                 <li>
-                  <a className="more" href="#tabs" onClick={onClose}>
+                  <Link className="more" to="/guide" onClick={onClose}>
                     {col.more} →
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -95,9 +96,9 @@ function MegaMenu({ onClose }) {
           <span className="note">
             Единая экосистема курорта — выберите, чем заняться сегодня
           </span>
-          <a className="link-arrow" href="#tabs" onClick={onClose}>
+          <Link className="link-arrow" to="/guide" onClick={onClose}>
             Открыть полный гид <I.arrowRight size={16} />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -136,9 +137,9 @@ export function Header({ cart, onBurger }) {
               Чем заняться?
               <I.chevDown size={15} className="chev" />
             </button>
-            <a className="nav-link" href="#offers">
+            <Link className="nav-link" to="/offers">
               Спецпредложения
-            </a>
+            </Link>
           </nav>
         </div>
 
@@ -277,26 +278,26 @@ export function MobileDrawer({ open, onClose }) {
                   }}
                 >
                   {col.items.map((it, i) => (
-                    <a key={i} href="#tabs" onClick={onClose}>
+                    <Link key={i} to="/guide" onClick={onClose}>
                       {it}
-                    </a>
+                    </Link>
                   ))}
-                  <a
-                    href="#tabs"
+                  <Link
+                    to="/guide"
                     onClick={onClose}
                     style={{ color: 'var(--accent)', fontWeight: 700 }}
                   >
                     {col.more} →
-                  </a>
+                  </Link>
                 </div>
               </div>
             );
           })}
         </div>
         <div className="drawer-foot">
-          <a className="btn btn-accent btn-block" href="#offers" onClick={onClose}>
+          <Link className="btn btn-accent btn-block" to="/offers" onClick={onClose}>
             Забронировать
-          </a>
+          </Link>
           <div style={{ display: 'flex', gap: 18, color: 'var(--muted)', fontSize: 14 }}>
             <a
               href={'tel:' + OQ.contacts.phone.replace(/\s/g, '')}

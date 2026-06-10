@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
-import { TopBar, Header, MobileDrawer } from './components/Header.jsx';
+import { useState, useRef, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { MobileDrawer } from './components/Header.jsx';
 import {
   Hero,
   QuickEntries,
@@ -13,8 +14,20 @@ import {
   Partners,
   Footer,
 } from './components/Sections.jsx';
+import { TopBar, Header } from './components/Header.jsx';
+import { OffersPage } from './pages/OffersPage.jsx';
+import { GuidePage } from './pages/GuidePage.jsx';
+import { EventsPage } from './pages/EventsPage.jsx';
 
-function SiteContent({ onBuy, onLightbox, cart, onBurger }) {
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
+function HomePage({ onBuy, onLightbox, cart, onBurger }) {
   return (
     <div className="site">
       <TopBar />
@@ -33,6 +46,29 @@ function SiteContent({ onBuy, onLightbox, cart, onBurger }) {
   );
 }
 
+function AppRoutes({ cart, onBuy, onLightbox, drawer, onBurger, onCloseDrawer }) {
+  const shared = { cart, onBuy, onBurger, drawer, onCloseDrawer };
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <HomePage
+            cart={cart}
+            onBuy={onBuy}
+            onLightbox={onLightbox}
+            onBurger={onBurger}
+          />
+        }
+      />
+      <Route path="/offers" element={<OffersPage {...shared} />} />
+      <Route path="/guide" element={<GuidePage {...shared} />} />
+      <Route path="/events" element={<EventsPage {...shared} />} />
+    </Routes>
+  );
+}
+
 export default function App() {
   const [cart, setCart] = useState(0);
   const [toast, setToast] = useState(null);
@@ -48,25 +84,30 @@ export default function App() {
   };
 
   return (
-    <div className="stage">
-      <SiteContent
-        cart={cart}
-        onBuy={onBuy}
-        onLightbox={setLb}
-        onBurger={() => setDrawer(true)}
-      />
-      <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="stage">
+        <AppRoutes
+          cart={cart}
+          onBuy={onBuy}
+          onLightbox={setLb}
+          drawer={drawer}
+          onBurger={() => setDrawer(true)}
+          onCloseDrawer={() => setDrawer(false)}
+        />
+        <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
 
-      {lb !== null && (
-        <Lightbox index={lb} onClose={() => setLb(null)} onIndex={setLb} />
-      )}
+        {lb !== null && (
+          <Lightbox index={lb} onClose={() => setLb(null)} onIndex={setLb} />
+        )}
 
-      {toast && (
-        <div className="toast" role="status">
-          <span className="toast-dot" />
-          {toast}
-        </div>
-      )}
-    </div>
+        {toast && (
+          <div className="toast" role="status">
+            <span className="toast-dot" />
+            {toast}
+          </div>
+        )}
+      </div>
+    </BrowserRouter>
   );
 }

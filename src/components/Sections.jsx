@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
 import { Logo } from './Header.jsx';
+import { Card } from './Card.jsx';
 
 export function Hero() {
   const { eyebrow, title, titleLine2, titleEm, desc, blocks } = OQ.hero;
@@ -21,9 +23,9 @@ export function Hero() {
 
         <div className="hero-bento" aria-label="Направления курорта">
           {blocks.map((b, i) => (
-            <a
+            <Link
               className={'hero-card' + (i === 0 ? ' hero-card--lead' : '')}
-              href={b.href}
+              to="/guide"
               key={b.title}
               style={{ '--hero-i': i }}
               aria-label={b.title}
@@ -31,7 +33,7 @@ export function Hero() {
               <span className="hero-card-zoom">
                 <img src={b.img} alt={b.title} loading={i === 0 ? 'eager' : 'lazy'} />
               </span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -46,7 +48,7 @@ export function QuickEntries() {
         {OQ.quick.map((q, i) => {
           const Ic = I[q.icon];
           return (
-            <a className="quick-item" href="#tabs" key={i}>
+            <Link className="quick-item" to="/guide" key={i}>
               <span className="quick-ic">
                 <Ic size={25} />
               </span>
@@ -54,78 +56,11 @@ export function QuickEntries() {
                 <span className="t">{q.t}</span>
                 <span className="d">{q.d}</span>
               </span>
-            </a>
+            </Link>
           );
         })}
       </div>
     </div>
-  );
-}
-
-function Card({ d, wide, onBuy }) {
-  const buy = d.cta === 'Купить';
-  return (
-    <article className={'card' + (wide ? ' offer' : '')}>
-      <div className="card-media">
-        {d.badge && (
-          <div className="card-tags">
-            <span
-              className={
-                'badge ' +
-                (d.badgeType === 'accent' ? 'badge-accent' : 'badge-dark')
-              }
-            >
-              {d.badge}
-            </span>
-          </div>
-        )}
-        <img src={d.img} alt={d.title} loading="lazy" />
-        {d.typeLabel && <span className="badge-type">{d.typeLabel}</span>}
-        {d.tag && !d.typeLabel && <span className="badge-type">{d.tag}</span>}
-      </div>
-      <div className="card-body">
-        <h3>{d.title}</h3>
-        {d.meta && (
-          <div className="card-meta">
-            {d.meta.map((m, i) => {
-              const Mi = I[m.ic];
-              return (
-                <span className="mi" key={i}>
-                  <Mi size={15} />
-                  {m.t}
-                </span>
-              );
-            })}
-          </div>
-        )}
-        <p className="card-desc">{d.desc}</p>
-        <div className="card-foot">
-          {d.price ? (
-            <div className="price">
-              <span className="from">от</span>
-              <span className="val">
-                <b>{d.price}</b> ₸
-              </span>
-              {d.per && <span className="per">/ {d.per}</span>}
-            </div>
-          ) : (
-            <div className="price">
-              <span className="from">Курорт Oi-Qaragai</span>
-              <span className="val" style={{ fontSize: 15 }}>
-                По запросу
-              </span>
-            </div>
-          )}
-          <button
-            className={'btn btn-sm ' + (buy ? 'btn-accent' : 'btn-ghost')}
-            onClick={() => buy && onBuy && onBuy(d.title)}
-          >
-            {d.cta}
-            {buy && <I.arrowRight size={15} />}
-          </button>
-        </div>
-      </div>
-    </article>
   );
 }
 
@@ -139,9 +74,9 @@ export function Offers({ onBuy }) {
             <h2 className="h-sec">Специальные предложения</h2>
             <p>Готовые пакеты на зимний сезон — бронируйте в пару кликов.</p>
           </div>
-          <a className="link-arrow" href="#offers">
+          <Link className="link-arrow" to="/offers">
             Все предложения <I.arrowRight size={17} />
-          </a>
+          </Link>
         </div>
         <div className="cards-grid cards-3">
           {OQ.offers.map((o, i) => (
@@ -172,9 +107,9 @@ export function ThingsToDo({ onBuy }) {
               стиле карточек.
             </p>
           </div>
-          <a className="link-arrow" href="#tabs">
+          <Link className="link-arrow" to="/guide">
             Открыть карту курорта <I.arrowRight size={17} />
-          </a>
+          </Link>
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 36 }}>
           {filters.map((x) => (
@@ -208,9 +143,9 @@ export function Events() {
             <h2 className="h-sec">Мероприятия</h2>
             <p>События курорта и площадки для бизнеса — Event и Корпоративные.</p>
           </div>
-          <a className="link-arrow" href="#events">
+          <Link className="link-arrow" to="/events">
             Вся афиша <I.arrowRight size={17} />
-          </a>
+          </Link>
         </div>
         <div className="events-grid">
           <div className="event-big">
@@ -518,16 +453,16 @@ export function Footer() {
             <h5>Курорт</h5>
             <ul>
               <li>
-                <a href="#tabs">Отели</a>
+                <Link to="/guide">Отели</Link>
               </li>
               <li>
-                <a href="#tabs">Рестораны</a>
+                <Link to="/guide">Рестораны</Link>
               </li>
               <li>
-                <a href="#tabs">Развлечения</a>
+                <Link to="/guide">Развлечения</Link>
               </li>
               <li>
-                <a href="#tabs">SPA и Баня</a>
+                <Link to="/guide">SPA и Баня</Link>
               </li>
               <li>
                 <a href="#">3D-тур</a>
@@ -544,7 +479,7 @@ export function Footer() {
                 <a href="#rules">Правила</a>
               </li>
               <li>
-                <a href="#events">Мероприятия</a>
+                <Link to="/events">Мероприятия</Link>
               </li>
               <li>
                 <a href="#">Вакансии</a>
