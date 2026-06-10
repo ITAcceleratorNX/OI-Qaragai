@@ -22,8 +22,9 @@
   --r-xl: 28px;
   --container: 90%;
   --gutter: 20px;
-  --section-pad: 90px;
-  --block-gap: 28px;
+  --section-pad: 58px;
+  --block-gap: 18px;
+  --section-title: clamp(22px, 3.2vw, 38px);
   --topbar-h: 40px;
   --header-h: 66px;
   --hero-chrome: calc(var(--topbar-h) + var(--header-h));
@@ -35,11 +36,16 @@
 [data-theme='dark'] {
   color-scheme: dark;
 
+  /* 3 фона на весь проект */
   --bg: #070706;
-  --bg-2: #0b0a09;
-  --surface: #131110;
-  --surface-2: #1a1715;
-  --surface-3: #221f1b;
+  --bg-card: #111010;
+  --bg-hover: #181615;
+
+  /* алиасы для совместимости */
+  --bg-2: var(--bg);
+  --surface: var(--bg-card);
+  --surface-2: var(--bg-hover);
+  --surface-3: var(--bg-hover);
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.14);
 
@@ -50,8 +56,8 @@
   --shadow: 0 18px 50px -22px rgba(0, 0, 0, 0.75);
   --shadow-lg: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
 
-  --topbar-bg: #050504;
-  --header-bg: rgba(7, 7, 6, 0.88);
+  --topbar-bg: var(--bg);
+  --header-bg: color-mix(in srgb, var(--bg) 90%, transparent);
   --stage-glow: rgba(232, 68, 68, 0.06);
 
   --overlay-scrim: rgba(6, 6, 8, 0.92);
@@ -90,10 +96,13 @@
   color-scheme: light;
 
   --bg: #faf8f5;
-  --bg-2: #f3efe9;
-  --surface: #ffffff;
-  --surface-2: #f7f4ef;
-  --surface-3: #ece7df;
+  --bg-card: #ffffff;
+  --bg-hover: #f3efe9;
+
+  --bg-2: var(--bg);
+  --surface: var(--bg-card);
+  --surface-2: var(--bg-hover);
+  --surface-3: var(--bg-hover);
   --line: rgba(26, 23, 20, 0.08);
   --line-2: rgba(26, 23, 20, 0.14);
 
@@ -104,8 +113,8 @@
   --shadow: 0 18px 50px -22px rgba(26, 23, 20, 0.12);
   --shadow-lg: 0 40px 90px -30px rgba(26, 23, 20, 0.18);
 
-  --topbar-bg: #f0ebe4;
-  --header-bg: rgba(250, 248, 245, 0.92);
+  --topbar-bg: var(--bg);
+  --header-bg: color-mix(in srgb, var(--bg) 92%, transparent);
   --stage-glow: rgba(232, 68, 68, 0.08);
 
   --overlay-scrim: rgba(250, 248, 245, 0.94);

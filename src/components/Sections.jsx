@@ -1,9 +1,85 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
 import { Logo } from './Header.jsx';
 import { Card } from './Card.jsx';
+
+/* углы: снизу вверх — Проживание → 3D-тур */
+const QUICK_ARC_ANGLES = [62, 31, 0, -31, -62];
+
+export function QuickFab() {
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onClick = (e) => {
+      if (!e.target.closest('.quick-fab')) setOpen(false);
+    };
+    const id = window.setTimeout(() => document.addEventListener('click', onClick), 0);
+    return () => {
+      window.clearTimeout(id);
+      document.removeEventListener('click', onClick);
+    };
+  }, [open]);
+
+  return (
+    <div className={'quick-fab' + (open ? ' is-open' : '')}>
+      <div className="quick-fab-pivot">
+        <nav className="quick-fab-menu" aria-label="Быстрые разделы" aria-hidden={!open}>
+          {OQ.quick.map((q, i) => {
+            const Ic = I[q.icon];
+            return (
+              <Link
+                className="quick-fab-item"
+                to={q.href || '/guide'}
+                key={q.t}
+                style={{ '--arc-angle': QUICK_ARC_ANGLES[i] + 'deg', '--arc-i': i }}
+                tabIndex={open ? 0 : -1}
+                onClick={() => setOpen(false)}
+              >
+                <span className="quick-fab-chip">
+                  <span className="quick-fab-ic">
+                    <Ic size={18} />
+                  </span>
+                  <span className="quick-fab-label">{q.t}</span>
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <button
+          type="button"
+          className="quick-fab-toggle"
+          aria-expanded={open}
+          aria-label={open ? 'Скрыть быстрые разделы' : 'Быстрые разделы курорта'}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen((v) => !v);
+          }}
+        >
+          {open ? <I.close size={22} /> : <I.menu size={22} />}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function Hero() {
   const { slides, interval } = OQ.hero;
@@ -69,29 +145,6 @@ export function Hero() {
   );
 }
 
-export function QuickEntries() {
-  return (
-    <div className="wrap quick">
-      <div className="quick-grid">
-        {OQ.quick.map((q, i) => {
-          const Ic = I[q.icon];
-          return (
-            <Link className="quick-item" to="/guide" key={i}>
-              <span className="quick-ic">
-                <Ic size={25} />
-              </span>
-              <span className="quick-txt">
-                <span className="t">{q.t}</span>
-                <span className="d">{q.d}</span>
-              </span>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 export function Offers({ onBuy }) {
   return (
     <section className="section" id="offers">
@@ -124,7 +177,7 @@ export function ThingsToDo({ onBuy }) {
     k === 'Все' ? OQ.things.length : OQ.things.filter((t) => t.type === k).length;
 
   return (
-    <section className="section section-alt" id="tabs">
+    <section className="section" id="tabs">
       <div className="wrap">
         <div className="sec-head">
           <div>
@@ -264,7 +317,7 @@ export function Events() {
 
 export function Gallery({ onOpen }) {
   return (
-    <section className="section section-alt">
+    <section className="section">
       <div className="wrap">
         <div className="sec-head">
           <div>

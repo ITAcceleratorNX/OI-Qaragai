@@ -7,19 +7,11 @@ import { ThemeToggle } from './ThemeToggle.jsx';
 export const Logo = ({ onClick }) => (
   <Link to="/" className="logo" onClick={onClick}>
     <img
-      src="/images/header-logo.svg"
-      alt=""
-      className="logo-icon"
-      width={40}
+      src="/images/header-logo-with-name.svg"
+      alt="OI·QARAGAI Mountain Resort"
+      className="logo-img"
       height={44}
-      aria-hidden="true"
     />
-    <span className="logo-text">
-      <span className="mark">
-        OI·<b>QARAGAI</b>
-      </span>
-      <span className="sub">Mountain Resort</span>
-    </span>
   </Link>
 );
 

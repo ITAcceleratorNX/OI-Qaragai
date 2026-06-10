@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { MobileDrawer } from './components/Header.jsx';
 import {
   Hero,
-  QuickEntries,
   Offers,
   ThingsToDo,
   Events,
@@ -13,6 +12,7 @@ import {
   AppBanner,
   Partners,
   Footer,
+  QuickFab,
 } from './components/Sections.jsx';
 import { TopBar, Header } from './components/Header.jsx';
 import { OffersPage } from './pages/OffersPage.jsx';
@@ -48,7 +48,6 @@ function HomePage({ onBuy, onLightbox, cart, onBurger }) {
       <TopBar />
       <Header cart={cart} onBurger={onBurger} />
       <Hero />
-      <QuickEntries />
       <Offers onBuy={onBuy} />
       <ThingsToDo onBuy={onBuy} />
       <Events />
@@ -165,6 +164,7 @@ export default function App() {
           onCloseDrawer={() => setDrawer(false)}
         />
         <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
+        <QuickFab />
 
         {lb !== null && (
           <Lightbox index={lb} onClose={() => setLb(null)} onIndex={setLb} />
