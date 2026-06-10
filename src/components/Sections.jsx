@@ -217,7 +217,7 @@ export function Events() {
                 <div className="date">14–16 февраля · соревнования</div>
               </div>
             </div>
-            <div className="event-sm">
+            <Link className="event-sm" to="/events/corporate">
               <img src="https://oq-prod.storage.yandexcloud.kz/media-test/c625a507521f98262ca3793138f93c1a.png" alt="Корпоратив" />
               <div className="ev-body">
                 <span className="badge badge-dark" style={{ position: 'static' }}>
@@ -226,7 +226,7 @@ export function Events() {
                 <h4>Зимний корпоратив</h4>
                 <div className="date">MICE · до 300 гостей</div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
 
@@ -237,13 +237,18 @@ export function Events() {
             <span>Конференции, тимбилдинги и корпоративы на курорте</span>
           </div>
           <div className="bz-actions">
-            <a className="btn btn-ghost" href="#">
+            <a
+              className="btn btn-ghost"
+              href={OQ.mice.catalogPdf}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <I.doc size={17} />
               Изучить возможности курорта
             </a>
             <a
               className="btn btn-accent"
-              href="https://oiqaragai.avm8.io/"
+              href={OQ.mice.calculatorUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -403,17 +408,17 @@ const QR = () => (
 );
 
 export function AppBanner() {
+  const [shotA, shotB] = OQ.app.screenshots;
+
   return (
-    <section className="appban">
-      <div
-        className="appban-bg"
-        style={{ backgroundImage: 'url(/images/app-bg.jpg)' }}
-      ></div>
+    <section className="section appban">
       <div className="wrap">
         <div className="appban-inner">
-          <div>
+          <div className="appban-copy">
             <span className="eyebrow">Приложение Oi-Qaragai</span>
-            <h2 style={{ marginTop: 16 }}>Весь курорт в твоём телефоне</h2>
+            <h2 className="h-sec" style={{ marginTop: 16 }}>
+              Весь курорт в твоём телефоне
+            </h2>
             <p>
               Ски-пассы, бронирование, веб-камеры, карта склонов и push о свежем
               снеге — в одном приложении.
@@ -434,12 +439,21 @@ export function AppBanner() {
                 </span>
               </a>
             </div>
-          </div>
-          <div className="app-qr">
-            <div className="qr">
-              <QR />
+            <div className="app-qr">
+              <div className="qr">
+                <QR />
+              </div>
+              <span>Наведите камеру, чтобы скачать</span>
             </div>
-            <span>Наведите камеру, чтобы скачать</span>
+          </div>
+
+          <div className="appban-phones">
+            <div className="appban-phone appban-phone--back">
+              <img src={shotA.src} alt={shotA.alt} loading="lazy" />
+            </div>
+            <div className="appban-phone appban-phone--front">
+              <img src={shotB.src} alt={shotB.alt} loading="lazy" />
+            </div>
           </div>
         </div>
       </div>

@@ -17,7 +17,9 @@ import {
 import { TopBar, Header } from './components/Header.jsx';
 import { OffersPage } from './pages/OffersPage.jsx';
 import { GuidePage } from './pages/GuidePage.jsx';
-import { EventsPage } from './pages/EventsPage.jsx';
+import { EventsHubPage } from './pages/EventsHubPage.jsx';
+import { EventAfishaPage } from './pages/EventAfishaPage.jsx';
+import { CorporateEventsPage } from './pages/CorporateEventsPage.jsx';
 import { WeatherPage } from './pages/WeatherPage.jsx';
 
 function ScrollToTop() {
@@ -65,7 +67,9 @@ function AppRoutes({ cart, onBuy, onLightbox, drawer, onBurger, onCloseDrawer })
       />
       <Route path="/offers" element={<OffersPage {...shared} />} />
       <Route path="/guide" element={<GuidePage {...shared} />} />
-      <Route path="/events" element={<EventsPage {...shared} />} />
+      <Route path="/events" element={<EventsHubPage {...shared} />} />
+      <Route path="/events/event" element={<EventAfishaPage {...shared} />} />
+      <Route path="/events/corporate" element={<CorporateEventsPage {...shared} />} />
       <Route path="/weather" element={<WeatherPage cart={cart} onBurger={onBurger} />} />
     </Routes>
   );
