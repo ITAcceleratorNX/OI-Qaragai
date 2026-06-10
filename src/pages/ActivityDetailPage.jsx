@@ -99,7 +99,16 @@ export function ActivityDetailPage({ cart, onBurger, onBuy }) {
               <button
                 type="button"
                 className="btn btn-accent btn-block"
-                onClick={() => onBuy?.(item.name)}
+                onClick={() =>
+                  onBuy?.({
+                    id: item.id,
+                    title: item.name,
+                    price: item.ticketPrice,
+                    img: item.media?.src,
+                    category: 'Активность',
+                    per: 'билет',
+                  })
+                }
               >
                 Купить билет
                 <I.arrowRight size={16} />

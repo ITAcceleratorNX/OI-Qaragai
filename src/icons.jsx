@@ -99,6 +99,56 @@ export const I = {
       <path d="M12 5v14M5 12h14" />
     </Icon>
   ),
+  minus: (p) => (
+    <Icon {...p}>
+      <path d="M5 12h14" />
+    </Icon>
+  ),
+  trash: (p) => (
+    <Icon {...p}>
+      <path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M10 11v6M14 11v6M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" />
+    </Icon>
+  ),
+  heart: (p) => (
+    <Icon {...p} fill={p.fill}>
+      <path d="M12 20.5s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10.5c0 5.5-7 10-7 10z" />
+    </Icon>
+  ),
+  settings: (p) => (
+    <Icon {...p}>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </Icon>
+  ),
+  logout: (p) => (
+    <Icon {...p}>
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+    </Icon>
+  ),
+  gift: (p) => (
+    <Icon {...p}>
+      <rect x="3" y="10" width="18" height="11" rx="1.5" />
+      <path d="M12 10V21M3 10h18M12 10c-2-2-4-3.5-4-5.5a2.5 2.5 0 0 1 5 0c0 2-2 3.5-4 5.5zM12 10c2-2 4-3.5 4-5.5a2.5 2.5 0 0 0-5 0c0 2 2 3.5 4 5.5z" />
+    </Icon>
+  ),
+  check: (p) => (
+    <Icon {...p}>
+      <path d="M5 12l4 4L19 6" />
+    </Icon>
+  ),
+  shield: (p) => (
+    <Icon {...p}>
+      <path d="M12 3 4 6v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V6z" />
+      <path d="M9 12l2 2 4-4" />
+    </Icon>
+  ),
+  wallet: (p) => (
+    <Icon {...p}>
+      <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <path d="M17 11h4v2h-4a1.5 1.5 0 0 1 0-3z" />
+      <path d="M3 9h18" />
+    </Icon>
+  ),
   zoom: (p) => (
     <Icon {...p}>
       <circle cx="11" cy="11" r="7" />

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
 import { ThemeToggle } from './ThemeToggle.jsx';
@@ -177,6 +177,7 @@ function MegaMenu({ onClose }) {
 }
 
 export function Header({ cart, onBurger }) {
+  const { pathname } = useLocation();
   const [mega, setMega] = useState(false);
   const [lang, setLang] = useState('RU');
   const [langOpen, setLangOpen] = useState(false);
@@ -232,13 +233,21 @@ export function Header({ cart, onBurger }) {
           >
             <I.search size={19} />
           </button>
-          <button className="icon-btn" aria-label="Корзина">
+          <Link
+            className={'icon-btn' + (pathname === '/cart' ? ' active' : '')}
+            to="/cart"
+            aria-label="Корзина"
+          >
             <I.cart size={19} />
             {cart > 0 && <span className="cart-badge">{cart}</span>}
-          </button>
-          <button className="icon-btn h-only-desk" aria-label="Аккаунт">
+          </Link>
+          <Link
+            className={'icon-btn' + (pathname === '/profile' ? ' active' : '')}
+            to="/profile"
+            aria-label="Аккаунт"
+          >
             <I.user size={19} />
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -347,6 +356,16 @@ export function MobileDrawer({ open, onClose }) {
           })}
         </div>
         <div className="drawer-foot">
+          <div className="drawer-account">
+            <Link className="drawer-account-link" to="/profile" onClick={onClose}>
+              <I.user size={18} />
+              Профиль
+            </Link>
+            <Link className="drawer-account-link" to="/cart" onClick={onClose}>
+              <I.cart size={18} />
+              Корзина
+            </Link>
+          </div>
           <Link className="btn btn-accent btn-block" to="/offers" onClick={onClose}>
             Забронировать
           </Link>

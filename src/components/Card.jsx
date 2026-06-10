@@ -88,7 +88,18 @@ export function Card({ d, wide, onBuy }) {
           ) : (
             <button
               className={'btn btn-sm ' + (buy ? 'btn-accent' : 'btn-ghost')}
-              onClick={() => buy && onBuy && onBuy(d.title)}
+              onClick={() =>
+                buy &&
+                onBuy &&
+                onBuy({
+                  id: d.id || d.title,
+                  title: d.title,
+                  price: d.price,
+                  img: d.img,
+                  category: d.tag || d.typeLabel || d.category || 'Услуга',
+                  per: d.per,
+                })
+              }
             >
               {d.cta}
               {buy && <I.arrowRight size={15} />}

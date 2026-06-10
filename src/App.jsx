@@ -25,6 +25,14 @@ import { RestaurantDetailPage } from './pages/RestaurantDetailPage.jsx';
 import { HotelDetailPage } from './pages/HotelDetailPage.jsx';
 import { ActivityDetailPage } from './pages/ActivityDetailPage.jsx';
 import { SpaDetailPage } from './pages/SpaDetailPage.jsx';
+import { CartPage } from './pages/CartPage.jsx';
+import { ProfilePage } from './pages/ProfilePage.jsx';
+import {
+  addToCart,
+  getCartCount,
+  removeFromCart,
+  updateQty,
+} from './lib/cart.js';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -53,7 +61,18 @@ function HomePage({ onBuy, onLightbox, cart, onBurger }) {
   );
 }
 
-function AppRoutes({ cart, onBuy, onLightbox, drawer, onBurger, onCloseDrawer }) {
+function AppRoutes({
+  cart,
+  cartItems,
+  onBuy,
+  onQty,
+  onRemove,
+  onCheckout,
+  onLightbox,
+  drawer,
+  onBurger,
+  onCloseDrawer,
+}) {
   const shared = { cart, onBuy, onBurger, drawer, onCloseDrawer };
 
   return (
@@ -79,22 +98,54 @@ function AppRoutes({ cart, onBuy, onLightbox, drawer, onBurger, onCloseDrawer })
       <Route path="/hotels/:id" element={<HotelDetailPage {...shared} />} />
       <Route path="/activities/:id" element={<ActivityDetailPage {...shared} />} />
       <Route path="/spa/:id" element={<SpaDetailPage {...shared} />} />
+      <Route
+        path="/cart"
+        element={
+          <CartPage
+            cart={cart}
+            cartItems={cartItems}
+            onBurger={onBurger}
+            onQty={onQty}
+            onRemove={onRemove}
+            onCheckout={onCheckout}
+          />
+        }
+      />
+      <Route path="/profile" element={<ProfilePage cart={cart} onBurger={onBurger} />} />
     </Routes>
   );
 }
 
 export default function App() {
-  const [cart, setCart] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
   const [toast, setToast] = useState(null);
   const [drawer, setDrawer] = useState(false);
   const [lb, setLb] = useState(null);
   const toastTimer = useRef();
+  const cart = getCartCount(cartItems);
 
-  const onBuy = (name) => {
-    setCart((c) => c + 1);
-    setToast('Добавлено в корзину: ' + name);
+  const showToast = (msg) => {
+    setToast(msg);
     clearTimeout(toastTimer.current);
     toastTimer.current = setTimeout(() => setToast(null), 2600);
+  };
+
+  const onBuy = (product) => {
+    setCartItems((items) => addToCart(items, product));
+    showToast('Добавлено в корзину: ' + product.title);
+  };
+
+  const onQty = (id, delta) => {
+    setCartItems((items) => updateQty(items, id, delta));
+  };
+
+  const onRemove = (id) => {
+    setCartItems((items) => removeFromCart(items, id));
+  };
+
+  const onCheckout = () => {
+    showToast('Заказ оформлен! Мы свяжемся с вами в ближайшее время.');
+    setCartItems([]);
   };
 
   return (
@@ -103,7 +154,11 @@ export default function App() {
       <div className="stage">
         <AppRoutes
           cart={cart}
+          cartItems={cartItems}
           onBuy={onBuy}
+          onQty={onQty}
+          onRemove={onRemove}
+          onCheckout={onCheckout}
           onLightbox={setLb}
           drawer={drawer}
           onBurger={() => setDrawer(true)}

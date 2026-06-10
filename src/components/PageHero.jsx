@@ -20,7 +20,7 @@ export function PageHero({
       )}
       <div className="wrap page-hero-inner">
         <Link className="page-back" to={backTo}>
-          <I.arrowRight size={16} style={{ transform: 'rotate(180deg)' }} />
+          <I.arrowLeft size={16} />
           {backLabel}
         </Link>
         <div className="page-hero-grid">
