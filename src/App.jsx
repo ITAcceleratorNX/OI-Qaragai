@@ -21,6 +21,10 @@ import { EventsHubPage } from './pages/EventsHubPage.jsx';
 import { EventAfishaPage } from './pages/EventAfishaPage.jsx';
 import { CorporateEventsPage } from './pages/CorporateEventsPage.jsx';
 import { WeatherPage } from './pages/WeatherPage.jsx';
+import { RestaurantDetailPage } from './pages/RestaurantDetailPage.jsx';
+import { HotelDetailPage } from './pages/HotelDetailPage.jsx';
+import { ActivityDetailPage } from './pages/ActivityDetailPage.jsx';
+import { SpaDetailPage } from './pages/SpaDetailPage.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -71,6 +75,10 @@ function AppRoutes({ cart, onBuy, onLightbox, drawer, onBurger, onCloseDrawer })
       <Route path="/events/event" element={<EventAfishaPage {...shared} />} />
       <Route path="/events/corporate" element={<CorporateEventsPage {...shared} />} />
       <Route path="/weather" element={<WeatherPage cart={cart} onBurger={onBurger} />} />
+      <Route path="/restaurants/:id" element={<RestaurantDetailPage {...shared} />} />
+      <Route path="/hotels/:id" element={<HotelDetailPage {...shared} />} />
+      <Route path="/activities/:id" element={<ActivityDetailPage {...shared} />} />
+      <Route path="/spa/:id" element={<SpaDetailPage {...shared} />} />
     </Routes>
   );
 }
