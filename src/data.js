@@ -190,6 +190,7 @@ export const OQ = {
 
   things: [
     {
+      id: 'terrenkur',
       type: 'Отели',
       typeLabel: 'Отель',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
@@ -204,6 +205,7 @@ export const OQ = {
       cta: 'Подробнее',
     },
     {
+      id: 'pine-peak',
       type: 'Отели',
       typeLabel: 'Отель',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
@@ -218,6 +220,7 @@ export const OQ = {
       cta: 'Подробнее',
     },
     {
+      id: 'ochag',
       type: 'Рестораны',
       typeLabel: 'Ресторан',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/9071cbfefc312116cb40b7c770e05063.jpg',
@@ -230,6 +233,7 @@ export const OQ = {
       cta: 'Меню',
     },
     {
+      id: 'hvoya',
       type: 'Рестораны',
       typeLabel: 'Ресторан',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/9e0626703298e0306cf381c539b25d8e.jpeg',
@@ -242,6 +246,7 @@ export const OQ = {
       cta: 'Меню',
     },
     {
+      id: 'ski-pass',
       type: 'Развлечения',
       typeLabel: 'Активность',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/be9de408fd6866bd1150c6b786569c94.jpg',
@@ -256,6 +261,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'zipline',
       type: 'Развлечения',
       typeLabel: 'Активность',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/dc09954344ceef7c8730400ad93dd82d.jpg',
@@ -270,6 +276,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'cedar-bath',
       type: 'SPA',
       typeLabel: 'SPA и Баня',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e2245f60b098f59536e15c3d431a7386.jpeg',
@@ -284,6 +291,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'tianshan-ritual',
       type: 'SPA',
       typeLabel: 'SPA и Баня',
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/7fa7a1cdaa60112376a1aa35123825ce.jpg',
@@ -456,6 +464,7 @@ export const OQ = {
 
   thingsAll: [
     {
+      id: 'terrenkur',
       type: 'Отели',
       typeLabel: 'Отель',
       zone: 'hotels',
@@ -468,6 +477,7 @@ export const OQ = {
       cta: 'Подробнее',
     },
     {
+      id: 'pine-peak',
       type: 'Отели',
       typeLabel: 'Отель',
       zone: 'hotels',
@@ -480,6 +490,7 @@ export const OQ = {
       cta: 'Подробнее',
     },
     {
+      id: 'glamping-hvoya',
       type: 'Отели',
       typeLabel: 'Глэмпинг',
       zone: 'hotels',
@@ -492,6 +503,7 @@ export const OQ = {
       cta: 'Подробнее',
     },
     {
+      id: 'ochag',
       type: 'Рестораны',
       typeLabel: 'Ресторан',
       zone: 'rest',
@@ -502,6 +514,7 @@ export const OQ = {
       cta: 'Меню',
     },
     {
+      id: 'hvoya',
       type: 'Рестораны',
       typeLabel: 'Ресторан',
       zone: 'rest',
@@ -512,6 +525,7 @@ export const OQ = {
       cta: 'Меню',
     },
     {
+      id: 'panorama',
       type: 'Рестораны',
       typeLabel: 'Паб',
       zone: 'rest',
@@ -522,6 +536,7 @@ export const OQ = {
       cta: 'Меню',
     },
     {
+      id: 'ski-pass',
       type: 'Развлечения',
       typeLabel: 'Активность',
       zone: 'fun',
@@ -534,6 +549,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'zipline',
       type: 'Развлечения',
       typeLabel: 'Активность',
       zone: 'fun',
@@ -546,6 +562,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'tubing',
       type: 'Развлечения',
       typeLabel: 'Активность',
       zone: 'fun',
@@ -558,6 +575,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'cedar-bath',
       type: 'SPA',
       typeLabel: 'SPA и Баня',
       zone: 'spa',
@@ -570,6 +588,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'tianshan-ritual',
       type: 'SPA',
       typeLabel: 'SPA и Баня',
       zone: 'spa',
@@ -582,6 +601,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'heated-pool',
       type: 'SPA',
       typeLabel: 'Бассейн',
       zone: 'spa',
