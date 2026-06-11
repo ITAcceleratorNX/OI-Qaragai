@@ -35,7 +35,7 @@ export function OffersPage({ cart, onBuy, onBurger }) {
         eyebrow="Выгодно"
         title="Все предложения"
         desc="Готовые пакеты на зимний сезон — от уикенда в шале до SPA и ски-пассов."
-        image="https://oq-prod.storage.yandexcloud.kz/media-test/766b42f1e7f3533af60e997a726f61d5.jpg"
+        image="https://oq-prod.storage.yandexcloud.kz/media-test/b9412961e77379e1beedf84c8108ed65.jpg"
         stats={[
           { value: OQ.offersAll.length, label: 'предложений' },
           { value: '12 000 ₸', label: 'от' },
