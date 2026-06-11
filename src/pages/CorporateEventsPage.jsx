@@ -1,5 +1,5 @@
-import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
+import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 
@@ -29,32 +29,31 @@ function CorporateCard({ e }) {
 }
 
 export function CorporateEventsPage({ cart, onBurger }) {
-  const { mice, corporateAll } = OQ;
+  const { t } = useTranslation();
+  const oq = useOQ();
+  const { mice, corporateAll } = oq;
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow="Корпоративные"
-        title="MICE на курорте"
-        desc="Конференции, тимбилдинги и корпоративы в горах — полный сервис от идеи до реализации."
+        eyebrow={t('pages.corporate.eyebrow')}
+        title={t('pages.corporate.title')}
+        desc={t('pages.corporate.desc')}
         image="https://oq-prod.storage.yandexcloud.kz/media-test/c625a507521f98262ca3793138f93c1a.png"
-        backLabel="Мероприятия"
+        backLabel={t('pages.corporate.back')}
         backTo="/events"
         stats={mice.stats}
       />
 
       <div className="page-body">
         <div className="wrap">
-          <section className="corp-cta-panel" aria-label="Действия для бизнеса">
+          <section className="corp-cta-panel" aria-label={t('pages.corporate.ctaTitle')}>
             <div className="corp-cta-panel-glow" aria-hidden="true" />
             <div className="corp-cta-panel-inner">
               <div className="corp-cta-panel-copy">
-                <span className="corp-cta-panel-eyebrow">Начните планирование</span>
-                <h2>Всё для вашего мероприятия — в одном месте</h2>
-                <p>
-                  Изучите возможности курорта в MICE-каталоге или рассчитайте
-                  бюджет в интерактивном калькуляторе за несколько минут.
-                </p>
+                <span className="corp-cta-panel-eyebrow">{t('pages.corporate.ctaEyebrow')}</span>
+                <h2>{t('pages.corporate.ctaTitle')}</h2>
+                <p>{t('pages.corporate.ctaDesc')}</p>
               </div>
               <div className="corp-cta-panel-actions">
                 <a
@@ -67,8 +66,8 @@ export function CorporateEventsPage({ cart, onBurger }) {
                     <I.doc size={22} />
                   </span>
                   <span className="corp-cta-btn-text">
-                    <strong>Изучить возможности курорта</strong>
-                    <small>MICE-каталог · PDF</small>
+                    <strong>{t('pages.corporate.catalogStrong')}</strong>
+                    <small>{t('pages.corporate.catalogSmall')}</small>
                   </span>
                   <I.arrowRight size={18} className="corp-cta-btn-arrow" />
                 </a>
@@ -82,8 +81,8 @@ export function CorporateEventsPage({ cart, onBurger }) {
                     <I.calc size={22} />
                   </span>
                   <span className="corp-cta-btn-text">
-                    <strong>Калькулятор мероприятия</strong>
-                    <small>Рассчитать бюджет онлайн</small>
+                    <strong>{t('pages.corporate.calcStrong')}</strong>
+                    <small>{t('pages.corporate.calcSmall')}</small>
                   </span>
                   <I.arrowRight size={18} className="corp-cta-btn-arrow" />
                 </a>
@@ -102,10 +101,7 @@ export function CorporateEventsPage({ cart, onBurger }) {
           </section>
 
           <div className="corp-offerings-head">
-            <h3 className="listing-subhead">Форматы мероприятий</h3>
-            <p className="corp-offerings-desc">
-              Площадки, кейтеринг и полный MICE-сервис — круглый год.
-            </p>
+            <h3 className="listing-subhead">{t('pages.corporate.formatsTitle')}</h3>
           </div>
 
           <div className="corp-grid">

@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
-import { OQ } from '../data.js';
+import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
+import { getDateLocale } from '../i18n/utils.js';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { ListingToolbar } from '../components/ListingToolbar.jsx';
 import { ListingEmpty } from '../components/ListingEmpty.jsx';
 import { EventCard } from '../components/EventCard.jsx';
 
-const FILTER_KEYS = ['Все', 'Предстоящие', 'Прошедшие'];
+const FILTER_IDS = ['all', 'upcoming', 'past'];
 
 function sortByCalendar(events, pastFirst = false) {
   return [...events].sort((a, b) => {
@@ -16,18 +17,18 @@ function sortByCalendar(events, pastFirst = false) {
   });
 }
 
-function monthLabel(sortDate) {
-  if (!sortDate) return 'Без даты';
-  return new Date(sortDate).toLocaleDateString('ru-RU', {
+function monthLabel(sortDate, locale, noDateLabel) {
+  if (!sortDate) return noDateLabel;
+  return new Date(sortDate).toLocaleDateString(locale, {
     month: 'long',
     year: 'numeric',
   });
 }
 
-function groupPastByMonth(events) {
+function groupPastByMonth(events, locale, noDateLabel) {
   const groups = new Map();
   for (const e of sortByCalendar(events, true)) {
-    const key = monthLabel(e.sortDate);
+    const key = monthLabel(e.sortDate, locale, noDateLabel);
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(e);
   }
@@ -35,58 +36,72 @@ function groupPastByMonth(events) {
 }
 
 export function EventAfishaPage({ cart, onBurger }) {
-  const [f, setF] = useState('Все');
+  const { t, lang } = useTranslation();
+  const oq = useOQ();
+  const [f, setF] = useState('all');
+  const locale = getDateLocale(lang);
+  const noDateLabel = t('common.noDate');
 
   const upcoming = useMemo(
-    () => sortByCalendar(OQ.eventsEvent.filter((e) => !e.past)),
-    []
+    () => sortByCalendar(oq.eventsEvent.filter((e) => !e.past)),
+    [oq.eventsEvent]
   );
   const past = useMemo(
-    () => sortByCalendar(OQ.eventsEvent.filter((e) => e.past), true),
-    []
+    () => sortByCalendar(oq.eventsEvent.filter((e) => e.past), true),
+    [oq.eventsEvent]
   );
 
   const list = useMemo(() => {
-    if (f === 'Предстоящие') return upcoming;
-    if (f === 'Прошедшие') return past;
-    return sortByCalendar(OQ.eventsEvent);
-  }, [f, upcoming, past]);
+    if (f === 'upcoming') return upcoming;
+    if (f === 'past') return past;
+    return sortByCalendar(oq.eventsEvent);
+  }, [f, upcoming, past, oq.eventsEvent]);
 
-  const featured = f !== 'Прошедшие' ? upcoming.find((e) => e.featured) : null;
+  const featured = f !== 'past' ? upcoming.find((e) => e.featured) : null;
   const side = featured ? upcoming.filter((e) => e !== featured).slice(0, 2) : [];
   const restUpcoming = featured
     ? upcoming.filter((e) => e !== featured && !side.includes(e))
     : upcoming;
 
-  const pastGroups = useMemo(() => groupPastByMonth(past), [past]);
+  const pastGroups = useMemo(
+    () => groupPastByMonth(past, locale, noDateLabel),
+    [past, locale, noDateLabel]
+  );
 
   const countFor = (k) => {
-    if (k === 'Все') return OQ.eventsEvent.length;
-    if (k === 'Прошедшие') return past.length;
+    if (k === 'all') return oq.eventsEvent.length;
+    if (k === 'past') return past.length;
     return upcoming.length;
   };
 
-  const filters = FILTER_KEYS.map((key) => ({
+  const filters = FILTER_IDS.map((key) => ({
     key,
-    label: key,
+    label: t(`filters.${key}`),
     count: countFor(key),
   }));
 
-  const showMagazine = f === 'Все' && featured;
+  const countLabel =
+    list.length === 1
+      ? t('pages.eventAfisha.eventOne')
+      : list.length < 5
+        ? t('pages.eventAfisha.eventFew')
+        : t('pages.eventAfisha.eventMany');
+
+  const showMagazine = f === 'all' && featured;
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow="Event"
-        title="Афиша событий"
-        desc="Концерты, фестивали и активности курорта — предстоящие и архив прошедших по календарю."
+        eyebrow={t('pages.eventAfisha.eyebrow')}
+        title={t('pages.eventAfisha.title')}
+        desc={t('pages.eventAfisha.desc')}
         image="https://oq-prod.storage.yandexcloud.kz/media-test/4ab09cd056b46f8a04eb02a41cc9fdc4.jpg"
-        backLabel="Мероприятия"
+        backLabel={t('pages.eventAfisha.back')}
         backTo="/events"
         stats={[
-          { value: upcoming.length, label: 'предстоящих' },
-          { value: past.length, label: 'в архиве' },
-          { value: OQ.eventsEvent.length, label: 'всего' },
+          { value: upcoming.length, label: t('pages.eventAfisha.statUpcoming') },
+          { value: past.length, label: t('pages.eventAfisha.statArchive') },
+          { value: oq.eventsEvent.length, label: t('pages.eventAfisha.statTotal') },
         ]}
       />
 
@@ -97,16 +112,16 @@ export function EventAfishaPage({ cart, onBurger }) {
             active={f}
             onChange={setF}
             count={list.length}
-            label={list.length === 1 ? 'событие' : list.length < 5 ? 'события' : 'событий'}
+            label={countLabel}
           />
 
           {list.length === 0 ? (
             <ListingEmpty
-              title="Событий не найдено"
-              desc="Попробуйте другой фильтр или загляните позже — афиша обновляется регулярно."
-              onReset={() => setF('Все')}
+              title={t('pages.eventAfisha.emptyTitle')}
+              desc={t('pages.eventAfisha.emptyDesc')}
+              onReset={() => setF('all')}
             />
-          ) : f === 'Прошедшие' ? (
+          ) : f === 'past' ? (
             <div className="events-calendar">
               {pastGroups.map(([month, items]) => (
                 <section key={month} className="events-calendar-month">
@@ -134,7 +149,7 @@ export function EventAfishaPage({ cart, onBurger }) {
               </div>
               {restUpcoming.length > 0 && (
                 <div className="events-page-more">
-                  <h3 className="listing-subhead">Скоро на курорте</h3>
+                  <h3 className="listing-subhead">{t('pages.eventAfisha.soon')}</h3>
                   <div className="events-page-grid">
                     {restUpcoming.map((e) => (
                       <EventCard key={e.title + e.date} e={e} />
@@ -144,7 +159,7 @@ export function EventAfishaPage({ cart, onBurger }) {
               )}
               {past.length > 0 && (
                 <div className="events-page-more">
-                  <h3 className="listing-subhead">Архив по календарю</h3>
+                  <h3 className="listing-subhead">{t('pages.eventAfisha.archiveCalendar')}</h3>
                   <div className="events-calendar">
                     {pastGroups.map(([month, items]) => (
                       <section key={month} className="events-calendar-month">

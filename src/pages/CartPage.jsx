@@ -64,7 +64,7 @@ function CartItem({ item, onQty, onRemove }) {
               type="button"
               className="cart-qty-btn"
               onClick={() => onQty(item.id, -1)}
-              aria-label="Уменьшить"
+              aria-label={t('common.decrease')}
             >
               <I.minus size={14} />
             </button>
@@ -73,7 +73,7 @@ function CartItem({ item, onQty, onRemove }) {
               type="button"
               className="cart-qty-btn"
               onClick={() => onQty(item.id, 1)}
-              aria-label="Увеличить"
+              aria-label={t('common.increase')}
             >
               <I.plus size={14} />
             </button>
@@ -88,6 +88,7 @@ function CartItem({ item, onQty, onRemove }) {
 }
 
 function CartSummary({ items, promo, setPromo, onCheckout }) {
+  const { t } = useTranslation();
   const subtotal = getCartTotal(items);
   const discount = promo === 'WINTER20' ? Math.round(subtotal * 0.2) : 0;
   const total = subtotal - discount;
@@ -95,20 +96,20 @@ function CartSummary({ items, promo, setPromo, onCheckout }) {
   return (
     <aside className="cart-summary">
       <div className="cart-summary-card">
-        <h2>Итого</h2>
+        <h2>{t('pages.cart.total')}</h2>
         <div className="cart-summary-rows">
           <div className="cart-summary-row">
-            <span>Товары ({items.length})</span>
+            <span>{t('pages.cart.items', { count: items.length })}</span>
             <span>{formatPrice(subtotal)} ₸</span>
           </div>
           {discount > 0 && (
             <div className="cart-summary-row cart-summary-row--discount">
-              <span>Скидка WINTER20</span>
+              <span>{t('pages.cart.discount')}</span>
               <span>−{formatPrice(discount)} ₸</span>
             </div>
           )}
           <div className="cart-summary-row cart-summary-row--total">
-            <span>К оплате</span>
+            <span>{t('pages.cart.toPay')}</span>
             <span>
               <b>{formatPrice(total)}</b> ₸
             </span>
@@ -119,35 +120,35 @@ function CartSummary({ items, promo, setPromo, onCheckout }) {
           <I.gift size={18} />
           <input
             type="text"
-            placeholder="Промокод"
+            placeholder={t('pages.cart.promo')}
             value={promo}
             onChange={(e) => setPromo(e.target.value.toUpperCase())}
           />
           {promo === 'WINTER20' && (
-            <span className="cart-promo-ok" aria-label="Промокод применён">
+            <span className="cart-promo-ok" aria-label={t('pages.cart.promoApplied')}>
               <I.check size={16} />
             </span>
           )}
         </label>
-        <p className="cart-promo-hint">Попробуйте <kbd>WINTER20</kbd> — скидка 20%</p>
+        <p className="cart-promo-hint">{t('pages.cart.promoHint', { code: 'WINTER20' })}</p>
 
         <button type="button" className="btn btn-accent btn-block" onClick={onCheckout}>
-          Оформить заказ
+          {t('pages.cart.checkout')}
           <I.arrowRight size={16} />
         </button>
 
         <ul className="cart-perks">
           <li>
             <I.shield size={16} />
-            Безопасная оплата
+            {t('pages.cart.securePay')}
           </li>
           <li>
             <I.clock size={16} />
-            Мгновенное подтверждение
+            {t('pages.cart.instantConfirm')}
           </li>
           <li>
             <I.pin size={16} />
-            Бесплатная отмена за 48 ч
+            {t('pages.cart.freeCancel')}
           </li>
         </ul>
       </div>
@@ -161,16 +162,22 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
   const [promo, setPromo] = useState('');
   const isEmpty = cartItems.length === 0;
   const suggestions = oq.offersAll.slice(0, 3);
+  const cartCountLabel =
+    cart === 1
+      ? t('pages.cart.itemOne')
+      : cart < 5
+        ? t('pages.cart.itemFew')
+        : t('pages.cart.itemMany');
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow="Бронирование"
+        eyebrow={t('pages.cart.eyebrow')}
         title={t('pages.cart.title')}
         desc={
           isEmpty
-            ? 'Здесь появятся выбранные услуги, пакеты и билеты на курорт.'
-            : `${cart} ${cart === 1 ? 'позиция' : cart < 5 ? 'позиции' : 'позиций'} · готовы к оформлению`
+            ? t('pages.cart.emptyHero')
+            : t('pages.cart.itemsReady', { count: `${cart} ${cartCountLabel}` })
         }
       />
 
@@ -202,9 +209,9 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
           {!isEmpty && (
             <div className="cart-suggest">
               <div className="cart-suggest-head">
-                <h2>Добавить к заказу</h2>
+                <h2>{t('pages.cart.addMore')}</h2>
                 <Link className="link-arrow" to="/offers">
-                  Все предложения <I.arrowRight size={16} />
+                  {t('pages.cart.allOffers')} <I.arrowRight size={16} />
                 </Link>
               </div>
               <div className="cart-suggest-grid">
@@ -215,7 +222,7 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
                       <span>{o.tag || o.category}</span>
                       <h3>{o.title}</h3>
                       <p>
-                        от <b>{o.price}</b> ₸
+                        {t('common.from')} <b>{o.price}</b> ₸
                       </p>
                     </div>
                   </Link>

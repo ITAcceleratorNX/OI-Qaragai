@@ -1,31 +1,38 @@
 import { OQ } from '../data.js';
 import { locales } from './locales/index.js';
-import { deepMerge, enrichOQ } from './utils.js';
-
-const CTA_KEYS = {
-  Купить: 'buy',
-  Подробнее: 'details',
-  Меню: 'menu',
-};
+import { CTA_KEY_MAP, deepMerge, enrichOQ } from './utils.js';
 
 function finalizeItem(item, t) {
   if (!item) return item;
   const next = { ...item };
   if (item.typeKey) next.type = t(`types.${item.typeKey}`);
   if (item.categoryKey) next.category = t(`categories.${item.categoryKey}`);
-  const ctaKey = CTA_KEYS[item.cta];
-  if (ctaKey) next.cta = t(`cta.${ctaKey}`);
+  const ctaKey = next.ctaKey || CTA_KEY_MAP[item.cta];
+  if (ctaKey) {
+    next.ctaKey = ctaKey;
+    const translated = t(`cta.${ctaKey}`);
+    if (translated !== `cta.${ctaKey}`) next.cta = translated;
+  }
   return next;
 }
 
 function finalizeOQ(data, t) {
   const map = (arr) => (Array.isArray(arr) ? arr.map((item) => finalizeItem(item, t)) : arr);
+  const eventsHub = data.eventsHub
+    ? {
+        ...data.eventsHub,
+        portals: map(data.eventsHub.portals),
+      }
+    : data.eventsHub;
   return {
     ...data,
     things: map(data.things),
     thingsAll: map(data.thingsAll),
     offers: map(data.offers),
     offersAll: map(data.offersAll),
+    eventsEvent: map(data.eventsEvent),
+    corporateAll: map(data.corporateAll),
+    eventsHub,
   };
 }
 

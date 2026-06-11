@@ -289,8 +289,15 @@ const DETAIL_PATHS = {
   SPA: 'spa',
 };
 
+const DETAIL_PATHS_BY_KEY = {
+  hotels: 'hotels',
+  restaurants: 'restaurants',
+  fun: 'activities',
+  spa: 'spa',
+};
+
 export function getDetailPath(type, id) {
-  const segment = DETAIL_PATHS[type];
+  const segment = DETAIL_PATHS[type] ?? DETAIL_PATHS_BY_KEY[type];
   return segment ? `/${segment}/${id}` : null;
 }
 
