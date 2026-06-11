@@ -45,6 +45,23 @@ const CATEGORY_KEY_MAP = {
   Ресторан: 'restaurant',
 };
 
+export const CTA_KEY_MAP = {
+  Купить: 'buy',
+  Подробнее: 'details',
+  Меню: 'menu',
+  'Купить билет': 'buyTicket',
+  Записаться: 'signup',
+  Забронировать: 'book',
+  Запросить: 'request',
+  Архив: 'archive',
+};
+
+export function getDateLocale(lang) {
+  if (lang === 'KZ') return 'kk-KZ';
+  if (lang === 'EN') return 'en-US';
+  return 'ru-RU';
+}
+
 export function enrichOQItem(item) {
   if (!item || typeof item !== 'object') return item;
   const next = { ...item };
@@ -52,6 +69,7 @@ export function enrichOQItem(item) {
   if (!next.categoryKey && next.category) {
     next.categoryKey = CATEGORY_KEY_MAP[next.category] ?? next.category;
   }
+  if (!next.ctaKey && next.cta) next.ctaKey = CTA_KEY_MAP[next.cta] ?? next.cta;
   return next;
 }
 
