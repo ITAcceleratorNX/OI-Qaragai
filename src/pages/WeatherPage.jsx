@@ -1,12 +1,12 @@
-import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
+import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 
-const { city, resort, forecast } = OQ.weather;
+const CLEAR_CONDITIONS = ['Ясно', 'Clear', 'Ашық'];
 
-function WeatherCard({ title, data, accent }) {
-  const Icon = data.condition === 'Ясно' ? I.sun : I.cloud;
+function WeatherCard({ title, data, accent, t }) {
+  const Icon = CLEAR_CONDITIONS.includes(data.condition) ? I.sun : I.cloud;
   return (
     <article className={'weather-card' + (accent ? ' weather-card--accent' : '')}>
       <div className="weather-card-head">
@@ -14,7 +14,7 @@ function WeatherCard({ title, data, accent }) {
         {accent && data.open && (
           <span className="weather-open">
             <span className="dot" />
-            Открыт
+            {t('weather.open')}
           </span>
         )}
       </div>
@@ -27,22 +27,22 @@ function WeatherCard({ title, data, accent }) {
       </div>
       <dl className="weather-meta">
         <div>
-          <dt>Ветер</dt>
+          <dt>{t('weather.wind')}</dt>
           <dd>{data.wind}</dd>
         </div>
         <div>
-          <dt>Влажность</dt>
+          <dt>{t('weather.humidity')}</dt>
           <dd>{data.humidity}</dd>
         </div>
         {data.lifts && (
           <div>
-            <dt>Подъёмники</dt>
+            <dt>{t('weather.lifts')}</dt>
             <dd>{data.lifts}</dd>
           </div>
         )}
         {data.slopes && (
           <div>
-            <dt>Трассы</dt>
+            <dt>{t('weather.slopes')}</dt>
             <dd>{data.slopes}</dd>
           </div>
         )}
@@ -52,22 +52,30 @@ function WeatherCard({ title, data, accent }) {
 }
 
 export function WeatherPage({ cart, onBurger }) {
+  const { t } = useTranslation();
+  const { city, resort, forecast } = useOQ().weather;
+
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow="Прогноз"
-        title="Погода"
-        desc="Актуальные условия в Алматы и на курорте OI·QARAGAI — температура, ветер и статус трасс."
+        eyebrow={t('weather.eyebrow')}
+        title={t('weather.title')}
+        desc={t('weather.desc')}
       />
 
       <section className="section page-section">
         <div className="wrap">
           <div className="weather-grid">
-            <WeatherCard title={city.name} data={city} />
-            <WeatherCard title={`OI·QARAGAI · ${resort.name}`} data={resort} accent />
+            <WeatherCard title={city.name} data={city} t={t} />
+            <WeatherCard
+              title={`OI·QARAGAI · ${resort.name}`}
+              data={resort}
+              accent
+              t={t}
+            />
           </div>
 
-          <h3 className="weather-forecast-title">Прогноз на 7 дней</h3>
+          <h3 className="weather-forecast-title">{t('weather.forecast')}</h3>
           <div className="weather-forecast">
             {forecast.map((row) => {
               const Icon = row.icon === 'sun' ? I.sun : I.cloud;
@@ -81,8 +89,8 @@ export function WeatherPage({ cart, onBurger }) {
                     <span>{row.resort}</span>
                   </span>
                   <span className="weather-forecast-labels">
-                    <span>город</span>
-                    <span>курорт</span>
+                    <span>{city.name}</span>
+                    <span>{t('weather.resort')}</span>
                   </span>
                 </div>
               );

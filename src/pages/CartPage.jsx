@@ -1,30 +1,28 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
+import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { formatPrice, getCartTotal } from '../lib/cart.js';
 
 function CartEmpty() {
+  const { t } = useTranslation();
   return (
     <div className="cart-empty">
       <div className="cart-empty-visual" aria-hidden="true">
         <div className="cart-empty-ring" />
         <I.cart size={42} />
       </div>
-      <h2>Корзина пуста</h2>
-      <p>
-        Добавьте пакеты, проживание или активности — всё для идеального отдыха в горах
-        уже ждёт вас.
-      </p>
+      <h2>{t('pages.cart.emptyTitle')}</h2>
+      <p>{t('pages.cart.emptyDesc')}</p>
       <div className="cart-empty-actions">
         <Link className="btn btn-accent" to="/offers">
-          Смотреть предложения
+          {t('pages.cart.viewOffers')}
           <I.arrowRight size={16} />
         </Link>
         <Link className="btn btn-outline" to="/guide">
-          Гид курорта
+          {t('pages.cart.guide')}
         </Link>
       </div>
     </div>
@@ -32,6 +30,7 @@ function CartEmpty() {
 }
 
 function CartItem({ item, onQty, onRemove }) {
+  const { t } = useTranslation();
   return (
     <article className="cart-item">
       <div className="cart-item-media">
@@ -54,7 +53,7 @@ function CartItem({ item, onQty, onRemove }) {
             type="button"
             className="cart-item-remove"
             onClick={() => onRemove(item.id)}
-            aria-label={`Удалить ${item.title}`}
+            aria-label={t('pages.cart.remove', { title: item.title })}
           >
             <I.trash size={17} />
           </button>
@@ -157,15 +156,17 @@ function CartSummary({ items, promo, setPromo, onCheckout }) {
 }
 
 export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckout }) {
+  const { t } = useTranslation();
+  const oq = useOQ();
   const [promo, setPromo] = useState('');
   const isEmpty = cartItems.length === 0;
-  const suggestions = OQ.offersAll.slice(0, 3);
+  const suggestions = oq.offersAll.slice(0, 3);
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
         eyebrow="Бронирование"
-        title="Корзина"
+        title={t('pages.cart.title')}
         desc={
           isEmpty
             ? 'Здесь появятся выбранные услуги, пакеты и билеты на курорт.'

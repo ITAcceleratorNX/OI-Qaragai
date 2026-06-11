@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
+import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { ThemeToggle } from './ThemeToggle.jsx';
 
 export const Logo = ({ onClick }) => (
@@ -16,18 +16,19 @@ export const Logo = ({ onClick }) => (
 );
 
 export function TopBar() {
-  const c = OQ.contacts;
+  const { t } = useTranslation();
+  const c = useOQ().contacts;
   return (
     <div className="topbar">
       <div className="wrap topbar-wrap">
         <div className="topbar-l">
           <a className="topbar-item" href="#">
             <I.camera size={14} />
-            Камеры
+            {t('header.cameras')}
           </a>
           <a className="topbar-item" href="#">
             <I.cube size={14} />
-            3D-тур
+            {t('header.tour3d')}
           </a>
         </div>
         <div className="topbar-r">
@@ -75,7 +76,7 @@ function LangLabel({ code }) {
   );
 }
 
-function LangSwitcher({ lang, setLang, langOpen, setLangOpen }) {
+function LangSwitcher({ lang, setLang, langOpen, setLangOpen, t }) {
   const current = LANGS.find((l) => l.code === lang);
   return (
     <div className="lang-wrap">
@@ -83,7 +84,9 @@ function LangSwitcher({ lang, setLang, langOpen, setLangOpen }) {
         className="lang"
         onClick={() => setLangOpen((o) => !o)}
         onBlur={() => setTimeout(() => setLangOpen(false), 150)}
-        aria-label={current ? `Язык: ${current.name}` : 'Язык'}
+        aria-label={
+          current ? t('header.languageLabel', { name: current.name }) : t('header.language')
+        }
       >
         <LangLabel code={lang} />
         <I.chevDown size={13} />
@@ -110,10 +113,11 @@ function LangSwitcher({ lang, setLang, langOpen, setLangOpen }) {
 }
 
 function WeatherWidget() {
-  const { city, resort } = OQ.weather;
+  const { t } = useTranslation();
+  const { city, resort } = useOQ().weather;
   return (
     <>
-      <Link to="/weather" className="weather-widget" aria-label="Погода">
+      <Link to="/weather" className="weather-widget" aria-label={t('header.weather')}>
         <span className="weather-loc">
           <span className="weather-name">{city.name}</span>
           <b>{city.temp}</b>
@@ -124,7 +128,11 @@ function WeatherWidget() {
           <b>{resort.temp}</b>
         </span>
       </Link>
-      <Link to="/weather" className="weather-widget weather-widget--compact show-mobile" aria-label="Погода">
+      <Link
+        to="/weather"
+        className="weather-widget weather-widget--compact show-mobile"
+        aria-label={t('header.weather')}
+      >
         <I.cloud size={18} />
         <b>{resort.temp}</b>
       </Link>
@@ -133,10 +141,12 @@ function WeatherWidget() {
 }
 
 function MegaMenu({ onClose }) {
+  const { t } = useTranslation();
+  const oq = useOQ();
   return (
     <div className="mega-wrap" onMouseLeave={onClose}>
       <div className="mega" role="menu">
-        {OQ.mega.map((col) => {
+        {oq.mega.map((col) => {
           const Ic = I[col.icon];
           return (
             <div className="mega-col" key={col.key}>
@@ -162,11 +172,9 @@ function MegaMenu({ onClose }) {
           );
         })}
         <div className="mega-foot">
-          <span className="note">
-            Единая экосистема курорта — выберите, чем заняться сегодня
-          </span>
+          <span className="note">{t('header.megaNote')}</span>
           <Link className="link-arrow" to="/guide" onClick={onClose}>
-            Открыть полный гид <I.arrowRight size={16} />
+            {t('header.megaCta')} <I.arrowRight size={16} />
           </Link>
         </div>
       </div>
@@ -176,8 +184,8 @@ function MegaMenu({ onClose }) {
 
 export function Header({ cart, onBurger }) {
   const { pathname } = useLocation();
+  const { lang, setLang, t } = useTranslation();
   const [mega, setMega] = useState(false);
-  const [lang, setLang] = useState('RU');
   const [langOpen, setLangOpen] = useState(false);
   const [search, setSearch] = useState(false);
   const megaTimer = useRef();
@@ -193,15 +201,16 @@ export function Header({ cart, onBurger }) {
     <header className="header" id="top">
       <div className="wrap">
         <div className="h-left">
-          <button className="burger icon-btn" onClick={onBurger} aria-label="Меню">
+          <button className="burger icon-btn" onClick={onBurger} aria-label={t('header.menu')}>
             <I.menu size={20} />
-            <span className="h-only-desk">Меню</span>
+            <span className="h-only-desk">{t('header.menu')}</span>
           </button>
           <LangSwitcher
             lang={lang}
             setLang={setLang}
             langOpen={langOpen}
             setLangOpen={setLangOpen}
+            t={t}
           />
           <nav className="desk-nav h-main-nav">
             <button
@@ -210,11 +219,11 @@ export function Header({ cart, onBurger }) {
               onMouseLeave={closeMega}
               onClick={() => setMega((m) => !m)}
             >
-              Чем заняться?
+              {t('header.thingsToDo')}
               <I.chevDown size={15} className="chev" />
             </button>
             <Link className="nav-link" to="/offers">
-              Спецпредложения
+              {t('header.offers')}
             </Link>
           </nav>
         </div>
@@ -227,14 +236,14 @@ export function Header({ cart, onBurger }) {
           <button
             className="icon-btn"
             onClick={() => setSearch((s) => !s)}
-            aria-label="Поиск"
+            aria-label={t('header.search')}
           >
             <I.search size={19} />
           </button>
           <Link
             className={'icon-btn' + (pathname === '/cart' ? ' active' : '')}
             to="/cart"
-            aria-label="Корзина"
+            aria-label={t('header.cart')}
           >
             <I.cart size={19} />
             {cart > 0 && <span className="cart-badge">{cart}</span>}
@@ -242,7 +251,7 @@ export function Header({ cart, onBurger }) {
           <Link
             className={'icon-btn' + (pathname === '/profile' ? ' active' : '')}
             to="/profile"
-            aria-label="Аккаунт"
+            aria-label={t('header.account')}
           >
             <I.user size={19} />
           </Link>
@@ -253,7 +262,7 @@ export function Header({ cart, onBurger }) {
         <div className="search-inner">
           <I.search size={20} />
           <input
-            placeholder="Поиск по курорту: отели, рестораны, ски-пасс, события…"
+            placeholder={t('header.searchPlaceholder')}
             autoFocus={search}
           />
           <button className="icon-btn" onClick={() => setSearch(false)}>
@@ -272,6 +281,8 @@ export function Header({ cart, onBurger }) {
 }
 
 export function MobileDrawer({ open, onClose }) {
+  const { t } = useTranslation();
+  const oq = useOQ();
   const [sec, setSec] = useState(null);
 
   useEffect(() => {
@@ -318,7 +329,7 @@ export function MobileDrawer({ open, onClose }) {
           </button>
         </div>
         <div className="drawer-body">
-          {OQ.mega.map((col, idx) => {
+          {oq.mega.map((col, idx) => {
             const Ic = I[col.icon];
             const isOpen = sec === idx;
             return (
@@ -357,34 +368,34 @@ export function MobileDrawer({ open, onClose }) {
           <div className="drawer-account">
             <Link className="drawer-account-link" to="/profile" onClick={onClose}>
               <I.user size={18} />
-              Профиль
+              {t('header.profile')}
             </Link>
             <Link className="drawer-account-link" to="/cart" onClick={onClose}>
               <I.cart size={18} />
-              Корзина
+              {t('header.cart')}
             </Link>
           </div>
           <Link className="btn btn-accent btn-block" to="/offers" onClick={onClose}>
-            Забронировать
+            {t('header.book')}
           </Link>
           <div style={{ display: 'flex', gap: 18, color: 'var(--muted)', fontSize: 14 }}>
             <a
-              href={'tel:' + OQ.contacts.phone.replace(/\s/g, '')}
+              href={'tel:' + oq.contacts.phone.replace(/\s/g, '')}
               style={{ display: 'flex', gap: 8, alignItems: 'center' }}
             >
               <I.phone size={15} style={{ color: 'var(--accent)' }} />
-              {OQ.contacts.phone}
+              {oq.contacts.phone}
             </a>
           </div>
           <div style={{ display: 'flex', gap: 18, color: 'var(--muted)', fontSize: 14 }}>
             <a
-              href={OQ.contacts.instaUrl}
+              href={oq.contacts.instaUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{ display: 'flex', gap: 8, alignItems: 'center' }}
             >
               <I.insta size={15} style={{ color: 'var(--accent)' }} />
-              {OQ.contacts.insta}
+              {oq.contacts.insta}
             </a>
           </div>
         </div>
