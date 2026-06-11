@@ -36,17 +36,19 @@ export function ImageLightbox({ images, index, onClose, onIndex, alt = '' }) {
   return createPortal(
     <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true" aria-label={t('lightbox.aria')}>
 
+      {/* ─── Top bar ─────────────────────────────────────────────── */}
       <div className="lb-topbar" onClick={(e) => e.stopPropagation()}>
         <span className="lb-counter-placeholder" />
         {count > 1 && (
           <span className="lb-counter">{index + 1} / {count}</span>
         )}
-        <button type="button" className="lb-close" onClick={onClose} aria-label={t('common.close')}>
+        <button type="button" className="lb-close" onClick={onClose} aria-label={t('lightbox.close')}>
           <I.close size={16} />
-          {t('common.close')}
+          {t('lightbox.close')}
         </button>
       </div>
 
+      {/* ─── Prev / Next ─────────────────────────────────────────── */}
       {count > 1 && (
         <>
           <button
@@ -68,6 +70,7 @@ export function ImageLightbox({ images, index, onClose, onIndex, alt = '' }) {
         </>
       )}
 
+      {/* ─── Image ───────────────────────────────────────────────── */}
       <div className="lb-stage" onClick={(e) => e.stopPropagation()}>
         <img className="lb-img" src={cur.src} alt={cur.caption || alt} />
         {cur.caption && <p className="lb-caption">{cur.caption}</p>}

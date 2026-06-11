@@ -1,6 +1,6 @@
 import { useTheme } from '../theme/ThemeProvider.jsx';
-import { I } from '../icons.jsx';
 import { useTranslation } from '../i18n/LanguageProvider.jsx';
+import { I } from '../icons.jsx';
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();

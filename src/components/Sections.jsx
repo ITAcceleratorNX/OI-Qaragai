@@ -6,8 +6,10 @@ import { Logo } from './Header.jsx';
 import { Card } from './Card.jsx';
 import { ImageLightbox } from './ImageLightbox.jsx';
 
+const THING_FILTER_KEYS = ['all', 'hotels', 'restaurants', 'fun', 'spa'];
+
+/* углы: снизу вверх — Проживание → 3D-тур */
 const QUICK_ARC_ANGLES = [62, 31, 0, -31, -62];
-const FILTER_IDS = ['all', 'hotels', 'restaurants', 'fun', 'spa'];
 
 export function QuickFab() {
   const oq = useOQ();
@@ -51,7 +53,7 @@ export function QuickFab() {
               <Link
                 className="quick-fab-item"
                 to={q.href || '/guide'}
-                key={q.href || q.t}
+                key={q.t}
                 style={{ '--arc-angle': QUICK_ARC_ANGLES[i] + 'deg', '--arc-i': i }}
                 tabIndex={open ? 0 : -1}
                 onClick={() => setOpen(false)}
@@ -86,7 +88,7 @@ export function QuickFab() {
 
 export function Hero() {
   const oq = useOQ();
-  const { t, lang } = useTranslation();
+  const { t } = useTranslation();
   const { slides, interval } = oq.hero;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -94,10 +96,6 @@ export function Hero() {
 
   const goPrev = () => setActive((i) => (i - 1 + count) % count);
   const goNext = () => setActive((i) => (i + 1) % count);
-
-  useEffect(() => {
-    setActive(0);
-  }, [lang]);
 
   useEffect(() => {
     if (paused || count < 2) return undefined;
@@ -122,7 +120,7 @@ export function Hero() {
           <Link
             className={'hero-slide' + (i === active ? ' is-active' : '')}
             to={slide.href || '/guide'}
-            key={slide.img}
+            key={slide.title}
             aria-hidden={i !== active}
             tabIndex={i === active ? 0 : -1}
           >
@@ -170,7 +168,6 @@ export function Hero() {
 export function Offers({ onBuy }) {
   const oq = useOQ();
   const { t } = useTranslation();
-
   return (
     <section className="section" id="offers">
       <div className="wrap">
@@ -186,7 +183,7 @@ export function Offers({ onBuy }) {
         </div>
         <div className="cards-grid cards-3">
           {oq.offers.map((o, i) => (
-            <Card key={o.id || i} d={o} wide onBuy={onBuy} />
+            <Card key={i} d={o} wide onBuy={onBuy} />
           ))}
         </div>
       </div>
@@ -198,20 +195,12 @@ export function ThingsToDo({ onBuy }) {
   const oq = useOQ();
   const { t } = useTranslation();
   const [f, setF] = useState('all');
-
   const list =
     f === 'all' ? oq.things : oq.things.filter((item) => item.typeKey === f);
-
   const countFor = (k) =>
     k === 'all'
       ? oq.things.length
       : oq.things.filter((item) => item.typeKey === k).length;
-
-  const filters = FILTER_IDS.map((key) => ({
-    key,
-    label: t(`filters.${key}`),
-    count: countFor(key),
-  }));
 
   return (
     <section className="section" id="tabs">
@@ -227,20 +216,20 @@ export function ThingsToDo({ onBuy }) {
           </Link>
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 36 }}>
-          {filters.map((x) => (
+          {THING_FILTER_KEYS.map((key) => (
             <button
-              key={x.key}
-              className={'pill ' + (f === x.key ? 'active' : '')}
-              onClick={() => setF(x.key)}
+              key={key}
+              className={'pill ' + (f === key ? 'active' : '')}
+              onClick={() => setF(key)}
             >
-              {x.label}
-              <span className="count">{x.count}</span>
+              {t(`filters.${key}`)}
+              <span className="count">{countFor(key)}</span>
             </button>
           ))}
         </div>
         <div className="cards-grid cards-4">
           {list.map((item) => (
-            <Card key={item.id || item.title} d={item} onBuy={onBuy} />
+            <Card key={item.title} d={item} onBuy={onBuy} />
           ))}
         </div>
       </div>
@@ -359,7 +348,6 @@ export function Events() {
 export function Gallery({ onOpen }) {
   const oq = useOQ();
   const { t } = useTranslation();
-
   return (
     <section className="section">
       <div className="wrap">
@@ -407,7 +395,6 @@ export function Rules() {
   const oq = useOQ();
   const { t } = useTranslation();
   const [open, setOpen] = useState(0);
-
   return (
     <section className="section" id="rules">
       <div className="wrap">
@@ -509,7 +496,6 @@ export function Footer() {
   const oq = useOQ();
   const { t } = useTranslation();
   const c = oq.contacts;
-
   return (
     <footer className="footer">
       <div className="wrap">
@@ -523,7 +509,7 @@ export function Footer() {
                 href={oq.contacts.instaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={oq.contacts.insta}
+                aria-label={c.insta}
               >
                 <I.insta size={18} />
               </a>
@@ -613,7 +599,6 @@ export function Footer() {
 export function Partners() {
   const oq = useOQ();
   const { t } = useTranslation();
-
   return (
     <div className="partners">
       <div className="wrap">

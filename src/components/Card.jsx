@@ -2,35 +2,31 @@ import { Link } from 'react-router-dom';
 import { I } from '../icons.jsx';
 import { getDetailPath } from '../data/details.js';
 import { useTranslation } from '../i18n/LanguageProvider.jsx';
-import { resolveCtaKey } from '../i18n/utils.js';
-
-const DETAIL_CTAS = new Set(['details', 'menu', 'buy']);
 
 export function Card({ d, wide, onBuy }) {
   const { t } = useTranslation();
-  const ctaKey = resolveCtaKey(d);
-  const buy = ctaKey === 'buy';
-  const detailPath = d.id && d.typeKey ? getDetailPath(d.typeKey, d.id) : null;
-  const goDetail = detailPath && DETAIL_CTAS.has(ctaKey);
+  const buy = d.ctaKey === 'buy';
+  const detailPath = d.id && d.type ? getDetailPath(d.type, d.id) : null;
+  const goDetail =
+    detailPath && ['details', 'menu', 'buy'].includes(d.ctaKey);
 
   const media = (
     <div className="card-media">
-        {d.badge && (
-          <div className="card-tags">
-            <span
-              className={
-                'badge ' +
-                (d.badgeType === 'accent' ? 'badge-accent' : 'badge-dark')
-              }
-            >
-              {d.badge}
-            </span>
-          </div>
-        )}
-        <img src={d.img} alt={d.title} loading="lazy" />
-        {d.typeLabel && <span className="badge-type">{d.typeLabel}</span>}
-        {d.tag && !d.typeLabel && <span className="badge-type">{d.tag}</span>}
-      </div>
+      {d.badge && (
+        <div className="card-tags">
+          <span
+            className={
+              'badge ' + (d.badgeType === 'accent' ? 'badge-accent' : 'badge-dark')
+            }
+          >
+            {d.badge}
+          </span>
+        </div>
+      )}
+      <img src={d.img} alt={d.title} loading="lazy" />
+      {d.typeLabel && <span className="badge-type">{d.typeLabel}</span>}
+      {d.tag && !d.typeLabel && <span className="badge-type">{d.tag}</span>}
+    </div>
   );
 
   return (
@@ -55,10 +51,10 @@ export function Card({ d, wide, onBuy }) {
         {d.meta && (
           <div className="card-meta">
             {d.meta.map((m, i) => {
-              const Mi = I[m.ic];
+              const Mi = m.ic ? I[m.ic] : null;
               return (
                 <span className="mi" key={i}>
-                  <Mi size={15} />
+                  {Mi && <Mi size={15} />}
                   {m.t}
                 </span>
               );
