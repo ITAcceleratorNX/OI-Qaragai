@@ -1,4 +1,4 @@
-import { OQ } from '../data.js';
+import { RAW_OQ } from '../data.js';
 import { locales } from './locales/index.js';
 import { CTA_KEY_MAP, deepMerge, enrichOQ } from './utils.js';
 
@@ -43,9 +43,8 @@ export function localizeOQ(lang) {
     return val ?? key.split('.').reduce((acc, k) => acc?.[k], locales.RU);
   };
 
-  const base = enrichOQ(OQ);
-  if (lang === 'RU') return base;
+  if (lang === 'RU') return finalizeOQ(enrichOQ(RAW_OQ), t);
   const patch = locales[lang]?.oq;
-  const merged = patch ? enrichOQ(deepMerge(base, patch)) : base;
+  const merged = patch ? enrichOQ(deepMerge(RAW_OQ, patch)) : enrichOQ(RAW_OQ);
   return finalizeOQ(merged, t);
 }

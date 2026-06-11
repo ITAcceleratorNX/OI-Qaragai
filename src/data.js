@@ -1,5 +1,7 @@
 /* Oi-Qaragai — mock data (structured for future Strapi swap) */
-export const OQ = {
+import { enrichOQ } from './i18n/utils.js';
+
+export const RAW_OQ = {
   contacts: {
     phone: '+7 727 312 00 08',
     insta: '@oiqaragai',
@@ -7,6 +9,26 @@ export const OQ = {
     weather: '+21°C',
     address: 'Алматинская область, ущелье Ой-Карагай',
     email: 'hello@oiqaragai.kz',
+    tagline:
+      'Всесезонный горный курорт в часе езды от Алматы. Катание, отдых и события круглый год.',
+    hours: 'Ежедневно, 08:00 – 23:00',
+    copyright: '© 2026 Oi-Qaragai Mountain Resort. Все права защищены.',
+  },
+
+  pageHero: {
+    guide: 'https://oq-prod.storage.yandexcloud.kz/media-test/672781f715c9dfff7e6f26a11daef8b6.jpg',
+    offers: 'https://oq-prod.storage.yandexcloud.kz/media-test/3cbc915db86b87188ea60419d4c0b89b.jpg',
+    eventsHub:
+      'https://oq-prod.storage.yandexcloud.kz/media-test/43106cfb26654a76378784357a96c007.jpg',
+    eventAfisha:
+      'https://oq-prod.storage.yandexcloud.kz/media-test/4ab09cd056b46f8a04eb02a41cc9fdc4.jpg',
+    corporate:
+      'https://oq-prod.storage.yandexcloud.kz/media-test/c625a507521f98262ca3793138f93c1a.png',
+  },
+
+  offersMeta: {
+    priceFrom: '6 000 ₸',
+    maxDiscount: '−25%',
   },
 
   app: {
@@ -189,159 +211,6 @@ export const OQ = {
     interval: 5500,
   },
 
-  offers: [
-    {
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/3cbc915db86b87188ea60419d4c0b89b.jpg',
-      badge: '16+',
-      badgeType: 'accent',
-      tag: 'Пакет',
-      title: 'Комбо приключений 16+',
-      desc: 'Троллейный парк, верёвочный парк и другие активности в одном пакете.',
-      price: '24 700',
-      per: 'пакет',
-      cta: 'Купить',
-    },
-    {
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/9a6a519d6634f0ae6a476bf939a100a7.png',
-      badge: 'SPA',
-      badgeType: 'dark',
-      tag: 'Релакс',
-      title: 'Горный Рассвет',
-      desc: 'SPA-процедуры на двоих с видом на горные вершины.',
-      price: '85 000',
-      per: 'за визит',
-      cta: 'Купить',
-    },
-    {
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/d9ff5933bc01ef69be93b99a16304d28.jpg',
-      badge: '16+',
-      badgeType: 'accent',
-      tag: 'Пакет',
-      title: 'Экстремальный максимум 16+',
-      desc: 'Aport Coaster, троллейный парк, верёвочный парк и другие экстремальные активности.',
-      price: '44 000',
-      per: 'пакет',
-      cta: 'Купить',
-    },
-  ],
-
-  things: [
-    {
-      id: 'terrenkur',
-      type: 'Отели',
-      typeLabel: 'Отель',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
-      title: 'Домики на деревьях',
-      desc: 'Уникальное проживание под кронами сосен с тёплыми полами и всем необходимым для отдыха.',
-      meta: [
-        { ic: 'user', t: 'до 4 гостей' },
-        { ic: 'bed', t: 'эко-номер' },
-      ],
-      price: '65 000',
-      per: 'ночь',
-      cta: 'Подробнее',
-    },
-    {
-      id: 'pine-peak',
-      type: 'Отели',
-      typeLabel: 'Шале',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
-      title: 'VIP-шале «Четыре Силы»',
-      desc: 'Двухэтажные VIP-шале для компании до 10 гостей с панорамными видами на Тянь-Шань.',
-      meta: [
-        { ic: 'user', t: 'до 10 гостей' },
-        { ic: 'star', t: 'VIP' },
-      ],
-      price: '512 000',
-      per: 'ночь',
-      cta: 'Подробнее',
-    },
-    {
-      id: 'ochag',
-      type: 'Рестораны',
-      typeLabel: 'Ресторан',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/f495ef49c03361c11965fd30bc01f864.jpg',
-      title: '«Aport-Alatau» Горный гриль-ресторан',
-      desc: 'Мясо на открытом огне у подножия гор — любимая точка после активного дня на курорте.',
-      meta: [
-        { ic: 'clock', t: '09:00–20:00' },
-        { ic: 'fork', t: 'Гриль' },
-      ],
-      cta: 'Меню',
-    },
-    {
-      id: 'hvoya',
-      type: 'Рестораны',
-      typeLabel: 'Ресторан',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/bce371d31522550313a3609f002f16ee.jpeg',
-      title: '«Чашнагири»',
-      desc: 'Царская грузинская кухня: хинкали, хачапури и ароматы специй на 2 этаже курорта.',
-      meta: [
-        { ic: 'clock', t: '11:00–22:00' },
-        { ic: 'fork', t: 'Грузинская' },
-      ],
-      cta: 'Меню',
-    },
-    {
-      id: 'ski-pass',
-      type: 'Развлечения',
-      typeLabel: 'Активность',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/be9de408fd6866bd1150c6b786569c94.jpg',
-      title: 'Конный центр (Aport Plaza)',
-      desc: 'Прогулки верхом по живописным окрестностям с профессиональными инструкторами.',
-      meta: [
-        { ic: 'user', t: 'для всей семьи' },
-        { ic: 'clock', t: 'по расписанию' },
-      ],
-      price: '5 000',
-      per: 'билет',
-      cta: 'Купить',
-    },
-    {
-      id: 'zipline',
-      type: 'Развлечения',
-      typeLabel: 'Активность',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/dc09954344ceef7c8730400ad93dd82d.jpg',
-      title: 'Пешие туры',
-      desc: 'Оборудованные тропы и маршруты с гидами по самым живописным местам ущелья.',
-      meta: [
-        { ic: 'user', t: 'для всей семьи' },
-        { ic: 'clock', t: 'по записи' },
-      ],
-      price: '4 000',
-      per: 'билет',
-      cta: 'Купить',
-    },
-    {
-      id: 'cedar-bath',
-      type: 'SPA',
-      typeLabel: 'SPA и Баня',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/21b9d22819c9d8ba4706a448d9ce6ea2.jpeg',
-      title: 'Этно-SPA «UMAI» и Баня',
-      desc: 'SPA и банные ритуалы в традиционных казахских юртах на горном курорте.',
-      meta: [
-        { ic: 'clock', t: 'по записи' },
-        { ic: 'spa', t: 'этно-SPA' },
-      ],
-      cta: 'Купить',
-    },
-    {
-      id: 'tianshan-ritual',
-      type: 'SPA',
-      typeLabel: 'SPA и Баня',
-      img: 'https://oq-prod.storage.yandexcloud.kz/media-test/9a6a519d6634f0ae6a476bf939a100a7.png',
-      title: 'Горный Рассвет',
-      desc: 'Пакет SPA-процедур на двоих — расслабление и вид на горные вершины.',
-      meta: [
-        { ic: 'clock', t: 'по записи' },
-        { ic: 'user', t: 'на двоих' },
-      ],
-      price: '85 000',
-      per: 'визит',
-      cta: 'Купить',
-    },
-  ],
-
   gallery: [
     { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg', cap: 'Домики на деревьях', tall: true },
     { img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg', cap: 'VIP-шале «Четыре Силы»' },
@@ -390,6 +259,8 @@ export const OQ = {
       price: '24 700',
       per: 'пакет',
       cta: 'Купить',
+      homeFeatured: true,
+      homeOrder: 1,
     },
     {
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/d9ff5933bc01ef69be93b99a16304d28.jpg',
@@ -402,6 +273,8 @@ export const OQ = {
       price: '44 000',
       per: 'пакет',
       cta: 'Купить',
+      homeFeatured: true,
+      homeOrder: 3,
     },
     {
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/43a66e0452a52f1ed4468100af36e268.jpg',
@@ -426,6 +299,8 @@ export const OQ = {
       price: '85 000',
       per: 'за визит',
       cta: 'Купить',
+      homeFeatured: true,
+      homeOrder: 2,
     },
     {
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/749902c79c433054f6de29d71fa1cb4f.jpg',
@@ -510,6 +385,8 @@ export const OQ = {
       price: '65 000',
       per: 'ночь',
       cta: 'Подробнее',
+      homeFeatured: true,
+      homeOrder: 1,
     },
     {
       id: 'pine-peak',
@@ -523,6 +400,8 @@ export const OQ = {
       price: '512 000',
       per: 'ночь',
       cta: 'Подробнее',
+      homeFeatured: true,
+      homeOrder: 2,
     },
     {
       id: 'glamping-hvoya',
@@ -583,6 +462,8 @@ export const OQ = {
       desc: 'Мясо на открытом огне у подножия гор — любимая точка после активного дня.',
       meta: [{ ic: 'clock', t: '09:00–20:00' }, { ic: 'fork', t: 'Гриль' }],
       cta: 'Меню',
+      homeFeatured: true,
+      homeOrder: 3,
     },
     {
       id: 'hvoya',
@@ -594,6 +475,8 @@ export const OQ = {
       desc: 'Царская грузинская кухня: хинкали, хачапури и ароматы специй.',
       meta: [{ ic: 'clock', t: '11:00–22:00' }, { ic: 'fork', t: 'Грузинская' }],
       cta: 'Меню',
+      homeFeatured: true,
+      homeOrder: 4,
     },
     {
       id: 'panorama',
@@ -607,6 +490,7 @@ export const OQ = {
       cta: 'Меню',
     },
     {
+      id: 'aqauyl',
       type: 'Рестораны',
       typeLabel: 'Ресторан',
       zone: 'rest',
@@ -638,6 +522,8 @@ export const OQ = {
       price: '5 000',
       per: 'билет',
       cta: 'Купить',
+      homeFeatured: true,
+      homeOrder: 5,
     },
     {
       id: 'zipline',
@@ -651,6 +537,8 @@ export const OQ = {
       price: '4 000',
       per: 'билет',
       cta: 'Купить',
+      homeFeatured: true,
+      homeOrder: 6,
     },
     {
       id: 'tubing',
@@ -678,6 +566,7 @@ export const OQ = {
       cta: 'Купить',
     },
     {
+      id: 'adventure-park',
       type: 'Развлечения',
       typeLabel: 'Активность',
       zone: 'fun',
@@ -699,6 +588,8 @@ export const OQ = {
       desc: 'SPA и банные ритуалы в традиционных казахских юртах.',
       meta: [{ ic: 'clock', t: 'по записи' }],
       cta: 'Купить',
+      homeFeatured: true,
+      homeOrder: 7,
     },
     {
       id: 'tianshan-ritual',
@@ -712,6 +603,8 @@ export const OQ = {
       price: '85 000',
       per: 'визит',
       cta: 'Купить',
+      homeFeatured: true,
+      homeOrder: 8,
     },
     {
       id: 'heated-pool',
@@ -797,6 +690,7 @@ export const OQ = {
       date: 'Круглый год',
       sortDate: null,
       featured: false,
+      homeSide: true,
       past: false,
       cta: 'Купить билет',
     },
@@ -885,4 +779,72 @@ export const OQ = {
       cta: 'Запросить',
     },
   ],
+
+  profile: {
+    user: {
+      name: 'Айгуль Нурланова',
+      email: 'aigul.n@mail.kz',
+      phone: '+7 701 234 56 78',
+      initials: 'АН',
+      tier: 'Gold',
+      tierLabel: 'Gold Member',
+      points: 2840,
+      nights: 12,
+      memberSince: '2023',
+      avatar: null,
+    },
+    wallet: {
+      deposit: {
+        balance: 48500,
+        lastTopUp: '28 ноя 2025',
+        lastAmount: '20 000',
+      },
+      skiPass: {
+        offerTitle: 'Комбо приключений 16+',
+        status: 'active',
+        statusLabel: 'Активен',
+        validFrom: '8 июн 2026',
+        validTo: '8 июн 2026',
+        daysLeft: 1,
+        totalDays: 1,
+        passNumber: 'PK-28491',
+      },
+    },
+    bookings: [
+      {
+        id: 'bk-1',
+        offerTitle: 'Комбо приключений 16+',
+        status: 'confirmed',
+        statusLabel: 'Подтверждено',
+        dates: '8 июн 2026',
+        guests: 2,
+        total: '24 700',
+      },
+      {
+        id: 'bk-2',
+        thingId: 'terrenkur',
+        status: 'upcoming',
+        statusLabel: 'Предстоит',
+        dates: '15–17 июн 2026',
+        guests: 4,
+        total: '195 000',
+      },
+      {
+        id: 'bk-3',
+        offerTitle: 'Горный Рассвет',
+        status: 'completed',
+        statusLabel: 'Завершено',
+        dates: '22 мая 2026',
+        guests: 2,
+        total: '85 000',
+      },
+    ],
+    favorites: [
+      { id: 'fav-1', thingId: 'pine-peak' },
+      { id: 'fav-2', thingId: 'zipline' },
+      { id: 'fav-3', thingId: 'cedar-bath' },
+    ],
+  },
 };
+
+export const OQ = enrichOQ(RAW_OQ);

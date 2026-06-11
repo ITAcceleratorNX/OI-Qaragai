@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { OQ } from '../data.js';
+import { OQ } from '../data.js'; // enriched default (RU)
 import { locales, LANG_HTML } from './locales/index.js';
 import { localizeOQ } from './localizeOQ.js';
 import { getNested, interpolate } from './utils.js';

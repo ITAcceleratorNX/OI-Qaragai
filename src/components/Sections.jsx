@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { OQ } from '../data.js';
+import { listingFilters } from '../data/helpers.js';
 import { I } from '../icons.jsx';
 import { Logo } from './Header.jsx';
 import { Card } from './Card.jsx';
@@ -184,7 +185,7 @@ export function Offers({ onBuy }) {
 }
 
 export function ThingsToDo({ onBuy }) {
-  const filters = ['Все', 'Отели', 'Рестораны', 'Развлечения', 'SPA'];
+  const filters = listingFilters(OQ.things, (t) => t.type);
   const [f, setF] = useState('Все');
   const list = f === 'Все' ? OQ.things : OQ.things.filter((t) => t.type === f);
   const countFor = (k) =>
@@ -229,6 +230,8 @@ export function ThingsToDo({ onBuy }) {
 }
 
 export function Events() {
+  const { featured, side, corporate } = OQ.homeEvents;
+
   return (
     <section className="section" id="events">
       <div className="wrap">
@@ -243,57 +246,60 @@ export function Events() {
           </Link>
         </div>
         <div className="events-grid">
-          <div className="event-big">
-            <img src="https://oq-prod.storage.yandexcloud.kz/media-test/9dc9a54825f5be9e69cc9dfeba062a69.jpg" alt="Новогодняя ночь" />
-            <div className="ev-body">
-              <span className="badge badge-accent" style={{ position: 'static' }}>
-                Event
-              </span>
-              <h3>Новогодняя ночь в горах</h3>
-              <p>
-                Гала-ужин, живая музыка, фейерверк над склоном и ночное катание
-                до рассвета.
-              </p>
-              <div
-                style={{
-                  display: 'flex',
-                  gap: 18,
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                }}
-              >
-                <span className="ev-date">
-                  <I.calendar size={16} />
-                  31 декабря, 20:00
-                </span>
-                <button className="btn btn-accent btn-sm">
-                  Купить билет
-                  <I.arrowRight size={15} />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="ev-side">
-            <div className="event-sm">
-              <img src="https://oq-prod.storage.yandexcloud.kz/media-test/4ab09cd056b46f8a04eb02a41cc9fdc4.jpg" alt="Фрирайд" />
+          {featured && (
+            <div className="event-big">
+              <img src={featured.img} alt={featured.title} />
               <div className="ev-body">
-                <span className="badge badge-dark" style={{ position: 'static' }}>
+                <span className="badge badge-accent" style={{ position: 'static' }}>
                   Event
                 </span>
-                <h4>Кубок по фрирайду</h4>
-                <div className="date">14–16 февраля · соревнования</div>
+                <h3>{featured.title}</h3>
+                <p>{featured.desc}</p>
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 18,
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <span className="ev-date">
+                    <I.calendar size={16} />
+                    {featured.date}
+                  </span>
+                  <button className="btn btn-accent btn-sm">
+                    {featured.cta}
+                    <I.arrowRight size={15} />
+                  </button>
+                </div>
               </div>
             </div>
-            <Link className="event-sm" to="/events/corporate">
-              <img src="https://oq-prod.storage.yandexcloud.kz/media-test/c625a507521f98262ca3793138f93c1a.png" alt="Корпоратив" />
-              <div className="ev-body">
-                <span className="badge badge-dark" style={{ position: 'static' }}>
-                  Корпоративные
-                </span>
-                <h4>Корпоратив в горах</h4>
-                <div className="date">MICE · до 300 гостей</div>
+          )}
+          <div className="ev-side">
+            {side && (
+              <div className="event-sm">
+                <img src={side.img} alt={side.title} />
+                <div className="ev-body">
+                  <span className="badge badge-dark" style={{ position: 'static' }}>
+                    Event
+                  </span>
+                  <h4>{side.title}</h4>
+                  <div className="date">{side.date}</div>
+                </div>
               </div>
-            </Link>
+            )}
+            {corporate && (
+              <Link className="event-sm" to="/events/corporate">
+                <img src={corporate.img} alt={corporate.title} />
+                <div className="ev-body">
+                  <span className="badge badge-dark" style={{ position: 'static' }}>
+                    Корпоративные
+                  </span>
+                  <h4>{corporate.title}</h4>
+                  <div className="date">{corporate.date}</div>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
 
@@ -481,10 +487,7 @@ export function Footer() {
         <div className="foot-top">
           <div className="foot-brand">
             <Logo />
-            <p>
-              Всесезонный горный курорт в часе езды от Алматы. Катание, отдых и
-              события круглый год.
-            </p>
+            <p>{c.tagline}</p>
             <div className="soc-row">
               <a
                 className="soc"
@@ -560,13 +563,13 @@ export function Footer() {
               </li>
               <li>
                 <I.clock size={17} />
-                Ежедневно, 08:00 – 23:00
+                {c.hours}
               </li>
             </ul>
           </div>
         </div>
         <div className="foot-bottom">
-          <span>© 2026 Oi-Qaragai Mountain Resort. Все права защищены.</span>
+          <span>{c.copyright}</span>
           <div className="lk">
             <a href="#">Политика конфиденциальности</a>
             <a href="#">Публичная оферта</a>

@@ -39,7 +39,7 @@ export function CorporateEventsPage({ cart, onBurger }) {
         eyebrow={t('pages.corporate.eyebrow')}
         title={t('pages.corporate.title')}
         desc={t('pages.corporate.desc')}
-        image="https://oq-prod.storage.yandexcloud.kz/media-test/c625a507521f98262ca3793138f93c1a.png"
+        image={oq.pageHero.corporate}
         backLabel={t('pages.corporate.back')}
         backTo="/events"
         stats={mice.stats}

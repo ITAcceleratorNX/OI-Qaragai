@@ -1,11 +1,13 @@
 /**
- * Mock-данные детальных страниц.
- * Каждый раздел — отдельный массив с полем `id` для динамического роутинга.
+ * Детальные поля страниц (описания, галереи, комнаты).
+ * Карточки (title, img, price) берутся из RAW_OQ.thingsAll по id.
  */
+import { RAW_OQ } from '../data.js';
+import { findById as findCard } from './helpers.js';
 
 const restaurants = [
   {
-    id: 'chashnagiri',
+    id: 'hvoya',
     name: '«Чашнагири» Ресторан царской грузинской кухни',
     cuisine: 'Гриль · Европейская · Горная',
     avgCheck: '8 000 – 15 000 ₸',
@@ -87,7 +89,7 @@ const restaurants = [
 
 const hotels = [
   {
-    id: 'domicnatree',
+    id: 'terrenkur',
     name: 'Домики на деревьях',
     capacity: 'до 6 гостей',
     guests: 6,
@@ -158,7 +160,7 @@ const hotels = [
     ],
   },
   {
-    id: 'fourpower',
+    id: 'pine-peak',
     name: 'VIP-шале «Четыре Силы»',
     capacity: '2–4 гостя',
     guests: 4,
@@ -212,7 +214,7 @@ const hotels = [
 
 const activities = [
   {
-    id: 'horsecenter',
+    id: 'ski-pass',
     name: 'Конный центр (Aport Plaza)',
     description:
       'Конный центр - уникальное место, где вы сможете полностью погрузиться в природу и насладиться уединением во время прогулок по изумительным окрестностям Курорта Oi-Qaragai.\n' +
@@ -252,7 +254,7 @@ const activities = [
     ticketPrice: '12 000',
   },
   {
-    id: 'fantasypark',
+    id: 'adventure-park',
     name: 'Верёвочный «Парк Приключений»',
     description:
       'Веревочный парк Приключений - идеальное место для взрослых и детей, где вы найдете разнообразие маршрутов разного уровня сложности, и все на свежем воздухе в горах! Это уникальное место, где каждый может испытать себя, преодолевая высотные препятствия и наслаждаясь природой вокруг. Отправьтесь в захватывающее приключение и насладитесь невероятными видами, свежим воздухом и адреналиновым всплеском.\n' +
@@ -409,6 +411,12 @@ export function getDetailPath(type, id) {
 }
 
 export function findById(section, id) {
-  const list = catalogs[section];
-  return list?.find((item) => item.id === id) ?? null;
+  const detail = catalogs[section]?.find((item) => item.id === id);
+  if (!detail) return null;
+  const card = findCard(RAW_OQ.thingsAll, id);
+  return {
+    ...card,
+    ...detail,
+    name: detail.name ?? card?.title,
+  };
 }

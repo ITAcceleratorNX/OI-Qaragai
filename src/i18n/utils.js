@@ -1,3 +1,5 @@
+import { deriveCatalog } from '../data/helpers.js';
+
 export function getNested(obj, path) {
   return path.split('.').reduce((acc, key) => acc?.[key], obj);
 }
@@ -75,11 +77,21 @@ export function enrichOQItem(item) {
 
 export function enrichOQ(data) {
   const mapItems = (arr) => (Array.isArray(arr) ? arr.map(enrichOQItem) : arr);
-  return {
+  const mapped = {
     ...data,
-    things: mapItems(data.things),
     thingsAll: mapItems(data.thingsAll),
-    offers: mapItems(data.offers),
     offersAll: mapItems(data.offersAll),
+    eventsEvent: mapItems(data.eventsEvent),
+    corporateAll: mapItems(data.corporateAll),
+    eventsHub: data.eventsHub
+      ? { ...data.eventsHub, portals: mapItems(data.eventsHub.portals) }
+      : data.eventsHub,
+  };
+  const derived = deriveCatalog(mapped);
+  return {
+    ...mapped,
+    ...derived,
+    offers: mapItems(derived.offers),
+    things: mapItems(derived.things),
   };
 }

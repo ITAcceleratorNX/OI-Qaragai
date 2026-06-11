@@ -95,7 +95,7 @@ export function EventAfishaPage({ cart, onBurger }) {
         eyebrow={t('pages.eventAfisha.eyebrow')}
         title={t('pages.eventAfisha.title')}
         desc={t('pages.eventAfisha.desc')}
-        image="https://oq-prod.storage.yandexcloud.kz/media-test/4ab09cd056b46f8a04eb02a41cc9fdc4.jpg"
+        image={oq.pageHero.eventAfisha}
         backLabel={t('pages.eventAfisha.back')}
         backTo="/events"
         stats={[
