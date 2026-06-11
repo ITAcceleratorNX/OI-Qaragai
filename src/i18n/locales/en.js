@@ -182,7 +182,6 @@ export default {
     bookRoom: 'Book a room',
     bookingHint: 'Redirecting to payment… If the window did not open,',
     clickHere: 'click here',
-    openPhoto: 'Open photo',
     prevRoom: 'Previous room',
     nextRoom: 'Next room',
     hotelsSection: 'Hotels / Accommodation',

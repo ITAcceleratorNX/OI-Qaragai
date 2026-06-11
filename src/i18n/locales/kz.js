@@ -182,7 +182,6 @@ export default {
     bookRoom: 'Бөлмені брондау',
     bookingHint: 'Төлем бетіне өту… Терезе ашылмаса,',
     clickHere: 'осында басыңыз',
-    openPhoto: 'Фотоны ашу',
     prevRoom: 'Алдыңғы бөлме',
     nextRoom: 'Келесі бөлме',
     hotelsSection: 'Қонақ үйлер / Тұру',

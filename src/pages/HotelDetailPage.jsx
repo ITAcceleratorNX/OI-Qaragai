@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { findById } from '../data/details.js';
-import { useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
@@ -10,7 +9,6 @@ import { I } from '../icons.jsx';
 import { ImageLightbox } from '../components/ImageLightbox.jsx';
 
 export function HotelDetailPage({ cart, onBurger }) {
-  const { t } = useTranslation();
   const { id } = useParams();
   const item = findById('hotels', id);
   const [roomIdx, setRoomIdx] = useState(0);
@@ -21,7 +19,7 @@ export function HotelDetailPage({ cart, onBurger }) {
   if (!item) {
     return (
       <PageShell cart={cart} onBurger={onBurger}>
-        <NotFoundDetail sectionLabel={t('detail.hotelsSection')} />
+        <NotFoundDetail sectionLabel="Отели / Проживание" />
       </PageShell>
     );
   }
@@ -42,7 +40,7 @@ export function HotelDetailPage({ cart, onBurger }) {
         <div className="wrap">
           <DetailBack />
           <header className="detail-header">
-            <span className="eyebrow">{t('detail.accommodation')}</span>
+            <span className="eyebrow">Проживание</span>
             <h1 className="detail-title">{item.name}</h1>
           </header>
 
@@ -54,14 +52,14 @@ export function HotelDetailPage({ cart, onBurger }) {
                     type="button"
                     className="detail-media-open"
                     onClick={() => setLightbox(roomIdx)}
-                    aria-label={t('detail.openPhoto')}
+                    aria-label="Открыть фото"
                   >
                     <img src={room.img} alt={room.name} />
                   </button>
-                  <button type="button" className="detail-slider-nav prev" onClick={prevRoom} aria-label={t('detail.prevRoom')}>
+                  <button type="button" className="detail-slider-nav prev" onClick={prevRoom} aria-label="Предыдущая комната">
                     <I.arrowLeft size={20} />
                   </button>
-                  <button type="button" className="detail-slider-nav next" onClick={nextRoom} aria-label={t('detail.nextRoom')}>
+                  <button type="button" className="detail-slider-nav next" onClick={nextRoom} aria-label="Следующая комната">
                     <I.arrowRight size={20} />
                   </button>
                 </div>
@@ -86,17 +84,13 @@ export function HotelDetailPage({ cart, onBurger }) {
 
               <DetailMeta
                 items={[
-                  { icon: 'user', label: t('detail.capacity'), value: item.capacity },
-                  {
-                    icon: 'calc',
-                    label: t('detail.pricePerNight'),
-                    value: `${t('common.from')} ${item.pricePerNight} ₸`,
-                  },
+                  { icon: 'user', label: 'Вместимость', value: item.capacity },
+                  { icon: 'calc', label: 'Цена за сутки', value: `от ${item.pricePerNight} ₸` },
                 ]}
               />
 
               <div className="detail-amenities">
-                <h3>{t('detail.amenities')}</h3>
+                <h3>Удобства</h3>
                 <ul>
                   {item.amenities.map((a) => (
                     <li key={a}>{a}</li>
@@ -107,18 +101,18 @@ export function HotelDetailPage({ cart, onBurger }) {
 
             <aside className="detail-aside">
               <div className="detail-card detail-card--price">
-                <span className="detail-price-label">{t('common.from')}</span>
+                <span className="detail-price-label">от</span>
                 <span className="detail-price-val">
                   <b>{item.pricePerNight}</b> ₸
                 </span>
-                <span className="detail-price-per">{t('detail.perDay')}</span>
+                <span className="detail-price-per">/ сутки</span>
               </div>
 
               <div className="detail-card">
-                <h2>{t('detail.stayDates')}</h2>
+                <h2>Даты проживания</h2>
                 <div className="detail-form detail-form--dates">
                   <label>
-                    {t('detail.checkIn')}
+                    Check-in
                     <input
                       type="date"
                       value={dates.checkIn}
@@ -126,7 +120,7 @@ export function HotelDetailPage({ cart, onBurger }) {
                     />
                   </label>
                   <label>
-                    {t('detail.checkOut')}
+                    Check-out
                     <input
                       type="date"
                       value={dates.checkOut}
@@ -141,14 +135,14 @@ export function HotelDetailPage({ cart, onBurger }) {
                   onClick={onBook}
                   disabled={!dates.checkIn || !dates.checkOut}
                 >
-                  {t('detail.bookRoom')}
+                  Забронировать номер
                   <I.arrowRight size={16} />
                 </button>
                 {booking && (
                   <p className="detail-form-hint">
-                    {t('detail.bookingHint')}{' '}
+                    Переход на страницу оплаты… Если окно не открылось,{' '}
                     <a href="https://oiqaragai.avm8.io/" target="_blank" rel="noopener noreferrer">
-                      {t('detail.clickHere')}
+                      нажмите здесь
                     </a>
                     .
                   </p>

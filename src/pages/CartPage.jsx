@@ -1,28 +1,30 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { OQ } from '../data.js';
 import { I } from '../icons.jsx';
-import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { formatPrice, getCartTotal } from '../lib/cart.js';
 
 function CartEmpty() {
-  const { t } = useTranslation();
   return (
     <div className="cart-empty">
       <div className="cart-empty-visual" aria-hidden="true">
         <div className="cart-empty-ring" />
         <I.cart size={42} />
       </div>
-      <h2>{t('pages.cart.emptyTitle')}</h2>
-      <p>{t('pages.cart.emptyDesc')}</p>
+      <h2>Корзина пуста</h2>
+      <p>
+        Добавьте пакеты, проживание или активности — всё для идеального отдыха в горах
+        уже ждёт вас.
+      </p>
       <div className="cart-empty-actions">
         <Link className="btn btn-accent" to="/offers">
-          {t('pages.cart.viewOffers')}
+          Смотреть предложения
           <I.arrowRight size={16} />
         </Link>
         <Link className="btn btn-outline" to="/guide">
-          {t('pages.cart.guide')}
+          Гид курорта
         </Link>
       </div>
     </div>
@@ -30,7 +32,6 @@ function CartEmpty() {
 }
 
 function CartItem({ item, onQty, onRemove }) {
-  const { t } = useTranslation();
   return (
     <article className="cart-item">
       <div className="cart-item-media">
@@ -53,7 +54,7 @@ function CartItem({ item, onQty, onRemove }) {
             type="button"
             className="cart-item-remove"
             onClick={() => onRemove(item.id)}
-            aria-label={t('pages.cart.remove', { title: item.title })}
+            aria-label={`Удалить ${item.title}`}
           >
             <I.trash size={17} />
           </button>
@@ -64,7 +65,7 @@ function CartItem({ item, onQty, onRemove }) {
               type="button"
               className="cart-qty-btn"
               onClick={() => onQty(item.id, -1)}
-              aria-label={t('common.decrease')}
+              aria-label="Уменьшить"
             >
               <I.minus size={14} />
             </button>
@@ -73,7 +74,7 @@ function CartItem({ item, onQty, onRemove }) {
               type="button"
               className="cart-qty-btn"
               onClick={() => onQty(item.id, 1)}
-              aria-label={t('common.increase')}
+              aria-label="Увеличить"
             >
               <I.plus size={14} />
             </button>
@@ -88,7 +89,6 @@ function CartItem({ item, onQty, onRemove }) {
 }
 
 function CartSummary({ items, promo, setPromo, onCheckout }) {
-  const { t } = useTranslation();
   const subtotal = getCartTotal(items);
   const discount = promo === 'WINTER20' ? Math.round(subtotal * 0.2) : 0;
   const total = subtotal - discount;
@@ -96,20 +96,20 @@ function CartSummary({ items, promo, setPromo, onCheckout }) {
   return (
     <aside className="cart-summary">
       <div className="cart-summary-card">
-        <h2>{t('pages.cart.total')}</h2>
+        <h2>Итого</h2>
         <div className="cart-summary-rows">
           <div className="cart-summary-row">
-            <span>{t('pages.cart.items', { count: items.length })}</span>
+            <span>Товары ({items.length})</span>
             <span>{formatPrice(subtotal)} ₸</span>
           </div>
           {discount > 0 && (
             <div className="cart-summary-row cart-summary-row--discount">
-              <span>{t('pages.cart.discount')}</span>
+              <span>Скидка WINTER20</span>
               <span>−{formatPrice(discount)} ₸</span>
             </div>
           )}
           <div className="cart-summary-row cart-summary-row--total">
-            <span>{t('pages.cart.toPay')}</span>
+            <span>К оплате</span>
             <span>
               <b>{formatPrice(total)}</b> ₸
             </span>
@@ -120,35 +120,35 @@ function CartSummary({ items, promo, setPromo, onCheckout }) {
           <I.gift size={18} />
           <input
             type="text"
-            placeholder={t('pages.cart.promo')}
+            placeholder="Промокод"
             value={promo}
             onChange={(e) => setPromo(e.target.value.toUpperCase())}
           />
           {promo === 'WINTER20' && (
-            <span className="cart-promo-ok" aria-label={t('pages.cart.promoApplied')}>
+            <span className="cart-promo-ok" aria-label="Промокод применён">
               <I.check size={16} />
             </span>
           )}
         </label>
-        <p className="cart-promo-hint">{t('pages.cart.promoHint', { code: 'WINTER20' })}</p>
+        <p className="cart-promo-hint">Попробуйте <kbd>WINTER20</kbd> — скидка 20%</p>
 
         <button type="button" className="btn btn-accent btn-block" onClick={onCheckout}>
-          {t('pages.cart.checkout')}
+          Оформить заказ
           <I.arrowRight size={16} />
         </button>
 
         <ul className="cart-perks">
           <li>
             <I.shield size={16} />
-            {t('pages.cart.securePay')}
+            Безопасная оплата
           </li>
           <li>
             <I.clock size={16} />
-            {t('pages.cart.instantConfirm')}
+            Мгновенное подтверждение
           </li>
           <li>
             <I.pin size={16} />
-            {t('pages.cart.freeCancel')}
+            Бесплатная отмена за 48 ч
           </li>
         </ul>
       </div>
@@ -157,27 +157,19 @@ function CartSummary({ items, promo, setPromo, onCheckout }) {
 }
 
 export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckout }) {
-  const { t } = useTranslation();
-  const oq = useOQ();
   const [promo, setPromo] = useState('');
   const isEmpty = cartItems.length === 0;
-  const suggestions = oq.offersAll.slice(0, 3);
-  const cartCountLabel =
-    cart === 1
-      ? t('pages.cart.itemOne')
-      : cart < 5
-        ? t('pages.cart.itemFew')
-        : t('pages.cart.itemMany');
+  const suggestions = OQ.offersAll.slice(0, 3);
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow={t('pages.cart.eyebrow')}
-        title={t('pages.cart.title')}
+        eyebrow="Бронирование"
+        title="Корзина"
         desc={
           isEmpty
-            ? t('pages.cart.emptyHero')
-            : t('pages.cart.itemsReady', { count: `${cart} ${cartCountLabel}` })
+            ? 'Здесь появятся выбранные услуги, пакеты и билеты на курорт.'
+            : `${cart} ${cart === 1 ? 'позиция' : cart < 5 ? 'позиции' : 'позиций'} · готовы к оформлению`
         }
       />
 
@@ -209,9 +201,9 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
           {!isEmpty && (
             <div className="cart-suggest">
               <div className="cart-suggest-head">
-                <h2>{t('pages.cart.addMore')}</h2>
+                <h2>Добавить к заказу</h2>
                 <Link className="link-arrow" to="/offers">
-                  {t('pages.cart.allOffers')} <I.arrowRight size={16} />
+                  Все предложения <I.arrowRight size={16} />
                 </Link>
               </div>
               <div className="cart-suggest-grid">
@@ -222,7 +214,7 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
                       <span>{o.tag || o.category}</span>
                       <h3>{o.title}</h3>
                       <p>
-                        {t('common.from')} <b>{o.price}</b> ₸
+                        от <b>{o.price}</b> ₸
                       </p>
                     </div>
                   </Link>

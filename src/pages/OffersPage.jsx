@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
+import { OQ } from '../data.js';
 import { Card } from '../components/Card.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
@@ -7,48 +7,39 @@ import { ListingToolbar } from '../components/ListingToolbar.jsx';
 import { ListingEmpty } from '../components/ListingEmpty.jsx';
 import { OfferSpotlight } from '../components/OfferSpotlight.jsx';
 
-const FILTER_IDS = ['all', 'packages', 'spa', 'activities'];
+const FILTER_KEYS = ['Все', 'Пакеты', 'SPA', 'Активности'];
 
 export function OffersPage({ cart, onBuy, onBurger }) {
-  const { t } = useTranslation();
-  const oq = useOQ();
-  const [f, setF] = useState('all');
+  const [f, setF] = useState('Все');
 
   const list =
-    f === 'all'
-      ? oq.offersAll
-      : oq.offersAll.filter((o) => o.categoryKey === f);
+    f === 'Все'
+      ? OQ.offersAll
+      : OQ.offersAll.filter((o) => o.category === f);
 
-  const spotlight = f === 'all' ? oq.offersAll[0] : null;
+  const spotlight = f === 'Все' ? OQ.offersAll[0] : null;
   const grid = spotlight ? list.slice(1) : list;
 
-  const filters = FILTER_IDS.map((key) => ({
+  const filters = FILTER_KEYS.map((key) => ({
     key,
-    label: t(`filters.${key}`),
+    label: key,
     count:
-      key === 'all'
-        ? oq.offersAll.length
-        : oq.offersAll.filter((o) => o.categoryKey === key).length,
+      key === 'Все'
+        ? OQ.offersAll.length
+        : OQ.offersAll.filter((o) => o.category === key).length,
   }));
-
-  const countLabel =
-    list.length === 1
-      ? t('pages.offers.offerOne')
-      : list.length < 5
-        ? t('pages.offers.offerFew')
-        : t('pages.offers.offerMany');
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow={t('pages.offers.eyebrow')}
-        title={t('pages.offers.title')}
-        desc={t('pages.offers.desc')}
+        eyebrow="Выгодно"
+        title="Все предложения"
+        desc="Пакеты приключений, SPA-программы и активности курорта — с официальными ценами."
         image="https://oq-prod.storage.yandexcloud.kz/media-test/3cbc915db86b87188ea60419d4c0b89b.jpg"
         stats={[
-          { value: oq.offersAll.length, label: t('pages.offers.statOffers') },
-          { value: '12 000 ₸', label: t('pages.offers.statFrom') },
-          { value: '−25%', label: t('pages.offers.statDiscount') },
+          { value: OQ.offersAll.length, label: 'предложений' },
+          { value: '12 000 ₸', label: 'от' },
+          { value: '−25%', label: 'макс. скидка' },
         ]}
       />
 
@@ -59,18 +50,20 @@ export function OffersPage({ cart, onBuy, onBurger }) {
             active={f}
             onChange={setF}
             count={list.length}
-            label={countLabel}
+            label={list.length === 1 ? 'предложение' : list.length < 5 ? 'предложения' : 'предложений'}
           />
 
           {list.length === 0 ? (
             <ListingEmpty
-              title={t('pages.offers.emptyTitle')}
-              desc={t('pages.offers.emptyDesc')}
-              onReset={() => setF('all')}
+              title="Нет предложений в этой категории"
+              desc="Попробуйте другой фильтр — у нас есть пакеты, SPA и активности."
+              onReset={() => setF('Все')}
             />
           ) : (
             <div className="listing-stack">
-              {spotlight && <OfferSpotlight offer={spotlight} onBuy={onBuy} />}
+              {spotlight && (
+                <OfferSpotlight offer={spotlight} onBuy={onBuy} />
+              )}
               <div className="cards-grid cards-3 listing-cards">
                 {grid.map((o) => (
                   <Card key={o.title} d={o} wide onBuy={onBuy} />
