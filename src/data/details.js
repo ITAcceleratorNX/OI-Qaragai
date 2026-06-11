@@ -10,6 +10,9 @@ const restaurants = [
     cuisine: 'Гриль · Европейская · Горная',
     avgCheck: '8 000 – 15 000 ₸',
     hours: '12:00 – 24:00',
+    phone: '+7 727 000 00 01',
+    address: 'Oi-Qaragai Mountain Resort, 2 этаж',
+    email: 'chashnagiri@oiqaragai.kz',
     description:
       'Ресторан расположен на 2 этаже.\n' +
         '\n' +
@@ -35,6 +38,9 @@ const restaurants = [
     cuisine: 'Авторская · Тянь-Шань · Дегустации',
     avgCheck: '12 000 – 22 000 ₸',
     hours: '10:00 – 23:00',
+    phone: '+7 727 000 00 02',
+    address: 'Oi-Qaragai Mountain Resort, юрта «Ак-Ауыл»',
+    email: 'aqauyl@oiqaragai.kz',
     description:
         'Представляем Вашему вниманию ресторан «Ак-Ауыл» - настоящую жемчужину национальной кухни, расположенную в роскошной казахской юрте. Великолепный шанырак над головой и атмосфера национального колорита не оставят Вас равнодушными. ' +
         'Но это еще не все! Наша юрта занесена в Книгу рекордов Гиннеса 2015 года как самая большая в мире, что делает ее идеальным местом для проведения незабываемых мероприятий. Хотите устроить свадьбу в оригинальном стиле? Праздновать юбилей в кругу близких людей? ' +
@@ -61,6 +67,9 @@ const restaurants = [
     cuisine: 'Паб · Крафт · Сытная кухня',
     avgCheck: '5 000 – 9 000 ₸',
     hours: '16:00 – 02:00',
+    phone: '+7 727 000 00 03',
+    address: 'Oi-Qaragai Mountain Resort, паб «Панорама»',
+    email: 'cafe@oiqaragai.kz',
     description:
       'Крафтовое пиво, бургеры и закуски к просмотру спортивных трансляций. Терраса с видом на ночной склон и DJ-сеты по выходным.',
     gallery: [
@@ -90,19 +99,61 @@ const hotels = [
     amenities: ['Wi-Fi', 'Баня', 'Завтрак', 'Камин', 'Терраса', 'Парковка'],
     rooms: [
       {
+        id: 'living',
         name: 'Гостиная с камином',
-        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
+        category: 'suite',
         desc: 'Двухуровневое пространство с панорамными окнами',
+        images: {
+          ru: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/9a13cc808ae8ed626815dac25f6223fe.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/150e60b09d23d3da24de4b7c6e740edc.jpg',
+          ],
+          kk: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/9a13cc808ae8ed626815dac25f6223fe.jpg',
+          ],
+          en: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/150e60b09d23d3da24de4b7c6e740edc.jpg',
+          ],
+        },
       },
       {
+        id: 'bedroom',
         name: 'Спальня «Вершина»',
-        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/9a13cc808ae8ed626815dac25f6223fe.jpg',
+        category: 'bedroom',
         desc: 'King-size кровать и вид на хребет',
+        images: {
+          ru: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/9a13cc808ae8ed626815dac25f6223fe.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
+          ],
+          kk: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/9a13cc808ae8ed626815dac25f6223fe.jpg',
+          ],
+          en: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/9a13cc808ae8ed626815dac25f6223fe.jpg',
+          ],
+        },
       },
       {
+        id: 'spa-room',
         name: 'Сауна и купель',
-        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/150e60b09d23d3da24de4b7c6e740edc.jpg',
+        category: 'spa',
         desc: 'Приватная зона отдыха с горной водой',
+        images: {
+          ru: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/150e60b09d23d3da24de4b7c6e740edc.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/624e0b4b4e408bcd06cc361ac97272d7.jpg',
+          ],
+          kk: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/150e60b09d23d3da24de4b7c6e740edc.jpg',
+          ],
+          en: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/150e60b09d23d3da24de4b7c6e740edc.jpg',
+          ],
+        },
       },
     ],
   },
@@ -120,14 +171,40 @@ const hotels = [
     amenities: ['Wi-Fi', 'Завтрак', 'Ски-рум', 'Консьерж', 'Прачечная'],
     rooms: [
       {
+        id: 'standard',
         name: 'Standard с видом на склон',
-        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
+        category: 'standard',
         desc: 'Двуспальная кровать, 28 м²',
+        images: {
+          ru: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/8cc7cdd40b725854ff317b7c7f15c3e5.jpg',
+          ],
+          kk: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
+          ],
+          en: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
+          ],
+        },
       },
       {
+        id: 'deluxe',
         name: 'Deluxe панорама',
-        img: 'https://oq-prod.storage.yandexcloud.kz/media-test/8cc7cdd40b725854ff317b7c7f15c3e5.jpg',
+        category: 'deluxe',
         desc: 'Угловой номер с балконом, 42 м²',
+        images: {
+          ru: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/8cc7cdd40b725854ff317b7c7f15c3e5.jpg',
+            'https://oq-prod.storage.yandexcloud.kz/media-test/e87983b27c8a754c2306e9bf7ff4661d.jpg',
+          ],
+          kk: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/8cc7cdd40b725854ff317b7c7f15c3e5.jpg',
+          ],
+          en: [
+            'https://oq-prod.storage.yandexcloud.kz/media-test/8cc7cdd40b725854ff317b7c7f15c3e5.jpg',
+          ],
+        },
       },
     ],
   },
@@ -156,6 +233,11 @@ const activities = [
       type: 'image',
       src: 'https://oq-prod.storage.yandexcloud.kz/media-test/be9de408fd6866bd1150c6b786569c94.jpg',
     },
+    gallery: [
+      'https://oq-prod.storage.yandexcloud.kz/media-test/be9de408fd6866bd1150c6b786569c94.jpg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/60f3caaafaf55aa0304b73b6fd9dabde.jpg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/c90a37918c0745a49b7a3fd863865bb2.jpeg',
+    ],
     safety: {
       age: 'от 5 лет (детский склон), от 14 лет — все трассы',
       height: { min: 120, max: 210 },
@@ -187,6 +269,10 @@ const activities = [
       type: 'image',
       src: 'https://oq-prod.storage.yandexcloud.kz/media-test/60f3caaafaf55aa0304b73b6fd9dabde.jpg',
     },
+    gallery: [
+      'https://oq-prod.storage.yandexcloud.kz/media-test/60f3caaafaf55aa0304b73b6fd9dabde.jpg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/be9de408fd6866bd1150c6b786569c94.jpg',
+    ],
     safety: {
       age: 'от 12 лет',
       height: { min: 140, max: 200 },
@@ -216,6 +302,10 @@ const activities = [
       type: 'image',
       src: 'https://oq-prod.storage.yandexcloud.kz/media-test/c90a37918c0745a49b7a3fd863865bb2.jpeg',
     },
+    gallery: [
+      'https://oq-prod.storage.yandexcloud.kz/media-test/c90a37918c0745a49b7a3fd863865bb2.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/60f3caaafaf55aa0304b73b6fd9dabde.jpg',
+    ],
     safety: {
       age: 'от 4 лет (с сопровождением взрослого)',
       height: { min: 100, max: 200 },
@@ -234,8 +324,14 @@ const spaServices = [
   {
     id: 'cedar-bath',
     name: 'Кедровая баня',
+    category: 'bath',
     duration: 120,
     price: '25 000',
+    tariffs: [
+      { id: '2h', name: '2 часа · до 4 гостей', price: '25 000', duration: 120 },
+      { id: '3h', name: '3 часа · до 6 гостей', price: '32 000', duration: 180 },
+      { id: '4h', name: '4 часа · до 8 гостей', price: '38 000', duration: 240 },
+    ],
     effect:
       'Глубокое прогревание, детокс и восстановление после активного дня на склоне. Парение на пихтовых вениках, травяной чай и купель с горной водой.',
     description:
@@ -248,8 +344,13 @@ const spaServices = [
   {
     id: 'tianshan-ritual',
     name: 'SPA-ритуал «Тянь-Шань»',
+    category: 'spa',
     duration: 90,
     price: '38 000',
+    tariffs: [
+      { id: 'solo', name: 'Индивидуально', price: '38 000', duration: 90 },
+      { id: 'duo', name: 'Для двоих', price: '68 000', duration: 90 },
+    ],
     effect:
       'Расслабление мышц, улучшение тонуса кожи и снятие стресса. Масла горных трав и минеральный скраб.',
     description:
@@ -262,8 +363,14 @@ const spaServices = [
   {
     id: 'heated-pool',
     name: 'Бассейн с подогревом',
+    category: 'pool',
     duration: 60,
     price: '8 000',
+    tariffs: [
+      { id: '1h', name: '1 час', price: '8 000', duration: 60 },
+      { id: '2h', name: '2 часа', price: '14 000', duration: 120 },
+      { id: 'day', name: 'Дневной абонемент', price: '22 000', duration: 480 },
+    ],
     effect:
       'Лёгкое восстановление, улучшение кровообращения и расслабление под открытым небом с видом на горы.',
     description:

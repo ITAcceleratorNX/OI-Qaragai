@@ -1,25 +1,36 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { findById } from '../data/details.js';
+import { useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
 import { ImageGallery } from '../components/detail/ImageGallery.jsx';
 import { DetailMeta } from '../components/detail/DetailMeta.jsx';
+import { I } from '../icons.jsx';
 
 export function SpaDetailPage({ cart, onBurger }) {
+  const { t } = useTranslation();
   const { id } = useParams();
   const item = findById('spa', id);
+  const tariffs = item?.tariffs?.length ? item.tariffs : [];
+  const [tariffIdx, setTariffIdx] = useState(0);
   const [form, setForm] = useState({ name: '', phone: '', date: '' });
   const [sent, setSent] = useState(false);
 
   if (!item) {
     return (
       <PageShell cart={cart} onBurger={onBurger}>
-        <NotFoundDetail sectionLabel="SPA" />
+        <NotFoundDetail sectionLabel={t('detail.spaSection')} />
       </PageShell>
     );
   }
+
+  const tariff = tariffs[tariffIdx] ?? {
+    name: `${item.duration} мин`,
+    price: item.price,
+    duration: item.duration,
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -32,54 +43,83 @@ export function SpaDetailPage({ cart, onBurger }) {
         <div className="wrap">
           <DetailBack />
           <header className="detail-header">
-            <span className="eyebrow">SPA и Баня</span>
+            <span className="eyebrow">{t('detail.spaSection')}</span>
             <h1 className="detail-title">{item.name}</h1>
+            {item.category && (
+              <span className="detail-category-pill">
+                {t(`detail.spaCategories.${item.category}`)}
+              </span>
+            )}
           </header>
 
           <div className="detail-layout">
             <div className="detail-main">
-              <ImageGallery images={item.gallery} alt={item.name} />
+              <ImageGallery images={item.gallery} alt={item.name} large />
               <p className="detail-desc">{item.description}</p>
               <div className="detail-effect">
-                <h3>Эффект процедуры</h3>
+                <h3>{t('detail.spaEffect')}</h3>
                 <p>{item.effect}</p>
               </div>
+
+              {tariffs.length > 1 && (
+                <div className="detail-filters">
+                  {tariffs.map((tr, i) => (
+                    <button
+                      key={tr.id || tr.name}
+                      type="button"
+                      className={'pill' + (tariffIdx === i ? ' active' : '')}
+                      onClick={() => setTariffIdx(i)}
+                    >
+                      {tr.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <DetailMeta
                 items={[
-                  { icon: 'clock', label: 'Длительность', value: `${item.duration} мин` },
-                  { icon: 'calc', label: 'Стоимость', value: `${item.price} ₸` },
+                  {
+                    icon: 'clock',
+                    label: t('detail.duration'),
+                    value: `${tariff.duration} ${t('detail.minutes')}`,
+                  },
+                  {
+                    icon: 'calc',
+                    label: t('detail.cost'),
+                    value: `${tariff.price} ₸`,
+                  },
                 ]}
               />
             </div>
 
             <aside className="detail-aside">
               <div className="detail-card detail-card--price">
-                <span className="detail-price-label">стоимость</span>
+                <span className="detail-price-label">{t('detail.cost')}</span>
                 <span className="detail-price-val">
-                  <b>{item.price}</b> ₸
+                  <b>{tariff.price}</b> ₸
                 </span>
-                <span className="detail-price-per">{item.duration} мин</span>
+                <span className="detail-price-per">
+                  {tariff.duration} {t('detail.minutes')}
+                </span>
               </div>
 
               <div className="detail-card">
-                <h2>Записаться на сеанс</h2>
+                <h2>{t('detail.bookSpa')}</h2>
                 {sent ? (
-                  <p className="detail-form-success">
-                    Заявка принята! SPA-администратор подтвердит время по SMS.
-                  </p>
+                  <p className="detail-form-success">{t('detail.bookSpaSuccess')}</p>
                 ) : (
                   <form className="detail-form" onSubmit={onSubmit}>
                     <label>
-                      Имя
+                      {t('detail.formName')}
                       <input
                         required
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        placeholder="Ваше имя"
+                        placeholder={t('detail.formNamePlaceholder')}
                       />
                     </label>
                     <label>
-                      Телефон
+                      {t('detail.formPhone')}
                       <input
                         required
                         type="tel"
@@ -89,7 +129,7 @@ export function SpaDetailPage({ cart, onBurger }) {
                       />
                     </label>
                     <label>
-                      Желаемая дата
+                      {t('detail.formDate')}
                       <input
                         required
                         type="date"
@@ -98,7 +138,8 @@ export function SpaDetailPage({ cart, onBurger }) {
                       />
                     </label>
                     <button type="submit" className="btn btn-accent btn-block">
-                      Записаться на сеанс
+                      {t('detail.bookSpa')}
+                      <I.arrowRight size={16} />
                     </button>
                   </form>
                 )}
