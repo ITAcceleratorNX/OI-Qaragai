@@ -5,17 +5,23 @@
 
 const restaurants = [
   {
-    id: 'ochag',
-    name: '«Очаг» · Гриль-бар',
+    id: 'chashnagiri',
+    name: '«Чашнагири» Ресторан царской грузинской кухни',
     cuisine: 'Гриль · Европейская · Горная',
     avgCheck: '8 000 – 15 000 ₸',
     hours: '12:00 – 24:00',
     description:
-      'Ресторан у открытого огня с панорамой на склон. Стейки из мраморной говядины, локальные сыры и авторские соусы. По вечерам — живая музыка и глинтвейн у камина.',
+      'Ресторан расположен на 2 этаже.\n' +
+        '\n' +
+        'Добро пожаловать в настоящий кулинарный рай для любителей грузинской кухни - ресторан «Чашнагири»! Здесь каждый кусочек блюда - это настоящее путешествие в душевный мир Грузии. Ощутите невероятное сочетание ароматов и вкусов, оставляющих неизгладимые впечатления на ваши вкусовые рецепторы.\n' +
+        '\n' +
+        'Наши шеф-повара - это настоящие грузинские маги кулинарии, которые передают свои секреты поколениями. Вы узнаете, как создать настоящую атмосферу грузинского застолья, где каждый гость - как близкий друг.\n' +
+        '\n' +
+        'Вас ждут просторный зал на 80 персон и открытые веранды с великолепным видом на горы. Оформление заведения погрузит вас в настоящий грузинский дух, а наш внимательный персонал сделает все, чтобы вы почувствовали себя как дома. Ресторан «Чашнагири» - это идеальное место для празднования специальных событий, встреч с друзьями и бизнес встреч.',
     gallery: [
-      'https://oq-prod.storage.yandexcloud.kz/media-test/9071cbfefc312116cb40b7c770e05063.jpg',
-      'https://oq-prod.storage.yandexcloud.kz/media-test/7f023cdfe0db3b829a3434065a344d78.jpg',
-      'https://oq-prod.storage.yandexcloud.kz/media-test/bee8fe2a4da6225678175d7f4c8a15ae.jpg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/bce371d31522550313a3609f002f16ee.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/9e09f71f465f416d97748f5e70578ea0.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/cabb16dfdfc1e269abc0aac2c6c731d6.jpeg',
     ],
     menuPdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     menuPreview: [
@@ -24,17 +30,24 @@ const restaurants = [
     ],
   },
   {
-    id: 'hvoya',
-    name: '«Хвоя» · Авторская кухня',
+    id: 'aqauyl',
+    name: '«Ак-Ауыл» Ресторан национальной кухни',
     cuisine: 'Авторская · Тянь-Шань · Дегустации',
     avgCheck: '12 000 – 22 000 ₸',
     hours: '10:00 – 23:00',
     description:
-      'Панорамный зал с видом на хребет. Сет-меню из сезонных продуктов: дикоросы, альпийские травы и фермерские сыры. Дегустационные вечера с сомелье по пятницам.',
+        'Представляем Вашему вниманию ресторан «Ак-Ауыл» - настоящую жемчужину национальной кухни, расположенную в роскошной казахской юрте. Великолепный шанырак над головой и атмосфера национального колорита не оставят Вас равнодушными. ' +
+        'Но это еще не все! Наша юрта занесена в Книгу рекордов Гиннеса 2015 года как самая большая в мире, что делает ее идеальным местом для проведения незабываемых мероприятий. Хотите устроить свадьбу в оригинальном стиле? Праздновать юбилей в кругу близких людей? ' +
+        'Или организовать конференцию на высочайшем уровне? «Ак-Ауыл» готов предложить Вам идеальное место для любого вашего мероприятия.' +
+        'А еще у нас есть настоящие национальные блюда, приготовленные по оригинальным рецептам, которые заведут Вам аппетит и оставят незабываемые вкусовые впечатления. Не пропустите возможность попробовать пищу, передаваемую из поколения в поколение.' +
+        'Так что, приходите к нам в «Ак-Ауыл» и погрузитесь в мир настоящей казахской культуры и гастрономии!',
     gallery: [
-      'https://oq-prod.storage.yandexcloud.kz/media-test/9e0626703298e0306cf381c539b25d8e.jpeg',
-      'https://oq-prod.storage.yandexcloud.kz/media-test/f86b7ca3f7e98d67458984dc8c5c7a12.jpg',
-      'https://oq-prod.storage.yandexcloud.kz/media-test/35cbcb290585a502aa92f013e08e63f4.jpg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/29ef5ff1881c319432da35984ffbdc5b.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/bf9ef62a4c9deeb7b32c4a2729187c5c.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/681aaea7fa1752018c9cd25555b0f69a.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/bc336ca2fa0126a64aa084019e9fb33e.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/8671541fabd4974f490446bb1d01f08c.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/d9fc76b09ed6220b5fb63c4ecd6c0429.jpeg',
     ],
     menuPdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     menuPreview: [
@@ -43,16 +56,17 @@ const restaurants = [
     ],
   },
   {
-    id: 'panorama',
-    name: 'Паб «Панорама»',
+    id: 'familycafe',
+    name: '«Семейное кафе» европейской кухни',
     cuisine: 'Паб · Крафт · Сытная кухня',
     avgCheck: '5 000 – 9 000 ₸',
     hours: '16:00 – 02:00',
     description:
       'Крафтовое пиво, бургеры и закуски к просмотру спортивных трансляций. Терраса с видом на ночной склон и DJ-сеты по выходным.',
     gallery: [
-      'https://oq-prod.storage.yandexcloud.kz/media-test/bee8fe2a4da6225678175d7f4c8a15ae.jpg',
       'https://oq-prod.storage.yandexcloud.kz/media-test/9071cbfefc312116cb40b7c770e05063.jpg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/77b40b4169a64b4efbfca854b1de5493.jpeg',
+      'https://oq-prod.storage.yandexcloud.kz/media-test/8511f1023de7bf3c29956e4979224157.jpeg',
     ],
     menuPdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     menuPreview: [
