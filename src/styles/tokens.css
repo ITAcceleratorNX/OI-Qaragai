@@ -84,6 +84,16 @@
   --glass-bg-2: rgba(20, 19, 18, 0.7);
   --card-media-gradient: rgba(14, 13, 12, 0.5);
 
+  /* Chips & controls on photos (same in both themes) */
+  --on-media-chip-bg: rgba(8, 8, 9, 0.62);
+  --on-media-chip-fg: #f6f2ec;
+  --on-media-chip-border: rgba(255, 255, 255, 0.22);
+
+  /* Floating controls on page surface / lightbox */
+  --float-control-bg: rgba(20, 19, 18, 0.78);
+  --float-control-fg: #f5f1ea;
+  --float-control-border: rgba(255, 255, 255, 0.14);
+
   --store-border: rgba(255, 255, 255, 0.18);
   --store-bg: rgba(10, 10, 11, 0.5);
 
@@ -141,6 +151,16 @@
   --glass-bg: rgba(255, 255, 255, 0.82);
   --glass-bg-2: rgba(255, 255, 255, 0.92);
   --card-media-gradient: rgba(14, 13, 12, 0.45);
+
+  /* Chips on photos stay dark for contrast over images */
+  --on-media-chip-bg: rgba(8, 8, 9, 0.62);
+  --on-media-chip-fg: #f6f2ec;
+  --on-media-chip-border: rgba(255, 255, 255, 0.22);
+
+  /* Floating controls on light surfaces */
+  --float-control-bg: #ffffff;
+  --float-control-fg: #1c1917;
+  --float-control-border: rgba(26, 23, 20, 0.14);
 
   --store-border: rgba(255, 255, 255, 0.2);
   --store-bg: rgba(10, 10, 11, 0.45);

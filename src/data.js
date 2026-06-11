@@ -204,7 +204,7 @@ export const OQ = {
     {
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/916bea98e22577b9ecff5c2fc98c7f46.jpg',
       badge: 'SPA',
-      badgeType: 'dark',
+      badgeType: 'accent',
       tag: 'Релакс',
       title: 'SPA-день для двоих',
       desc: 'Кедровая баня, хаммам, массаж и бассейн с видом на горы.',
@@ -396,7 +396,7 @@ export const OQ = {
     {
       img: 'https://oq-prod.storage.yandexcloud.kz/media-test/916bea98e22577b9ecff5c2fc98c7f46.jpg',
       badge: 'SPA',
-      badgeType: 'dark',
+      badgeType: 'accent',
       tag: 'Релакс',
       category: 'SPA',
       title: 'SPA-день для двоих',
