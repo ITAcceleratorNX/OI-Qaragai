@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { findById } from '../data/details.js';
-import { useTranslation } from '../i18n/LanguageProvider.jsx';
+import { useDetail, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
@@ -13,7 +12,7 @@ import { I } from '../icons.jsx';
 export function RestaurantDetailPage({ cart, onBurger }) {
   const { t } = useTranslation();
   const { id } = useParams();
-  const item = findById('restaurants', id);
+  const item = useDetail('restaurants', id);
   const [menuOpen, setMenuOpen] = useState(false);
   const [form, setForm] = useState({ name: '', phone: '', date: '', guests: '2' });
   const [sent, setSent] = useState(false);

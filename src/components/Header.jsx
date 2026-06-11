@@ -35,11 +35,11 @@ export function TopBar() {
         <div className="topbar-l">
           <a className="topbar-item" href="#">
             <I.camera size={14} />
-            Камеры
+            {t('header.cameras')}
           </a>
           <a className="topbar-item" href="#">
             <I.cube size={14} />
-            3D-тур
+            {t('header.tour3d')}
           </a>
         </div>
         <div className="topbar-r">
@@ -48,16 +48,16 @@ export function TopBar() {
             className={
               'topbar-status status-badge' + (resort.open ? '' : ' status-badge--closed')
             }
-            aria-label="Статус курорта и трасс — подробнее о погоде"
+            aria-label={t('header.statusAria')}
             title={
               resort.open
-                ? `Подъёмники ${resort.lifts} · Трассы ${resort.slopes}`
-                : 'Курорт закрыт'
+                ? t('header.statusTitle', { lifts: resort.lifts, slopes: resort.slopes })
+                : t('header.statusClosed')
             }
           >
             <span className="dot" aria-hidden="true" />
             <span className="topbar-status-text">
-              {resort.open ? 'Курорт открыт' : 'Курорт закрыт'}
+              {resort.open ? t('header.statusOpen') : t('header.statusClosed')}
             </span>
             {resort.open && (
               <span className="topbar-status-meta hide-xs">
@@ -85,9 +85,9 @@ export function TopBar() {
 }
 
 const LANGS = [
-  { code: 'KZ', flag: '🇰🇿', name: 'Қазақша' },
-  { code: 'RU', flag: '🇷🇺', name: 'Русский' },
-  { code: 'EN', flag: '🇬🇧', name: 'English' },
+  { code: 'KZ', flag: '/images/flags/kz.png', name: 'Қазақша' },
+  { code: 'RU', flag: '/images/flags/ru.png', name: 'Русский' },
+  { code: 'EN', flag: '/images/flags/us.png', name: 'English' },
 ];
 
 function LangLabel({ code }) {
@@ -95,9 +95,7 @@ function LangLabel({ code }) {
   if (!item) return null;
   return (
     <>
-      <span className="lang-flag" aria-hidden="true">
-        {item.flag}
-      </span>
+      <img className="lang-flag" src={item.flag} alt="" aria-hidden="true" />
       <span className="lang-code">{item.code}</span>
     </>
   );
@@ -154,7 +152,7 @@ function WeatherWidget() {
           <b>{resort.temp}</b>
         </span>
       </Link>
-      <Link to="/weather" className="weather-widget weather-widget--compact show-mobile" aria-label="Погода">
+      <Link to="/weather" className="weather-widget weather-widget--compact show-mobile" aria-label={t('header.weather')}>
         <I.cloud size={18} />
         <b>{resort.temp}</b>
       </Link>
@@ -223,9 +221,9 @@ export function Header({ cart, onBurger }) {
     <header className="header" id="top">
       <div className="wrap">
         <div className="h-left">
-          <button className="burger icon-btn" onClick={onBurger} aria-label="Меню">
+          <button className="burger icon-btn" onClick={onBurger} aria-label={t('header.menu')}>
             <I.menu size={20} />
-            <span className="h-only-desk">Меню</span>
+            <span className="h-only-desk">{t('header.menu')}</span>
           </button>
           <LangSwitcher
             lang={lang}
@@ -241,11 +239,11 @@ export function Header({ cart, onBurger }) {
               onMouseLeave={closeMega}
               onClick={() => setMega((m) => !m)}
             >
-              Чем заняться?
+              {t('header.thingsToDo')}
               <I.chevDown size={15} className="chev" />
             </button>
             <Link className="nav-link" to="/offers">
-              Спецпредложения
+              {t('header.offers')}
             </Link>
           </nav>
         </div>
@@ -258,14 +256,14 @@ export function Header({ cart, onBurger }) {
           <button
             className="icon-btn"
             onClick={() => setSearch((s) => !s)}
-            aria-label="Поиск"
+            aria-label={t('header.search')}
           >
             <I.search size={19} />
           </button>
           <Link
             className={'icon-btn' + (pathname === '/cart' ? ' active' : '')}
             to="/cart"
-            aria-label="Корзина"
+            aria-label={t('header.cart')}
           >
             <I.cart size={19} />
             {cart > 0 && <span className="cart-badge">{cart}</span>}
@@ -273,7 +271,7 @@ export function Header({ cart, onBurger }) {
           <Link
             className={'icon-btn' + (pathname === '/profile' ? ' active' : '')}
             to="/profile"
-            aria-label="Аккаунт"
+            aria-label={t('header.account')}
           >
             <I.user size={19} />
           </Link>
@@ -284,7 +282,7 @@ export function Header({ cart, onBurger }) {
         <div className="search-inner">
           <I.search size={20} />
           <input
-            placeholder="Поиск по курорту: отели, рестораны, активности, события…"
+            placeholder={t('header.searchPlaceholder')}
             autoFocus={search}
           />
           <button className="icon-btn" onClick={() => setSearch(false)}>
@@ -304,6 +302,7 @@ export function Header({ cart, onBurger }) {
 
 export function MobileDrawer({ open, onClose }) {
   const oq = useOQ();
+  const { t } = useTranslation();
   const [sec, setSec] = useState(null);
 
   useEffect(() => {
@@ -389,15 +388,15 @@ export function MobileDrawer({ open, onClose }) {
           <div className="drawer-account">
             <Link className="drawer-account-link" to="/profile" onClick={onClose}>
               <I.user size={18} />
-              Профиль
+              {t('header.profile')}
             </Link>
             <Link className="drawer-account-link" to="/cart" onClick={onClose}>
               <I.cart size={18} />
-              Корзина
+              {t('header.cart')}
             </Link>
           </div>
           <Link className="btn btn-accent btn-block" to="/offers" onClick={onClose}>
-            Забронировать
+            {t('header.book')}
           </Link>
           <div style={{ display: 'flex', gap: 18, color: 'var(--muted)', fontSize: 14 }}>
             <a

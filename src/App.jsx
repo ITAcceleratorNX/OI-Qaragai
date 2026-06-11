@@ -33,6 +33,7 @@ import {
   removeFromCart,
   updateQty,
 } from './lib/cart.js';
+import { useTranslation } from './i18n/LanguageProvider.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -116,6 +117,7 @@ function AppRoutes({
 }
 
 export default function App() {
+  const { t } = useTranslation();
   const [cartItems, setCartItems] = useState([]);
   const [toast, setToast] = useState(null);
   const [drawer, setDrawer] = useState(false);
@@ -131,7 +133,7 @@ export default function App() {
 
   const onBuy = (product) => {
     setCartItems((items) => addToCart(items, product));
-    showToast('Добавлено в корзину: ' + product.title);
+    showToast(t('toast.added', { title: product.title }));
   };
 
   const onQty = (id, delta) => {
@@ -143,7 +145,7 @@ export default function App() {
   };
 
   const onCheckout = () => {
-    showToast('Заказ оформлен! Мы свяжемся с вами в ближайшее время.');
+    showToast(t('toast.ordered'));
     setCartItems([]);
   };
 

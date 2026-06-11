@@ -1,53 +1,45 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  profileUser,
-  profileBookings,
-  profileFavorites,
-  profileWallet,
-} from '../data/profile.js';
+import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
+import { getDateLocale } from '../i18n/utils.js';
 import { I } from '../icons.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 
-const TABS = [
-  { id: 'bookings', label: 'Бронирования', icon: 'calendar' },
-  { id: 'favorites', label: 'Избранное', icon: 'heart' },
-  { id: 'settings', label: 'Настройки', icon: 'settings' },
-];
+const TAB_IDS = ['bookings', 'favorites', 'settings'];
 
-function ProfileHeroCard() {
-  const u = profileUser;
+function ProfileHeroCard({ user, bookings, t, lang }) {
+  const locale = getDateLocale(lang);
   return (
     <div className="profile-hero-card">
       <div className="profile-hero-glow" aria-hidden="true" />
       <div className="profile-hero-inner">
         <div className="profile-avatar" aria-hidden="true">
-          <span>{u.initials}</span>
+          <span>{user.initials}</span>
           <div className="profile-avatar-ring" />
         </div>
         <div className="profile-hero-info">
           <span className="profile-tier">
             <I.star size={13} />
-            {u.tierLabel}
+            {user.tierLabel}
           </span>
-          <h2>{u.name}</h2>
+          <h2>{user.name}</h2>
           <p>
-            Участник с {u.memberSince} · {u.email}
+            {t('profile.memberSince', { year: user.memberSince })} · {user.email}
           </p>
         </div>
         <div className="profile-stats">
           <div className="profile-stat">
-            <b>{u.points.toLocaleString('ru-RU')}</b>
-            <span>бонусов</span>
+            <b>{user.points.toLocaleString(locale)}</b>
+            <span>{t('profile.bonuses')}</span>
           </div>
           <div className="profile-stat">
-            <b>{u.nights}</b>
-            <span>ночей</span>
+            <b>{user.nights}</b>
+            <span>{t('profile.nights')}</span>
           </div>
           <div className="profile-stat">
-            <b>{profileBookings.filter((b) => b.status !== 'completed').length}</b>
-            <span>активных</span>
+            <b>{bookings.filter((b) => b.status !== 'completed').length}</b>
+            <span>{t('profile.active')}</span>
           </div>
         </div>
       </div>
@@ -55,8 +47,9 @@ function ProfileHeroCard() {
   );
 }
 
-function ProfileWallet() {
-  const { deposit, skiPass } = profileWallet;
+function ProfileWallet({ wallet, t, lang }) {
+  const { deposit, skiPass } = wallet;
+  const locale = getDateLocale(lang);
   const passUsed = skiPass.totalDays - skiPass.daysLeft;
   const passProgress = Math.round((passUsed / skiPass.totalDays) * 100);
 
@@ -68,18 +61,18 @@ function ProfileWallet() {
             <I.wallet size={22} />
           </span>
           <div>
-            <span className="profile-wallet-label">Депозитный счёт</span>
+            <span className="profile-wallet-label">{t('profile.deposit')}</span>
             <p className="profile-wallet-balance">
-              <b>{deposit.balance.toLocaleString('ru-RU')}</b> ₸
+              <b>{deposit.balance.toLocaleString(locale)}</b> ₸
             </p>
           </div>
         </div>
         <p className="profile-wallet-note">
-          Последнее пополнение · {deposit.lastTopUp}
+          {t('profile.lastTopUp')} · {deposit.lastTopUp}
           <span>+{deposit.lastAmount} ₸</span>
         </p>
         <button type="button" className="btn btn-sm btn-accent profile-wallet-btn">
-          Пополнить
+          {t('profile.topUp')}
           <I.plus size={14} />
         </button>
       </article>
@@ -90,7 +83,7 @@ function ProfileWallet() {
             <I.ski size={22} />
           </span>
           <div className="profile-wallet-skipass-top">
-            <span className="profile-wallet-label">Ски-пасс</span>
+            <span className="profile-wallet-label">{t('profile.skiPass')}</span>
             <span className={'profile-wallet-status profile-wallet-status--' + skiPass.status}>
               {skiPass.statusLabel}
             </span>
@@ -101,9 +94,7 @@ function ProfileWallet() {
           <div className="profile-wallet-progress-bar" style={{ width: passProgress + '%' }} />
         </div>
         <div className="profile-wallet-skipass-meta">
-          <span>
-            <b>{skiPass.daysLeft}</b> из {skiPass.totalDays} дней
-          </span>
+          <span>{t('profile.daysOf', { left: skiPass.daysLeft, total: skiPass.totalDays })}</span>
           <span>
             {skiPass.validFrom} — {skiPass.validTo}
           </span>
@@ -111,7 +102,7 @@ function ProfileWallet() {
         <div className="profile-wallet-skipass-foot">
           <span className="profile-wallet-pass">№ {skiPass.passNumber}</span>
           <Link className="link-arrow" to="/offers">
-            Продлить <I.arrowRight size={14} />
+            {t('profile.extend')} <I.arrowRight size={14} />
           </Link>
         </div>
       </article>
@@ -119,7 +110,7 @@ function ProfileWallet() {
   );
 }
 
-function BookingCard({ booking }) {
+function BookingCard({ booking, t }) {
   return (
     <article className={'profile-booking profile-booking--' + booking.status}>
       <div className="profile-booking-media">
@@ -140,7 +131,7 @@ function BookingCard({ booking }) {
           </span>
           <span>
             <I.user size={15} />
-            {booking.guests} гостя
+            {t('profile.guests', { count: booking.guests })}
           </span>
         </div>
         <div className="profile-booking-foot">
@@ -148,7 +139,7 @@ function BookingCard({ booking }) {
             <b>{booking.total}</b> ₸
           </span>
           <button type="button" className="btn btn-sm btn-ghost">
-            Подробнее
+            {t('cta.details')}
             <I.arrowRight size={14} />
           </button>
         </div>
@@ -157,14 +148,14 @@ function BookingCard({ booking }) {
   );
 }
 
-function FavoritesGrid() {
+function FavoritesGrid({ favorites, t }) {
   return (
     <div className="profile-fav-grid">
-      {profileFavorites.map((f) => (
+      {favorites.map((f) => (
         <article className="profile-fav-card" key={f.id}>
           <div className="profile-fav-media">
             <img src={f.img} alt="" loading="lazy" />
-            <button type="button" className="profile-fav-heart" aria-label="Убрать из избранного">
+            <button type="button" className="profile-fav-heart" aria-label={t('profile.removeFavorite')}>
               <I.heart size={16} fill />
             </button>
           </div>
@@ -172,7 +163,7 @@ function FavoritesGrid() {
             <span>{f.type}</span>
             <h3>{f.title}</h3>
             <p>
-              от <b>{f.price}</b> ₸ / {f.per}
+              {t('common.from')} <b>{f.price}</b> ₸ / {f.per}
             </p>
           </div>
         </article>
@@ -181,54 +172,53 @@ function FavoritesGrid() {
   );
 }
 
-function SettingsPanel() {
-  const u = profileUser;
+function SettingsPanel({ user, t }) {
   return (
     <div className="profile-settings">
       <div className="profile-settings-block">
-        <h3>Личные данные</h3>
+        <h3>{t('profile.personalData')}</h3>
         <div className="profile-form-grid">
           <label>
-            <span>Имя</span>
-            <input type="text" defaultValue={u.name} />
+            <span>{t('profile.name')}</span>
+            <input type="text" defaultValue={user.name} />
           </label>
           <label>
-            <span>Телефон</span>
-            <input type="tel" defaultValue={u.phone} />
+            <span>{t('profile.phone')}</span>
+            <input type="tel" defaultValue={user.phone} />
           </label>
           <label className="profile-form-full">
-            <span>Email</span>
-            <input type="email" defaultValue={u.email} />
+            <span>{t('profile.email')}</span>
+            <input type="email" defaultValue={user.email} />
           </label>
         </div>
         <button type="button" className="btn btn-accent btn-sm">
-          Сохранить изменения
+          {t('profile.save')}
         </button>
       </div>
 
       <div className="profile-settings-block">
-        <h3>Уведомления</h3>
+        <h3>{t('profile.notifications')}</h3>
         <div className="profile-toggles">
           <label className="profile-toggle">
             <span>
-              <b>Акции и спецпредложения</b>
-              <small>Скидки, пакеты и сезонные предложения</small>
+              <b>{t('profile.notifOffers')}</b>
+              <small>{t('profile.notifOffersDesc')}</small>
             </span>
             <input type="checkbox" defaultChecked />
             <span className="profile-toggle-track" />
           </label>
           <label className="profile-toggle">
             <span>
-              <b>Напоминания о бронировании</b>
-              <small>За 3 дня до заезда и в день выезда</small>
+              <b>{t('profile.notifBooking')}</b>
+              <small>{t('profile.notifBookingDesc')}</small>
             </span>
             <input type="checkbox" defaultChecked />
             <span className="profile-toggle-track" />
           </label>
           <label className="profile-toggle">
             <span>
-              <b>Погода на курорте</b>
-              <small>Утренний прогноз и статус трасс</small>
+              <b>{t('profile.notifWeather')}</b>
+              <small>{t('profile.notifWeatherDesc')}</small>
             </span>
             <input type="checkbox" />
             <span className="profile-toggle-track" />
@@ -239,7 +229,7 @@ function SettingsPanel() {
       <div className="profile-settings-block profile-settings-block--danger">
         <button type="button" className="btn btn-outline btn-sm profile-logout">
           <I.logout size={16} />
-          Выйти из аккаунта
+          {t('profile.logout')}
         </button>
       </div>
     </div>
@@ -247,35 +237,45 @@ function SettingsPanel() {
 }
 
 export function ProfilePage({ cart, onBurger }) {
+  const { t, lang } = useTranslation();
+  const oq = useOQ();
+  const profile = oq.profile;
   const [tab, setTab] = useState('bookings');
+
+  if (!profile) return null;
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow="Личный кабинет"
-        title="Профиль"
-        desc="Бронирования, избранное и настройки — всё для комфортного отдыха на OI·QARAGAI."
+        eyebrow={t('profile.eyebrow')}
+        title={t('profile.title')}
+        desc={t('profile.desc')}
       />
 
       <section className="section page-section profile-section">
         <div className="wrap">
-          <ProfileHeroCard />
-          <ProfileWallet />
+          <ProfileHeroCard
+            user={profile.user}
+            bookings={profile.bookings}
+            t={t}
+            lang={lang}
+          />
+          <ProfileWallet wallet={profile.wallet} t={t} lang={lang} />
 
           <div className="profile-tabs" role="tablist">
-            {TABS.map((t) => {
-              const Icon = I[t.icon];
+            {TAB_IDS.map((id) => {
+              const Icon = I[id === 'bookings' ? 'calendar' : id === 'favorites' ? 'heart' : 'settings'];
               return (
                 <button
-                  key={t.id}
+                  key={id}
                   type="button"
                   role="tab"
-                  aria-selected={tab === t.id}
-                  className={'profile-tab' + (tab === t.id ? ' active' : '')}
-                  onClick={() => setTab(t.id)}
+                  aria-selected={tab === id}
+                  className={'profile-tab' + (tab === id ? ' active' : '')}
+                  onClick={() => setTab(id)}
                 >
                   <Icon size={17} />
-                  {t.label}
+                  {t(`profile.tabs.${id}`)}
                 </button>
               );
             })}
@@ -285,15 +285,15 @@ export function ProfilePage({ cart, onBurger }) {
             {tab === 'bookings' && (
               <>
                 <div className="profile-panel-head">
-                  <h2>Мои бронирования</h2>
+                  <h2>{t('profile.myBookings')}</h2>
                   <Link className="btn btn-accent btn-sm" to="/offers">
-                    Новое бронирование
+                    {t('profile.newBooking')}
                     <I.plus size={15} />
                   </Link>
                 </div>
                 <div className="profile-bookings">
-                  {profileBookings.map((b) => (
-                    <BookingCard key={b.id} booking={b} />
+                  {profile.bookings.map((b) => (
+                    <BookingCard key={b.id} booking={b} t={t} />
                   ))}
                 </div>
               </>
@@ -302,19 +302,21 @@ export function ProfilePage({ cart, onBurger }) {
             {tab === 'favorites' && (
               <>
                 <div className="profile-panel-head">
-                  <h2>Избранное</h2>
-                  <span className="profile-panel-count">{profileFavorites.length} объекта</span>
+                  <h2>{t('profile.favoritesTitle')}</h2>
+                  <span className="profile-panel-count">
+                    {t('profile.favoritesCount', { count: profile.favorites.length })}
+                  </span>
                 </div>
-                <FavoritesGrid />
+                <FavoritesGrid favorites={profile.favorites} t={t} />
               </>
             )}
 
             {tab === 'settings' && (
               <>
                 <div className="profile-panel-head">
-                  <h2>Настройки</h2>
+                  <h2>{t('profile.settingsTitle')}</h2>
                 </div>
-                <SettingsPanel />
+                <SettingsPanel user={profile.user} t={t} />
               </>
             )}
           </div>

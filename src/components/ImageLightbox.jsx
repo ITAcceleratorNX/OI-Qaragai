@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { I } from '../icons.jsx';
+import { useTranslation } from '../i18n/LanguageProvider.jsx';
 
 function normalizeImages(images) {
   return images.map((item) =>
@@ -9,6 +10,7 @@ function normalizeImages(images) {
 }
 
 export function ImageLightbox({ images, index, onClose, onIndex, alt = '' }) {
+  const { t } = useTranslation();
   const items = normalizeImages(images);
   const count = items.length;
   const cur = items[index] ?? items[0];
@@ -32,28 +34,26 @@ export function ImageLightbox({ images, index, onClose, onIndex, alt = '' }) {
   if (!cur) return null;
 
   return createPortal(
-    <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true" aria-label="Просмотр фото">
+    <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true" aria-label={t('lightbox.aria')}>
 
-      {/* ─── Top bar ─────────────────────────────────────────────── */}
       <div className="lb-topbar" onClick={(e) => e.stopPropagation()}>
         <span className="lb-counter-placeholder" />
         {count > 1 && (
           <span className="lb-counter">{index + 1} / {count}</span>
         )}
-        <button type="button" className="lb-close" onClick={onClose} aria-label="Закрыть">
+        <button type="button" className="lb-close" onClick={onClose} aria-label={t('common.close')}>
           <I.close size={16} />
-          Закрыть
+          {t('common.close')}
         </button>
       </div>
 
-      {/* ─── Prev / Next ─────────────────────────────────────────── */}
       {count > 1 && (
         <>
           <button
             type="button"
             className="lb-nav lb-prev"
             onClick={(e) => { e.stopPropagation(); onIndex((index - 1 + count) % count); }}
-            aria-label="Предыдущее фото"
+            aria-label={t('lightbox.prev')}
           >
             <I.arrowLeft size={20} />
           </button>
@@ -61,14 +61,13 @@ export function ImageLightbox({ images, index, onClose, onIndex, alt = '' }) {
             type="button"
             className="lb-nav lb-next"
             onClick={(e) => { e.stopPropagation(); onIndex((index + 1) % count); }}
-            aria-label="Следующее фото"
+            aria-label={t('lightbox.next')}
           >
             <I.arrowRight size={20} />
           </button>
         </>
       )}
 
-      {/* ─── Image ───────────────────────────────────────────────── */}
       <div className="lb-stage" onClick={(e) => e.stopPropagation()}>
         <img className="lb-img" src={cur.src} alt={cur.caption || alt} />
         {cur.caption && <p className="lb-caption">{cur.caption}</p>}

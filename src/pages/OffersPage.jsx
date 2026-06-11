@@ -11,24 +11,24 @@ import { OfferSpotlight } from '../components/OfferSpotlight.jsx';
 export function OffersPage({ cart, onBuy, onBurger }) {
   const { t } = useTranslation();
   const oq = useOQ();
-  const [f, setF] = useState('Все');
-  const filterKeys = listingFilters(oq.offersAll, (o) => o.category);
+  const [f, setF] = useState('all');
+  const filterKeys = listingFilters(oq.offersAll, (o) => o.categoryKey);
 
   const list =
-    f === 'Все'
+    f === 'all'
       ? oq.offersAll
-      : oq.offersAll.filter((o) => o.category === f);
+      : oq.offersAll.filter((o) => o.categoryKey === f);
 
-  const spotlight = f === 'Все' ? oq.offersAll[0] : null;
+  const spotlight = f === 'all' ? oq.offersAll[0] : null;
   const grid = spotlight ? list.slice(1) : list;
 
   const filters = filterKeys.map((key) => ({
     key,
-    label: key === 'Все' ? t('filters.all') : key,
+    label: t(`filters.${key}`),
     count:
-      key === 'Все'
+      key === 'all'
         ? oq.offersAll.length
-        : oq.offersAll.filter((o) => o.category === key).length,
+        : oq.offersAll.filter((o) => o.categoryKey === key).length,
   }));
 
   const countLabel =
@@ -66,7 +66,7 @@ export function OffersPage({ cart, onBuy, onBurger }) {
             <ListingEmpty
               title={t('pages.offers.emptyTitle')}
               desc={t('pages.offers.emptyDesc')}
-              onReset={() => setF('Все')}
+              onReset={() => setF('all')}
             />
           ) : (
             <div className="listing-stack">

@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { OQ } from '../data.js';
-import { findById } from '../data/details.js';
-import { useTranslation } from '../i18n/LanguageProvider.jsx';
+import { useDetail, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
@@ -14,7 +13,7 @@ import { I } from '../icons.jsx';
 export function HotelDetailPage({ cart, onBurger }) {
   const { t, lang } = useTranslation();
   const { id } = useParams();
-  const item = findById('hotels', id);
+  const item = useDetail('hotels', id);
   const [category, setCategory] = useState('all');
   const [roomIdx, setRoomIdx] = useState(0);
   const [dates, setDates] = useState({ checkIn: '', checkOut: '' });

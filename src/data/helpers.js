@@ -1,8 +1,10 @@
 /** Shared helpers for mock catalog data (single source of truth). */
 
-export function listingFilters(items, getKey, allLabel = 'Все') {
+export const ALL_FILTER = 'all';
+
+export function listingFilters(items, getKey, allKey = ALL_FILTER) {
   const keys = [...new Set(items.map(getKey).filter(Boolean))];
-  return [allLabel, ...keys];
+  return [allKey, ...keys];
 }
 
 export function findById(items, id) {

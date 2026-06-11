@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { OQ } from '../data.js';
-import { listingFilters } from '../data/helpers.js';
+import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { I } from '../icons.jsx';
 import { Logo } from './Header.jsx';
 import { Card } from './Card.jsx';
 import { ImageLightbox } from './ImageLightbox.jsx';
 
-/* углы: снизу вверх — Проживание → 3D-тур */
 const QUICK_ARC_ANGLES = [62, 31, 0, -31, -62];
+const FILTER_IDS = ['all', 'hotels', 'restaurants', 'fun', 'spa'];
 
 export function QuickFab() {
+  const oq = useOQ();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
@@ -43,14 +44,14 @@ export function QuickFab() {
   return (
     <div className={'quick-fab' + (open ? ' is-open' : '')}>
       <div className="quick-fab-pivot">
-        <nav className="quick-fab-menu" aria-label="Быстрые разделы" aria-hidden={!open}>
-          {OQ.quick.map((q, i) => {
+        <nav className="quick-fab-menu" aria-label={t('quickFab.nav')} aria-hidden={!open}>
+          {oq.quick.map((q, i) => {
             const Ic = I[q.icon];
             return (
               <Link
                 className="quick-fab-item"
                 to={q.href || '/guide'}
-                key={q.t}
+                key={q.href || q.t}
                 style={{ '--arc-angle': QUICK_ARC_ANGLES[i] + 'deg', '--arc-i': i }}
                 tabIndex={open ? 0 : -1}
                 onClick={() => setOpen(false)}
@@ -70,7 +71,7 @@ export function QuickFab() {
           type="button"
           className="quick-fab-toggle"
           aria-expanded={open}
-          aria-label={open ? 'Скрыть быстрые разделы' : 'Быстрые разделы курорта'}
+          aria-label={open ? t('quickFab.hide') : t('quickFab.show')}
           onClick={(e) => {
             e.stopPropagation();
             setOpen((v) => !v);
@@ -84,13 +85,19 @@ export function QuickFab() {
 }
 
 export function Hero() {
-  const { slides, interval } = OQ.hero;
+  const oq = useOQ();
+  const { t, lang } = useTranslation();
+  const { slides, interval } = oq.hero;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const count = slides.length;
 
   const goPrev = () => setActive((i) => (i - 1 + count) % count);
   const goNext = () => setActive((i) => (i + 1) % count);
+
+  useEffect(() => {
+    setActive(0);
+  }, [lang]);
 
   useEffect(() => {
     if (paused || count < 2) return undefined;
@@ -105,7 +112,7 @@ export function Hero() {
   }, [paused, count, interval]);
 
   return (
-    <section className="hero" aria-label="Главный баннер">
+    <section className="hero" aria-label={t('hero.aria')}>
       <div
         className="hero-carousel"
         onMouseEnter={() => setPaused(true)}
@@ -115,7 +122,7 @@ export function Hero() {
           <Link
             className={'hero-slide' + (i === active ? ' is-active' : '')}
             to={slide.href || '/guide'}
-            key={slide.title}
+            key={slide.img}
             aria-hidden={i !== active}
             tabIndex={i === active ? 0 : -1}
           >
@@ -132,7 +139,7 @@ export function Hero() {
             <button
               type="button"
               className="hero-nav prev"
-              aria-label="Предыдущий слайд"
+              aria-label={t('hero.prev')}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -144,7 +151,7 @@ export function Hero() {
             <button
               type="button"
               className="hero-nav next"
-              aria-label="Следующий слайд"
+              aria-label={t('hero.next')}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -161,22 +168,25 @@ export function Hero() {
 }
 
 export function Offers({ onBuy }) {
+  const oq = useOQ();
+  const { t } = useTranslation();
+
   return (
     <section className="section" id="offers">
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <span className="eyebrow">Выгодно</span>
-            <h2 className="h-sec">Специальные предложения</h2>
-            <p>Готовые пакеты на зимний сезон — бронируйте в пару кликов.</p>
+            <span className="eyebrow">{t('sections.offers.eyebrow')}</span>
+            <h2 className="h-sec">{t('sections.offers.title')}</h2>
+            <p>{t('sections.offers.desc')}</p>
           </div>
           <Link className="link-arrow" to="/offers">
-            Все предложения <I.arrowRight size={17} />
+            {t('sections.offers.link')} <I.arrowRight size={17} />
           </Link>
         </div>
         <div className="cards-grid cards-3">
-          {OQ.offers.map((o, i) => (
-            <Card key={i} d={o} wide onBuy={onBuy} />
+          {oq.offers.map((o, i) => (
+            <Card key={o.id || i} d={o} wide onBuy={onBuy} />
           ))}
         </div>
       </div>
@@ -185,43 +195,52 @@ export function Offers({ onBuy }) {
 }
 
 export function ThingsToDo({ onBuy }) {
-  const filters = listingFilters(OQ.things, (t) => t.type);
-  const [f, setF] = useState('Все');
-  const list = f === 'Все' ? OQ.things : OQ.things.filter((t) => t.type === f);
+  const oq = useOQ();
+  const { t } = useTranslation();
+  const [f, setF] = useState('all');
+
+  const list =
+    f === 'all' ? oq.things : oq.things.filter((item) => item.typeKey === f);
+
   const countFor = (k) =>
-    k === 'Все' ? OQ.things.length : OQ.things.filter((t) => t.type === k).length;
+    k === 'all'
+      ? oq.things.length
+      : oq.things.filter((item) => item.typeKey === k).length;
+
+  const filters = FILTER_IDS.map((key) => ({
+    key,
+    label: t(`filters.${key}`),
+    count: countFor(key),
+  }));
 
   return (
     <section className="section" id="tabs">
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <span className="eyebrow">Единый гид по курорту</span>
-            <h2 className="h-sec">Чем заняться?</h2>
-            <p>
-              Отели, рестораны, активности и SPA — всё в одном месте и в едином
-              стиле карточек.
-            </p>
+            <span className="eyebrow">{t('sections.things.eyebrow')}</span>
+            <h2 className="h-sec">{t('sections.things.title')}</h2>
+            <p>{t('sections.things.desc')}</p>
           </div>
           <Link className="link-arrow" to="/guide">
-            Открыть карту курорта <I.arrowRight size={17} />
+            {t('sections.things.link')} <I.arrowRight size={17} />
           </Link>
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 36 }}>
           {filters.map((x) => (
             <button
-              key={x}
-              className={'pill ' + (f === x ? 'active' : '')}
-              onClick={() => setF(x)}
+              key={x.key}
+              className={'pill ' + (f === x.key ? 'active' : '')}
+              onClick={() => setF(x.key)}
             >
-              {x}
-              <span className="count">{countFor(x)}</span>
+              {x.label}
+              <span className="count">{x.count}</span>
             </button>
           ))}
         </div>
         <div className="cards-grid cards-4">
-          {list.map((t) => (
-            <Card key={t.title} d={t} onBuy={onBuy} />
+          {list.map((item) => (
+            <Card key={item.id || item.title} d={item} onBuy={onBuy} />
           ))}
         </div>
       </div>
@@ -230,19 +249,21 @@ export function ThingsToDo({ onBuy }) {
 }
 
 export function Events() {
-  const { featured, side, corporate } = OQ.homeEvents;
+  const oq = useOQ();
+  const { t } = useTranslation();
+  const { featured, side, corporate } = oq.homeEvents;
 
   return (
     <section className="section" id="events">
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <span className="eyebrow">Афиша</span>
-            <h2 className="h-sec">Мероприятия</h2>
-            <p>События курорта и площадки для бизнеса — Event и Корпоративные.</p>
+            <span className="eyebrow">{t('sections.events.eyebrow')}</span>
+            <h2 className="h-sec">{t('sections.events.title')}</h2>
+            <p>{t('sections.events.desc')}</p>
           </div>
           <Link className="link-arrow" to="/events">
-            Вся афиша <I.arrowRight size={17} />
+            {t('sections.events.link')} <I.arrowRight size={17} />
           </Link>
         </div>
         <div className="events-grid">
@@ -251,7 +272,7 @@ export function Events() {
               <img src={featured.img} alt={featured.title} />
               <div className="ev-body">
                 <span className="badge badge-accent" style={{ position: 'static' }}>
-                  Event
+                  {t('sections.events.badgeEvent')}
                 </span>
                 <h3>{featured.title}</h3>
                 <p>{featured.desc}</p>
@@ -281,7 +302,7 @@ export function Events() {
                 <img src={side.img} alt={side.title} />
                 <div className="ev-body">
                   <span className="badge badge-dark" style={{ position: 'static' }}>
-                    Event
+                    {t('sections.events.badgeEvent')}
                   </span>
                   <h4>{side.title}</h4>
                   <div className="date">{side.date}</div>
@@ -293,7 +314,7 @@ export function Events() {
                 <img src={corporate.img} alt={corporate.title} />
                 <div className="ev-body">
                   <span className="badge badge-dark" style={{ position: 'static' }}>
-                    Корпоративные
+                    {t('sections.events.badgeCorporate')}
                   </span>
                   <h4>{corporate.title}</h4>
                   <div className="date">{corporate.date}</div>
@@ -305,28 +326,28 @@ export function Events() {
 
         <div className="biz-buttons">
           <div className="bz-txt">
-            <b>Для бизнеса · MICE</b>
+            <b>{t('sections.events.bizTitle')}</b>
             <br />
-            <span>Конференции, тимбилдинги и корпоративы на курорте</span>
+            <span>{t('sections.events.bizDesc')}</span>
           </div>
           <div className="bz-actions">
             <a
               className="btn btn-ghost"
-              href={OQ.mice.catalogPdf}
+              href={oq.mice.catalogPdf}
               target="_blank"
               rel="noopener noreferrer"
             >
               <I.doc size={17} />
-              Изучить возможности курорта
+              {t('sections.events.catalog')}
             </a>
             <a
               className="btn btn-accent"
-              href={OQ.mice.calculatorUrl}
+              href={oq.mice.calculatorUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
               <I.calc size={17} />
-              Калькулятор мероприятия
+              {t('sections.events.calculator')}
             </a>
           </div>
         </div>
@@ -336,18 +357,21 @@ export function Events() {
 }
 
 export function Gallery({ onOpen }) {
+  const oq = useOQ();
+  const { t } = useTranslation();
+
   return (
     <section className="section">
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <span className="eyebrow">Атмосфера</span>
-            <h2 className="h-sec">Галерея курорта</h2>
-            <p>Нажмите на любое фото, чтобы открыть в полном размере.</p>
+            <span className="eyebrow">{t('sections.gallery.eyebrow')}</span>
+            <h2 className="h-sec">{t('sections.gallery.title')}</h2>
+            <p>{t('sections.gallery.desc')}</p>
           </div>
         </div>
         <div className="gallery-grid">
-          {OQ.gallery.map((g, i) => (
+          {oq.gallery.map((g, i) => (
             <div
               className={'g-item' + (g.tall ? ' tall' : '')}
               key={i}
@@ -367,7 +391,8 @@ export function Gallery({ onOpen }) {
 }
 
 export function Lightbox({ index, onClose, onIndex }) {
-  const images = OQ.gallery.map((g) => ({ src: g.img, caption: g.cap }));
+  const oq = useOQ();
+  const images = oq.gallery.map((g) => ({ src: g.img, caption: g.cap }));
   return (
     <ImageLightbox
       images={images}
@@ -379,18 +404,21 @@ export function Lightbox({ index, onClose, onIndex }) {
 }
 
 export function Rules() {
+  const oq = useOQ();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(0);
+
   return (
     <section className="section" id="rules">
       <div className="wrap">
         <div className="sec-head">
           <div>
-            <span className="eyebrow">Важно знать</span>
-            <h2 className="h-sec">Правила курорта</h2>
+            <span className="eyebrow">{t('sections.rules.eyebrow')}</span>
+            <h2 className="h-sec">{t('sections.rules.title')}</h2>
           </div>
         </div>
         <div className="rules">
-          {OQ.rules.map((r, i) => {
+          {oq.rules.map((r, i) => {
             const isOpen = open === i;
             return (
               <div className={'acc-item' + (isOpen ? ' open' : '')} key={i}>
@@ -420,23 +448,21 @@ export function Rules() {
 }
 
 export function AppBanner() {
-  const [shotA, shotB] = OQ.app.screenshots;
-  const { ios, android } = OQ.app.stores;
+  const oq = useOQ();
+  const { t } = useTranslation();
+  const [shotA, shotB] = oq.app.screenshots;
+  const { ios, android } = oq.app.stores;
 
   return (
     <section className="section appban">
       <div className="wrap">
         <div className="appban-inner">
           <div className="appban-copy">
-            <span className="eyebrow">Приложение Oi-Qaragai</span>
+            <span className="eyebrow">{t('sections.app.eyebrow')}</span>
             <h2 className="h-sec" style={{ marginTop: 16 }}>
-              Весь курорт в твоём телефоне
+              {t('sections.app.title')}
             </h2>
-            <p>
-              Управляйте вашими баллами лояльности,
-              а также получайте актуальную информацию о трассах,
-              подъемниках и погоде — в мобильном приложении Oi-Qaragai Mountain Resort
-            </p>
+            <p>{t('sections.app.desc')}</p>
             <div className="store-row">
               <a
                 className="store-btn"
@@ -446,7 +472,7 @@ export function AppBanner() {
               >
                 <img className="store-btn-icon" src={ios.icon} alt="" aria-hidden="true" />
                 <span className="st">
-                  <small>Загрузите в</small>
+                  <small>{t('sections.app.iosSmall')}</small>
                   <b>{ios.label}</b>
                 </span>
               </a>
@@ -458,7 +484,7 @@ export function AppBanner() {
               >
                 <img className="store-btn-icon" src={android.icon} alt="" aria-hidden="true" />
                 <span className="st">
-                  <small>Доступно в</small>
+                  <small>{t('sections.app.androidSmall')}</small>
                   <b>{android.label}</b>
                 </span>
               </a>
@@ -480,7 +506,10 @@ export function AppBanner() {
 }
 
 export function Footer() {
-  const c = OQ.contacts;
+  const oq = useOQ();
+  const { t } = useTranslation();
+  const c = oq.contacts;
+
   return (
     <footer className="footer">
       <div className="wrap">
@@ -491,10 +520,10 @@ export function Footer() {
             <div className="soc-row">
               <a
                 className="soc"
-                href={OQ.contacts.instaUrl}
+                href={oq.contacts.instaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={OQ.contacts.insta}
+                aria-label={oq.contacts.insta}
               >
                 <I.insta size={18} />
               </a>
@@ -507,47 +536,47 @@ export function Footer() {
             </div>
           </div>
           <div className="foot-col">
-            <h5>Курорт</h5>
+            <h5>{t('footer.resort')}</h5>
             <ul>
               <li>
-                <Link to="/guide">Отели</Link>
+                <Link to="/guide">{t('footer.hotels')}</Link>
               </li>
               <li>
-                <Link to="/guide">Рестораны</Link>
+                <Link to="/guide">{t('footer.restaurants')}</Link>
               </li>
               <li>
-                <Link to="/guide">Развлечения</Link>
+                <Link to="/guide">{t('footer.fun')}</Link>
               </li>
               <li>
-                <Link to="/guide">SPA и Баня</Link>
+                <Link to="/guide">{t('footer.spa')}</Link>
               </li>
               <li>
-                <a href="#">3D-тур</a>
+                <a href="#">{t('footer.tour3d')}</a>
               </li>
             </ul>
           </div>
           <div className="foot-col">
-            <h5>Информация</h5>
+            <h5>{t('footer.info')}</h5>
             <ul>
               <li>
-                <a href="#">О курорте</a>
+                <a href="#">{t('footer.about')}</a>
               </li>
               <li>
-                <a href="#rules">Правила</a>
+                <a href="#rules">{t('footer.rules')}</a>
               </li>
               <li>
-                <Link to="/events">Мероприятия</Link>
+                <Link to="/events">{t('footer.events')}</Link>
               </li>
               <li>
-                <a href="#">Вакансии</a>
+                <a href="#">{t('footer.jobs')}</a>
               </li>
               <li>
-                <a href="#">Контакты</a>
+                <a href="#">{t('footer.contactLink')}</a>
               </li>
             </ul>
           </div>
           <div className="foot-col">
-            <h5>Контакты</h5>
+            <h5>{t('footer.contacts')}</h5>
             <ul className="foot-contact">
               <li>
                 <I.pin size={17} />
@@ -571,9 +600,9 @@ export function Footer() {
         <div className="foot-bottom">
           <span>{c.copyright}</span>
           <div className="lk">
-            <a href="#">Политика конфиденциальности</a>
-            <a href="#">Публичная оферта</a>
-            <a href="#rules">Правила курорта</a>
+            <a href="#">{t('footer.privacy')}</a>
+            <a href="#">{t('footer.offer')}</a>
+            <a href="#rules">{t('footer.rulesLink')}</a>
           </div>
         </div>
       </div>
@@ -582,13 +611,16 @@ export function Footer() {
 }
 
 export function Partners() {
+  const oq = useOQ();
+  const { t } = useTranslation();
+
   return (
     <div className="partners">
       <div className="wrap">
         <div className="partners-row">
-          <span className="lab">Партнёры курорта</span>
+          <span className="lab">{t('sections.partners.label')}</span>
           <div className="partner-logos">
-            {OQ.partners.map((p, i) => (
+            {oq.partners.map((p, i) => (
               <div className="partner-slot" key={i}>
                 {p}
               </div>

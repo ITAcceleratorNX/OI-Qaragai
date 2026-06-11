@@ -3,6 +3,7 @@
  * Карточки (title, img, price) берутся из RAW_OQ.thingsAll по id.
  */
 import { RAW_OQ } from '../data.js';
+import { localizeDetail } from '../i18n/localizeDetails.js';
 import { findById as findCard } from './helpers.js';
 
 const restaurants = [
@@ -410,13 +411,14 @@ export function getDetailPath(type, id) {
   return segment ? `/${segment}/${id}` : null;
 }
 
-export function findById(section, id) {
+export function findById(section, id, lang = 'RU') {
   const detail = catalogs[section]?.find((item) => item.id === id);
   if (!detail) return null;
   const card = findCard(RAW_OQ.thingsAll, id);
-  return {
+  const merged = {
     ...card,
     ...detail,
     name: detail.name ?? card?.title,
   };
+  return localizeDetail(merged, section, id, lang);
 }

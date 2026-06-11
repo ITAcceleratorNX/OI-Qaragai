@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { OQ } from '../data.js'; // enriched default (RU)
 import { locales, LANG_HTML } from './locales/index.js';
+import { findById } from '../data/details.js';
 import { localizeOQ } from './localizeOQ.js';
 import { getNested, interpolate } from './utils.js';
 
@@ -51,7 +52,7 @@ export function LanguageProvider({ children }) {
       lang,
       setLang,
       t,
-      oq: localizeOQ(lang),
+      oq: localizeOQ(lang, t),
     };
   }, [lang]);
 
@@ -66,4 +67,9 @@ export function useTranslation() {
 
 export function useOQ() {
   return useContext(LanguageContext).oq;
+}
+
+export function useDetail(section, id) {
+  const { lang } = useTranslation();
+  return useMemo(() => findById(section, id, lang), [section, id, lang]);
 }

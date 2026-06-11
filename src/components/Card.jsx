@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 import { I } from '../icons.jsx';
 import { getDetailPath } from '../data/details.js';
+import { useTranslation } from '../i18n/LanguageProvider.jsx';
+import { resolveCtaKey } from '../i18n/utils.js';
+
+const DETAIL_CTAS = new Set(['details', 'menu', 'buy']);
 
 export function Card({ d, wide, onBuy }) {
-  const buy = d.cta === 'Купить';
-  const detailPath = d.id && d.type ? getDetailPath(d.type, d.id) : null;
-  const goDetail = detailPath && (d.cta === 'Подробнее' || d.cta === 'Меню' || d.cta === 'Купить');
+  const { t } = useTranslation();
+  const ctaKey = resolveCtaKey(d);
+  const buy = ctaKey === 'buy';
+  const detailPath = d.id && d.typeKey ? getDetailPath(d.typeKey, d.id) : null;
+  const goDetail = detailPath && DETAIL_CTAS.has(ctaKey);
 
   const media = (
     <div className="card-media">
@@ -63,7 +69,7 @@ export function Card({ d, wide, onBuy }) {
         <div className="card-foot">
           {d.price ? (
             <div className="price">
-              <span className="from">от</span>
+              <span className="from">{t('common.from')}</span>
               <span className="val">
                 <b>{d.price}</b> ₸
               </span>
@@ -71,9 +77,9 @@ export function Card({ d, wide, onBuy }) {
             </div>
           ) : (
             <div className="price">
-              <span className="from">Курорт Oi-Qaragai</span>
+              <span className="from">{t('common.resortName')}</span>
               <span className="val" style={{ fontSize: 15 }}>
-                По запросу
+                {t('common.onRequest')}
               </span>
             </div>
           )}
@@ -96,7 +102,7 @@ export function Card({ d, wide, onBuy }) {
                   title: d.title,
                   price: d.price,
                   img: d.img,
-                  category: d.tag || d.typeLabel || d.category || 'Услуга',
+                  category: d.tag || d.typeLabel || d.category || t('common.service'),
                   per: d.per,
                 })
               }

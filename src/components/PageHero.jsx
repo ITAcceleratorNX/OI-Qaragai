@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { I } from '../icons.jsx';
+import { useTranslation } from '../i18n/LanguageProvider.jsx';
 
 export function PageHero({
   eyebrow,
@@ -7,9 +8,11 @@ export function PageHero({
   desc,
   image,
   stats,
-  backLabel = 'На главную',
+  backLabel,
   backTo = '/',
 }) {
+  const { t } = useTranslation();
+  const back = backLabel ?? t('detail.toHome');
   return (
     <header className={'page-hero' + (image ? ' page-hero--cover' : '')}>
       {image && (
@@ -21,7 +24,7 @@ export function PageHero({
       <div className="wrap page-hero-inner">
         <Link className="page-back" to={backTo}>
           <I.arrowLeft size={16} />
-          {backLabel}
+          {back}
         </Link>
         <div className="page-hero-grid">
           <div className="page-hero-copy">
