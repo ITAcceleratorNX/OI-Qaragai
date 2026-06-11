@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { listingFilters } from '../data/helpers.js';
 import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { Card } from '../components/Card.jsx';
 import { PageHero } from '../components/PageHero.jsx';
@@ -7,12 +8,11 @@ import { ListingToolbar } from '../components/ListingToolbar.jsx';
 import { ListingEmpty } from '../components/ListingEmpty.jsx';
 import { OfferSpotlight } from '../components/OfferSpotlight.jsx';
 
-const FILTER_IDS = ['all', 'packages', 'spa', 'skipass', 'activities'];
-
 export function OffersPage({ cart, onBuy, onBurger }) {
   const { t } = useTranslation();
   const oq = useOQ();
   const [f, setF] = useState('all');
+  const filterKeys = listingFilters(oq.offersAll, (o) => o.categoryKey);
 
   const list =
     f === 'all'
@@ -22,7 +22,7 @@ export function OffersPage({ cart, onBuy, onBurger }) {
   const spotlight = f === 'all' ? oq.offersAll[0] : null;
   const grid = spotlight ? list.slice(1) : list;
 
-  const filters = FILTER_IDS.map((key) => ({
+  const filters = filterKeys.map((key) => ({
     key,
     label: t(`filters.${key}`),
     count:
@@ -44,11 +44,11 @@ export function OffersPage({ cart, onBuy, onBurger }) {
         eyebrow={t('pages.offers.eyebrow')}
         title={t('pages.offers.title')}
         desc={t('pages.offers.desc')}
-        image="https://oq-prod.storage.yandexcloud.kz/media-test/b9412961e77379e1beedf84c8108ed65.jpg"
+        image={oq.pageHero.offers}
         stats={[
           { value: oq.offersAll.length, label: t('pages.offers.statOffers') },
-          { value: '12 000 ₸', label: t('pages.offers.statFrom') },
-          { value: '−25%', label: t('pages.offers.statDiscount') },
+          { value: oq.offersMeta.priceFrom, label: t('pages.offers.statFrom') },
+          { value: oq.offersMeta.maxDiscount, label: t('pages.offers.statDiscount') },
         ]}
       />
 
@@ -70,7 +70,9 @@ export function OffersPage({ cart, onBuy, onBurger }) {
             />
           ) : (
             <div className="listing-stack">
-              {spotlight && <OfferSpotlight offer={spotlight} onBuy={onBuy} />}
+              {spotlight && (
+                <OfferSpotlight offer={spotlight} onBuy={onBuy} />
+              )}
               <div className="cards-grid cards-3 listing-cards">
                 {grid.map((o) => (
                   <Card key={o.title} d={o} wide onBuy={onBuy} />

@@ -1,4 +1,4 @@
-export function ListingToolbar({ filters, active, onChange, count, label = 'найдено' }) {
+export function ListingToolbar({ filters, active, onChange, count, label }) {
   return (
     <div className="page-filters">
       <p className="page-filters-meta">

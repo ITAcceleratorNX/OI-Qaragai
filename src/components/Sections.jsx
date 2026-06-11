@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { I } from '../icons.jsx';
 import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
+import { I } from '../icons.jsx';
 import { Logo } from './Header.jsx';
 import { Card } from './Card.jsx';
+import { ImageLightbox } from './ImageLightbox.jsx';
 
-/* углы: снизу вверх — Проживание → 3D-тур */
 const QUICK_ARC_ANGLES = [62, 31, 0, -31, -62];
-
-const THING_FILTER_IDS = ['all', 'hotels', 'restaurants', 'fun', 'spa'];
+const FILTER_IDS = ['all', 'hotels', 'restaurants', 'fun', 'spa'];
 
 export function QuickFab() {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
@@ -52,7 +51,7 @@ export function QuickFab() {
               <Link
                 className="quick-fab-item"
                 to={q.href || '/guide'}
-                key={q.t}
+                key={q.href || q.t}
                 style={{ '--arc-angle': QUICK_ARC_ANGLES[i] + 'deg', '--arc-i': i }}
                 tabIndex={open ? 0 : -1}
                 onClick={() => setOpen(false)}
@@ -86,8 +85,9 @@ export function QuickFab() {
 }
 
 export function Hero() {
+  const oq = useOQ();
   const { t, lang } = useTranslation();
-  const { slides, interval } = useOQ().hero;
+  const { slides, interval } = oq.hero;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const count = slides.length;
@@ -168,8 +168,9 @@ export function Hero() {
 }
 
 export function Offers({ onBuy }) {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
+
   return (
     <section className="section" id="offers">
       <div className="wrap">
@@ -185,7 +186,7 @@ export function Offers({ onBuy }) {
         </div>
         <div className="cards-grid cards-3">
           {oq.offers.map((o, i) => (
-            <Card key={i} d={o} wide onBuy={onBuy} />
+            <Card key={o.id || i} d={o} wide onBuy={onBuy} />
           ))}
         </div>
       </div>
@@ -194,15 +195,23 @@ export function Offers({ onBuy }) {
 }
 
 export function ThingsToDo({ onBuy }) {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
   const [f, setF] = useState('all');
+
   const list =
     f === 'all' ? oq.things : oq.things.filter((item) => item.typeKey === f);
+
   const countFor = (k) =>
     k === 'all'
       ? oq.things.length
       : oq.things.filter((item) => item.typeKey === k).length;
+
+  const filters = FILTER_IDS.map((key) => ({
+    key,
+    label: t(`filters.${key}`),
+    count: countFor(key),
+  }));
 
   return (
     <section className="section" id="tabs">
@@ -218,20 +227,20 @@ export function ThingsToDo({ onBuy }) {
           </Link>
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 36 }}>
-          {THING_FILTER_IDS.map((x) => (
+          {filters.map((x) => (
             <button
-              key={x}
-              className={'pill ' + (f === x ? 'active' : '')}
-              onClick={() => setF(x)}
+              key={x.key}
+              className={'pill ' + (f === x.key ? 'active' : '')}
+              onClick={() => setF(x.key)}
             >
-              {t(`filters.${x}`)}
-              <span className="count">{countFor(x)}</span>
+              {x.label}
+              <span className="count">{x.count}</span>
             </button>
           ))}
         </div>
         <div className="cards-grid cards-4">
           {list.map((item) => (
-            <Card key={item.title} d={item} onBuy={onBuy} />
+            <Card key={item.id || item.title} d={item} onBuy={onBuy} />
           ))}
         </div>
       </div>
@@ -240,8 +249,10 @@ export function ThingsToDo({ onBuy }) {
 }
 
 export function Events() {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
+  const { featured, side, corporate } = oq.homeEvents;
+
   return (
     <section className="section" id="events">
       <div className="wrap">
@@ -256,54 +267,60 @@ export function Events() {
           </Link>
         </div>
         <div className="events-grid">
-          <div className="event-big">
-            <img src="https://oq-prod.storage.yandexcloud.kz/media-test/9dc9a54825f5be9e69cc9dfeba062a69.jpg" alt={t('sections.events.newYearTitle')} />
-            <div className="ev-body">
-              <span className="badge badge-accent" style={{ position: 'static' }}>
-                {t('sections.events.badgeEvent')}
-              </span>
-              <h3>{t('sections.events.newYearTitle')}</h3>
-              <p>{t('sections.events.newYearDesc')}</p>
-              <div
-                style={{
-                  display: 'flex',
-                  gap: 18,
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                }}
-              >
-                <span className="ev-date">
-                  <I.calendar size={16} />
-                  {t('sections.events.newYearDate')}
-                </span>
-                <button className="btn btn-accent btn-sm">
-                  {t('sections.events.buyTicket')}
-                  <I.arrowRight size={15} />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="ev-side">
-            <div className="event-sm">
-              <img src="https://oq-prod.storage.yandexcloud.kz/media-test/4ab09cd056b46f8a04eb02a41cc9fdc4.jpg" alt={t('sections.events.freerideTitle')} />
+          {featured && (
+            <div className="event-big">
+              <img src={featured.img} alt={featured.title} />
               <div className="ev-body">
-                <span className="badge badge-dark" style={{ position: 'static' }}>
+                <span className="badge badge-accent" style={{ position: 'static' }}>
                   {t('sections.events.badgeEvent')}
                 </span>
-                <h4>{t('sections.events.freerideTitle')}</h4>
-                <div className="date">{t('sections.events.freerideDate')}</div>
+                <h3>{featured.title}</h3>
+                <p>{featured.desc}</p>
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 18,
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <span className="ev-date">
+                    <I.calendar size={16} />
+                    {featured.date}
+                  </span>
+                  <button className="btn btn-accent btn-sm">
+                    {featured.cta}
+                    <I.arrowRight size={15} />
+                  </button>
+                </div>
               </div>
             </div>
-            <Link className="event-sm" to="/events/corporate">
-              <img src="https://oq-prod.storage.yandexcloud.kz/media-test/c625a507521f98262ca3793138f93c1a.png" alt={t('sections.events.corporateTitle')} />
-              <div className="ev-body">
-                <span className="badge badge-dark" style={{ position: 'static' }}>
-                  {t('sections.events.badgeCorporate')}
-                </span>
-                <h4>{t('sections.events.corporateTitle')}</h4>
-                <div className="date">{t('sections.events.corporateDate')}</div>
+          )}
+          <div className="ev-side">
+            {side && (
+              <div className="event-sm">
+                <img src={side.img} alt={side.title} />
+                <div className="ev-body">
+                  <span className="badge badge-dark" style={{ position: 'static' }}>
+                    {t('sections.events.badgeEvent')}
+                  </span>
+                  <h4>{side.title}</h4>
+                  <div className="date">{side.date}</div>
+                </div>
               </div>
-            </Link>
+            )}
+            {corporate && (
+              <Link className="event-sm" to="/events/corporate">
+                <img src={corporate.img} alt={corporate.title} />
+                <div className="ev-body">
+                  <span className="badge badge-dark" style={{ position: 'static' }}>
+                    {t('sections.events.badgeCorporate')}
+                  </span>
+                  <h4>{corporate.title}</h4>
+                  <div className="date">{corporate.date}</div>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
 
@@ -340,8 +357,9 @@ export function Events() {
 }
 
 export function Gallery({ onOpen }) {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
+
   return (
     <section className="section">
       <div className="wrap">
@@ -373,63 +391,23 @@ export function Gallery({ onOpen }) {
 }
 
 export function Lightbox({ index, onClose, onIndex }) {
-  const g = useOQ().gallery;
-  useEffect(() => {
-    const k = (e) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') onIndex((index + 1) % g.length);
-      if (e.key === 'ArrowLeft') onIndex((index - 1 + g.length) % g.length);
-    };
-    window.addEventListener('keydown', k);
-    return () => window.removeEventListener('keydown', k);
-  }, [index, g.length, onClose, onIndex]);
-
-  const cur = g[index];
+  const oq = useOQ();
+  const images = oq.gallery.map((g) => ({ src: g.img, caption: g.cap }));
   return (
-    <div className="lightbox" onClick={onClose}>
-      <div className="lb-stage" onClick={(e) => e.stopPropagation()}>
-        <button className="lb-close" onClick={onClose}>
-          <I.close size={20} />
-        </button>
-        <button
-          className="lb-nav lb-prev"
-          onClick={() => onIndex((index - 1 + g.length) % g.length)}
-        >
-          <I.arrowLeft size={22} />
-        </button>
-        <img className="lb-img" src={cur.img} alt={cur.cap} />
-        <button
-          className="lb-nav lb-next"
-          onClick={() => onIndex((index + 1) % g.length)}
-        >
-          <I.arrowRight size={22} />
-        </button>
-        <div className="lb-cap">
-          <b>{cur.cap}</b>
-          <span>
-            {index + 1} / {g.length}
-          </span>
-        </div>
-        <div className="lb-thumbs">
-          {g.map((t, i) => (
-            <img
-              key={i}
-              src={t.img}
-              className={i === index ? 'sel' : ''}
-              onClick={() => onIndex(i)}
-              alt=""
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    <ImageLightbox
+      images={images}
+      index={index}
+      onClose={onClose}
+      onIndex={onIndex}
+    />
   );
 }
 
 export function Rules() {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(0);
+
   return (
     <section className="section" id="rules">
       <div className="wrap">
@@ -470,8 +448,8 @@ export function Rules() {
 }
 
 export function AppBanner() {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
   const [shotA, shotB] = oq.app.screenshots;
   const { ios, android } = oq.app.stores;
 
@@ -528,16 +506,17 @@ export function AppBanner() {
 }
 
 export function Footer() {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
   const c = oq.contacts;
+
   return (
     <footer className="footer">
       <div className="wrap">
         <div className="foot-top">
           <div className="foot-brand">
             <Logo />
-            <p>{t('footer.desc')}</p>
+            <p>{c.tagline}</p>
             <div className="soc-row">
               <a
                 className="soc"
@@ -613,13 +592,13 @@ export function Footer() {
               </li>
               <li>
                 <I.clock size={17} />
-                {t('footer.hours')}
+                {c.hours}
               </li>
             </ul>
           </div>
         </div>
         <div className="foot-bottom">
-          <span>{t('footer.copyright')}</span>
+          <span>{c.copyright}</span>
           <div className="lk">
             <a href="#">{t('footer.privacy')}</a>
             <a href="#">{t('footer.offer')}</a>
@@ -632,8 +611,9 @@ export function Footer() {
 }
 
 export function Partners() {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
+
   return (
     <div className="partners">
       <div className="wrap">

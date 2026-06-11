@@ -16,7 +16,7 @@ export function EventsHubPage({ cart, onBurger }) {
         eyebrow={t('pages.events.eyebrow')}
         title={t('pages.events.title')}
         desc={t('pages.events.desc')}
-        image="https://oq-prod.storage.yandexcloud.kz/media-test/9dc9a54825f5be9e69cc9dfeba062a69.jpg"
+        image={oq.pageHero.eventsHub}
         stats={[
           { value: upcoming, label: t('pages.events.statUpcoming') },
           { value: oq.corporateAll.length, label: t('pages.events.statMice') },

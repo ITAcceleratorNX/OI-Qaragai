@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { findById } from '../data/details.js';
-import { useTranslation } from '../i18n/LanguageProvider.jsx';
+import { useDetail, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
@@ -12,7 +11,7 @@ import { I } from '../icons.jsx';
 export function SpaDetailPage({ cart, onBurger }) {
   const { t } = useTranslation();
   const { id } = useParams();
-  const item = findById('spa', id);
+  const item = useDetail('spa', id);
   const tariffs = item?.tariffs?.length ? item.tariffs : [];
   const [tariffIdx, setTariffIdx] = useState(0);
   const [form, setForm] = useState({ name: '', phone: '', date: '' });
@@ -27,7 +26,7 @@ export function SpaDetailPage({ cart, onBurger }) {
   }
 
   const tariff = tariffs[tariffIdx] ?? {
-    name: `${item.duration} мин`,
+    name: `${item.duration} ${t('detail.minutes')}`,
     price: item.price,
     duration: item.duration,
   };

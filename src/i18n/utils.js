@@ -1,3 +1,5 @@
+import { deriveCatalog } from '../data/helpers.js';
+
 export function getNested(obj, path) {
   return path.split('.').reduce((acc, key) => acc?.[key], obj);
 }
@@ -35,6 +37,12 @@ const TYPE_KEY_MAP = {
   Рестораны: 'restaurants',
   Развлечения: 'fun',
   SPA: 'spa',
+  Hotels: 'hotels',
+  Restaurants: 'restaurants',
+  Activities: 'fun',
+  'Қонақ үйлер': 'hotels',
+  'Мейрамханалар': 'restaurants',
+  'Ойын-сауық': 'fun',
 };
 
 const CATEGORY_KEY_MAP = {
@@ -54,7 +62,31 @@ export const CTA_KEY_MAP = {
   Забронировать: 'book',
   Запросить: 'request',
   Архив: 'archive',
+  Buy: 'buy',
+  Details: 'details',
+  Menu: 'menu',
+  'Buy ticket': 'buyTicket',
+  Signup: 'signup',
+  Book: 'book',
+  Request: 'request',
+  Archive: 'archive',
+  'Сатып алу': 'buy',
+  'Толығырақ': 'details',
+  'Мәзір': 'menu',
+  'Билет сатып алу': 'buyTicket',
+  'Жазылу': 'signup',
+  'Брондау': 'book',
+  'Сұрау': 'request',
+  'Мұрағат': 'archive',
 };
+
+export const CTA_KEYS = new Set(Object.values(CTA_KEY_MAP));
+
+export function resolveCtaKey(item) {
+  if (item?.ctaKey && CTA_KEYS.has(item.ctaKey)) return item.ctaKey;
+  if (item?.cta) return CTA_KEY_MAP[item.cta] ?? null;
+  return null;
+}
 
 export function getDateLocale(lang) {
   if (lang === 'KZ') return 'kk-KZ';
@@ -65,21 +97,31 @@ export function getDateLocale(lang) {
 export function enrichOQItem(item) {
   if (!item || typeof item !== 'object') return item;
   const next = { ...item };
-  if (!next.typeKey && next.type) next.typeKey = TYPE_KEY_MAP[next.type] ?? next.type;
+  if (!next.typeKey && next.type) next.typeKey = TYPE_KEY_MAP[next.type];
   if (!next.categoryKey && next.category) {
-    next.categoryKey = CATEGORY_KEY_MAP[next.category] ?? next.category;
+    next.categoryKey = CATEGORY_KEY_MAP[next.category];
   }
-  if (!next.ctaKey && next.cta) next.ctaKey = CTA_KEY_MAP[next.cta] ?? next.cta;
+  if (!next.ctaKey && next.cta) next.ctaKey = CTA_KEY_MAP[next.cta];
   return next;
 }
 
 export function enrichOQ(data) {
   const mapItems = (arr) => (Array.isArray(arr) ? arr.map(enrichOQItem) : arr);
-  return {
+  const mapped = {
     ...data,
-    things: mapItems(data.things),
     thingsAll: mapItems(data.thingsAll),
-    offers: mapItems(data.offers),
     offersAll: mapItems(data.offersAll),
+    eventsEvent: mapItems(data.eventsEvent),
+    corporateAll: mapItems(data.corporateAll),
+    eventsHub: data.eventsHub
+      ? { ...data.eventsHub, portals: mapItems(data.eventsHub.portals) }
+      : data.eventsHub,
+  };
+  const derived = deriveCatalog(mapped);
+  return {
+    ...mapped,
+    ...derived,
+    offers: mapItems(derived.offers),
+    things: mapItems(derived.things),
   };
 }

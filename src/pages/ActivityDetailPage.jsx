@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { findById } from '../data/details.js';
-import { useTranslation } from '../i18n/LanguageProvider.jsx';
+import { useDetail, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
@@ -11,7 +10,7 @@ import { I } from '../icons.jsx';
 export function ActivityDetailPage({ cart, onBurger, onBuy }) {
   const { t } = useTranslation();
   const { id } = useParams();
-  const item = findById('activities', id);
+  const item = useDetail('activities', id);
   const [tariffIdx, setTariffIdx] = useState(0);
   const [visitDate, setVisitDate] = useState('');
 

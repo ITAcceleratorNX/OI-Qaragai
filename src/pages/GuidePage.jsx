@@ -43,11 +43,11 @@ export function GuidePage({ cart, onBuy, onBurger }) {
         eyebrow={t('pages.guide.eyebrow')}
         title={t('pages.guide.title')}
         desc={t('pages.guide.desc')}
-        image="https://oq-prod.storage.yandexcloud.kz/media-test/672781f715c9dfff7e6f26a11daef8b6.jpg"
+        image={oq.pageHero.guide}
         stats={[
           { value: oq.thingsAll.length, label: t('pages.guide.statObjects') },
           { value: '4', label: t('pages.guide.statCategories') },
-          { value: '365', label: t('pages.guide.statDays') },
+          { value: oq.mice.stats[2].value, label: t('pages.guide.statDays') },
         ]}
       />
 

@@ -25,10 +25,10 @@ export const Logo = ({ onClick }) => {
 };
 
 export function TopBar() {
+  const oq = useOQ();
   const { t } = useTranslation();
-  const { contacts: c, weather } = useOQ();
-  const { resort } = weather;
-
+  const c = oq.contacts;
+  const { resort } = oq.weather;
   return (
     <div className="topbar">
       <div className="wrap topbar-wrap">
@@ -61,7 +61,7 @@ export function TopBar() {
             </span>
             {resort.open && (
               <span className="topbar-status-meta hide-xs">
-                {t('header.statusMeta', { lifts: resort.lifts, slopes: resort.slopes })}
+                · {resort.lifts} · {resort.slopes}
               </span>
             )}
           </Link>
@@ -95,15 +95,7 @@ function LangLabel({ code }) {
   if (!item) return null;
   return (
     <>
-      <img
-        className="lang-flag"
-        src={item.flag}
-        alt=""
-        width={20}
-        height={15}
-        loading="lazy"
-        decoding="async"
-      />
+      <img className="lang-flag" src={item.flag} alt="" aria-hidden="true" />
       <span className="lang-code">{item.code}</span>
     </>
   );
@@ -117,9 +109,7 @@ function LangSwitcher({ lang, setLang, langOpen, setLangOpen, t }) {
         className="lang"
         onClick={() => setLangOpen((o) => !o)}
         onBlur={() => setTimeout(() => setLangOpen(false), 150)}
-        aria-label={
-          current ? t('header.languageLabel', { name: current.name }) : t('header.language')
-        }
+        aria-label={current ? t('header.languageLabel', { name: current.name }) : t('header.language')}
       >
         <LangLabel code={lang} />
         <I.chevDown size={13} />
@@ -146,8 +136,9 @@ function LangSwitcher({ lang, setLang, langOpen, setLangOpen, t }) {
 }
 
 function WeatherWidget() {
+  const oq = useOQ();
   const { t } = useTranslation();
-  const { city, resort } = useOQ().weather;
+  const { city, resort } = oq.weather;
   return (
     <>
       <Link to="/weather" className="weather-widget" aria-label={t('header.weather')}>
@@ -161,11 +152,7 @@ function WeatherWidget() {
           <b>{resort.temp}</b>
         </span>
       </Link>
-      <Link
-        to="/weather"
-        className="weather-widget weather-widget--compact show-mobile"
-        aria-label={t('header.weather')}
-      >
+      <Link to="/weather" className="weather-widget weather-widget--compact show-mobile" aria-label={t('header.weather')}>
         <I.cloud size={18} />
         <b>{resort.temp}</b>
       </Link>
@@ -174,8 +161,8 @@ function WeatherWidget() {
 }
 
 function MegaMenu({ onClose }) {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
   return (
     <div className="mega-wrap" onMouseLeave={onClose}>
       <div className="mega" role="menu">
@@ -314,8 +301,8 @@ export function Header({ cart, onBurger }) {
 }
 
 export function MobileDrawer({ open, onClose }) {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t } = useTranslation();
   const [sec, setSec] = useState(null);
 
   useEffect(() => {

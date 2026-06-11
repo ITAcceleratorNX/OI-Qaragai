@@ -24,7 +24,7 @@ export function makeCartItem(product) {
     price: parsePrice(product.price),
     priceLabel: product.price,
     img: product.img || '',
-    category: product.category || 'Услуга',
+    category: product.category || '',
     per: product.per || '',
     qty: 1,
   };

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { DetailBack } from './DetailBack.jsx';
 import { useTranslation } from '../../i18n/LanguageProvider.jsx';
+import { DetailBack } from './DetailBack.jsx';
 
 export function NotFoundDetail({ sectionLabel }) {
   const { t } = useTranslation();
+
   return (
     <div className="detail-not-found">
       <DetailBack />

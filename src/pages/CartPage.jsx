@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { I } from '../icons.jsx';
 import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
+import { I } from '../icons.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 import { formatPrice, getCartTotal } from '../lib/cart.js';
 
-function CartEmpty() {
-  const { t } = useTranslation();
+function CartEmpty({ t }) {
   return (
     <div className="cart-empty">
       <div className="cart-empty-visual" aria-hidden="true">
@@ -29,8 +28,7 @@ function CartEmpty() {
   );
 }
 
-function CartItem({ item, onQty, onRemove }) {
-  const { t } = useTranslation();
+function CartItem({ item, onQty, onRemove, t }) {
   return (
     <article className="cart-item">
       <div className="cart-item-media">
@@ -87,8 +85,7 @@ function CartItem({ item, onQty, onRemove }) {
   );
 }
 
-function CartSummary({ items, promo, setPromo, onCheckout }) {
-  const { t } = useTranslation();
+function CartSummary({ items, promo, setPromo, onCheckout, t }) {
   const subtotal = getCartTotal(items);
   const discount = promo === 'WINTER20' ? Math.round(subtotal * 0.2) : 0;
   const total = subtotal - discount;
@@ -162,29 +159,30 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
   const [promo, setPromo] = useState('');
   const isEmpty = cartItems.length === 0;
   const suggestions = oq.offersAll.slice(0, 3);
-  const cartCountLabel =
+
+  const countLabel =
     cart === 1
       ? t('pages.cart.itemOne')
       : cart < 5
         ? t('pages.cart.itemFew')
         : t('pages.cart.itemMany');
 
+  const heroDesc = isEmpty
+    ? t('pages.cart.emptyHero')
+    : t('pages.cart.itemsReady', { count: `${cart} ${countLabel}` });
+
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
         eyebrow={t('pages.cart.eyebrow')}
         title={t('pages.cart.title')}
-        desc={
-          isEmpty
-            ? t('pages.cart.emptyHero')
-            : t('pages.cart.itemsReady', { count: `${cart} ${cartCountLabel}` })
-        }
+        desc={heroDesc}
       />
 
       <section className="section page-section">
         <div className="wrap">
           {isEmpty ? (
-            <CartEmpty />
+            <CartEmpty t={t} />
           ) : (
             <div className="cart-layout">
               <div className="cart-list">
@@ -194,6 +192,7 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
                     item={item}
                     onQty={onQty}
                     onRemove={onRemove}
+                    t={t}
                   />
                 ))}
               </div>
@@ -202,6 +201,7 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
                 promo={promo}
                 setPromo={setPromo}
                 onCheckout={onCheckout}
+                t={t}
               />
             </div>
           )}
@@ -216,7 +216,7 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
               </div>
               <div className="cart-suggest-grid">
                 {suggestions.map((o) => (
-                  <Link className="cart-suggest-card" to="/offers" key={o.title}>
+                  <Link className="cart-suggest-card" to="/offers" key={o.id || o.title}>
                     <img src={o.img} alt="" loading="lazy" />
                     <div>
                       <span>{o.tag || o.category}</span>

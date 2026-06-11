@@ -2,33 +2,35 @@ import { Link } from 'react-router-dom';
 import { I } from '../icons.jsx';
 import { getDetailPath } from '../data/details.js';
 import { useTranslation } from '../i18n/LanguageProvider.jsx';
+import { resolveCtaKey } from '../i18n/utils.js';
+
+const DETAIL_CTAS = new Set(['details', 'menu', 'buy']);
 
 export function Card({ d, wide, onBuy }) {
   const { t } = useTranslation();
-  const buy = d.ctaKey === 'buy';
-  const detailPath =
-    d.id && d.typeKey ? getDetailPath(d.typeKey, d.id) : null;
-  const goDetail =
-    detailPath &&
-    (d.ctaKey === 'details' || d.ctaKey === 'menu' || d.ctaKey === 'buy');
+  const ctaKey = resolveCtaKey(d);
+  const buy = ctaKey === 'buy';
+  const detailPath = d.id && d.typeKey ? getDetailPath(d.typeKey, d.id) : null;
+  const goDetail = detailPath && DETAIL_CTAS.has(ctaKey);
 
   const media = (
     <div className="card-media">
-      {d.badge && (
-        <div className="card-tags">
-          <span
-            className={
-              'badge ' + (d.badgeType === 'accent' ? 'badge-accent' : 'badge-dark')
-            }
-          >
-            {d.badge}
-          </span>
-        </div>
-      )}
-      <img src={d.img} alt={d.title} loading="lazy" />
-      {d.typeLabel && <span className="badge-type">{d.typeLabel}</span>}
-      {d.tag && !d.typeLabel && <span className="badge-type">{d.tag}</span>}
-    </div>
+        {d.badge && (
+          <div className="card-tags">
+            <span
+              className={
+                'badge ' +
+                (d.badgeType === 'accent' ? 'badge-accent' : 'badge-dark')
+              }
+            >
+              {d.badge}
+            </span>
+          </div>
+        )}
+        <img src={d.img} alt={d.title} loading="lazy" />
+        {d.typeLabel && <span className="badge-type">{d.typeLabel}</span>}
+        {d.tag && !d.typeLabel && <span className="badge-type">{d.tag}</span>}
+      </div>
   );
 
   return (
