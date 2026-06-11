@@ -51,9 +51,9 @@ export function TopBar() {
 }
 
 const LANGS = [
-  { code: 'KZ', flag: '🇰🇿', name: 'Қазақша' },
-  { code: 'RU', flag: '🇷🇺', name: 'Русский' },
-  { code: 'EN', flag: '🇬🇧', name: 'English' },
+  { code: 'KZ', flag: '/images/flags/kz.png', name: 'Қазақша' },
+  { code: 'RU', flag: '/images/flags/ru.png', name: 'Русский' },
+  { code: 'EN', flag: '/images/flags/us.png', name: 'English' },
 ];
 
 function LangLabel({ code }) {
@@ -61,9 +61,15 @@ function LangLabel({ code }) {
   if (!item) return null;
   return (
     <>
-      <span className="lang-flag" aria-hidden="true">
-        {item.flag}
-      </span>
+      <img
+        className="lang-flag"
+        src={item.flag}
+        alt=""
+        width={20}
+        height={15}
+        loading="lazy"
+        decoding="async"
+      />
       <span className="lang-code">{item.code}</span>
     </>
   );

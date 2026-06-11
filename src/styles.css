@@ -140,7 +140,7 @@ ul{list-style:none}
 
 .lang{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:9px;border:1px solid var(--line);transition:border-color .2s}
 .lang:hover{border-color:var(--line-2)}
-.lang-flag{font-size:17px;line-height:1;display:flex;flex:none}
+.lang-flag{width:20px;height:15px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px var(--line);flex:none;display:block}
 .lang-code{font-size:12px;font-weight:800;letter-spacing:.06em}
 .cart-badge{position:absolute;top:5px;right:5px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;
   background:var(--accent);color:var(--on-accent);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
