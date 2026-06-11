@@ -39,6 +39,11 @@ export default {
     megaCta: 'Толық гидті ашу',
     profile: 'Профиль',
     book: 'Брондау',
+    statusOpen: 'Курорт ашық',
+    statusClosed: 'Курорт жабық',
+    statusMeta: '· {lifts} · {slopes}',
+    statusTitle: 'Көтергіштер {lifts} · Трассалар {slopes}',
+    statusAria: 'Курорт пен трассалар статусы — ауа-райы туралы толығырақ',
   },
   theme: {
     light: 'Жарық тақырыпты қосу',
@@ -142,6 +147,7 @@ export default {
   weather: {
     wind: 'Жел',
     humidity: 'Ылғалдылық',
+    precipitation: 'Жауын ықтималдығы',
     lifts: 'Көтергіштер',
     slopes: 'Трассалар',
     open: 'Ашық',
@@ -202,16 +208,16 @@ export default {
       address: 'Алматы облысы, Ой-Қарағай сайрамалы',
     },
     weather: {
-      city: { name: 'Алматы', condition: 'Бұлтты' },
-      resort: { name: 'Курорт', condition: 'Ашық' },
+      city: { name: 'Алматы', condition: 'Бұлтты', day: 'жұма' },
+      resort: { name: 'Курорт', condition: 'Жеңіл жауын', day: 'жұма' },
       forecast: [
         { day: 'Бүгін' },
-        { day: 'Бс' },
-        { day: 'Жм' },
-        { day: 'Сн' },
+        { day: 'Сб' },
         { day: 'Жс' },
         { day: 'Дс' },
         { day: 'Сс' },
+        { day: 'Ср' },
+        { day: 'Бс' },
       ],
     },
     mega: [

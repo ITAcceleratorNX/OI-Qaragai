@@ -39,6 +39,11 @@ export default {
     megaCta: 'Open full guide',
     profile: 'Profile',
     book: 'Book now',
+    statusOpen: 'Resort open',
+    statusClosed: 'Resort closed',
+    statusMeta: '· {lifts} · {slopes}',
+    statusTitle: 'Lifts {lifts} · Slopes {slopes}',
+    statusAria: 'Resort and slope status — more weather details',
   },
   theme: {
     light: 'Switch to light theme',
@@ -142,6 +147,7 @@ export default {
   weather: {
     wind: 'Wind',
     humidity: 'Humidity',
+    precipitation: 'Precipitation',
     lifts: 'Lifts',
     slopes: 'Slopes',
     open: 'Open',
@@ -202,16 +208,16 @@ export default {
       address: 'Almaty region, Oy-Qaragai gorge',
     },
     weather: {
-      city: { name: 'Almaty', condition: 'Cloudy' },
-      resort: { name: 'Resort', condition: 'Clear' },
+      city: { name: 'Almaty', condition: 'Cloudy', day: 'Friday' },
+      resort: { name: 'Resort', condition: 'Light rain', day: 'Friday' },
       forecast: [
         { day: 'Today' },
-        { day: 'Thu' },
-        { day: 'Fri' },
         { day: 'Sat' },
         { day: 'Sun' },
         { day: 'Mon' },
         { day: 'Tue' },
+        { day: 'Wed' },
+        { day: 'Thu' },
       ],
     },
     mega: [

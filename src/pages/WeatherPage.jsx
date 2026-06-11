@@ -3,10 +3,17 @@ import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 
-const CLEAR_CONDITIONS = ['Ясно', 'Clear', 'Ашық'];
+const SUN_ICONS = new Set(['sun']);
+const RAIN_ICONS = new Set(['rain']);
+
+function weatherIcon(data) {
+  if (SUN_ICONS.has(data.icon)) return I.sun;
+  if (RAIN_ICONS.has(data.icon)) return I.cloud;
+  return I.cloud;
+}
 
 function WeatherCard({ title, data, accent, t }) {
-  const Icon = CLEAR_CONDITIONS.includes(data.condition) ? I.sun : I.cloud;
+  const Icon = weatherIcon(data);
   return (
     <article className={'weather-card' + (accent ? ' weather-card--accent' : '')}>
       <div className="weather-card-head">
@@ -22,17 +29,24 @@ function WeatherCard({ title, data, accent, t }) {
         <Icon size={36} />
         <div>
           <p className="weather-temp">{data.temp}</p>
+          {data.day && <p className="weather-day">{data.day}</p>}
           <p className="weather-condition">{data.condition}</p>
         </div>
       </div>
       <dl className="weather-meta">
-        <div>
-          <dt>{t('weather.wind')}</dt>
-          <dd>{data.wind}</dd>
-        </div>
+        {data.precipitation && (
+          <div>
+            <dt>{t('weather.precipitation')}</dt>
+            <dd>{data.precipitation}</dd>
+          </div>
+        )}
         <div>
           <dt>{t('weather.humidity')}</dt>
           <dd>{data.humidity}</dd>
+        </div>
+        <div>
+          <dt>{t('weather.wind')}</dt>
+          <dd>{data.wind}</dd>
         </div>
         {data.lifts && (
           <div>

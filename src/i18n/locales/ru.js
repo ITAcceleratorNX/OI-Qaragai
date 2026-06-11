@@ -39,6 +39,11 @@ export default {
     megaCta: 'Открыть полный гид',
     profile: 'Профиль',
     book: 'Забронировать',
+    statusOpen: 'Курорт открыт',
+    statusClosed: 'Курорт закрыт',
+    statusMeta: '· {lifts} · {slopes}',
+    statusTitle: 'Подъёмники {lifts} · Тrasсы {slopes}',
+    statusAria: 'Статус курорта и трасс — подробнее о погоде',
   },
   theme: {
     light: 'Включить светлую тему',
@@ -142,6 +147,7 @@ export default {
   weather: {
     wind: 'Ветер',
     humidity: 'Влажность',
+    precipitation: 'Вероятность осадков',
     lifts: 'Подъёмники',
     slopes: 'Трассы',
     open: 'Открыт',

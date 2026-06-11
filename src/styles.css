@@ -83,7 +83,7 @@ ul{list-style:none}
    TOP BAR
    =================================================================== */
 .topbar{background:var(--topbar-bg);border-bottom:1px solid var(--line);font-size:13px;position:relative;z-index:30}
-.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:40px}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:46px}
 .topbar .wrap.topbar-wrap{justify-content:space-between}
 .topbar a,.topbar span{color:var(--muted);transition:color .2s}
 .topbar-l,.topbar-r{display:flex;align-items:center;gap:14px}
@@ -187,8 +187,7 @@ ul{list-style:none}
    HERO CAROUSEL (full width)
    =================================================================== */
 .hero{
-  position:relative;width:100vw;max-width:100%;
-  margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+  position:relative;width:100%;
   overflow:hidden;background:var(--bg);
 }
 .hero-carousel{
@@ -207,7 +206,7 @@ ul{list-style:none}
 }
 .hero-slide img{
   width:100%;height:auto;display:block;
-  object-fit:contain;object-position:center;
+  object-position:center;
 }
 .hero-nav{
   position:absolute;top:50%;transform:translateY(-50%);z-index:3;
@@ -223,6 +222,7 @@ ul{list-style:none}
 .hero-nav:hover{background:var(--accent);border-color:var(--accent)}
 .hero-nav.prev{left:clamp(12px,2.5vw,24px)}
 .hero-nav.next{right:clamp(12px,2.5vw,24px)}
+.status-badge--closed .dot{background:var(--muted-2);box-shadow:none;animation:none}
 @media (prefers-reduced-motion:reduce){
   .hero-slide{transition:none}
 }
@@ -233,6 +233,14 @@ ul{list-style:none}
   background:var(--glass-bg);border:1px solid var(--line-2);backdrop-filter:blur(8px);
   font-size:13.5px;font-weight:600}
 .status-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 10px var(--success-glow);animation:pulse 2.4s infinite}
+.topbar-status.status-badge{
+  padding:4px 12px;font-size:12px;font-weight:600;gap:7px;
+  color:var(--muted);text-decoration:none;white-space:nowrap;line-height:1.2;
+  transition:color .2s,background .2s,border-color .2s;
+}
+.topbar-status.status-badge:hover{color:var(--text);background:var(--bg-hover);border-color:var(--line-2)}
+.topbar-status.status-badge .dot{width:6px;height:6px;flex:none}
+.topbar-status-meta{color:var(--muted-2);font-weight:500}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
 .hero-cta .btn{padding:16px 28px;font-size:16px}
@@ -1075,6 +1083,7 @@ ul{list-style:none}
 .weather-card-main{display:flex;align-items:center;gap:18px;margin-bottom:24px}
 .weather-card-main svg{color:var(--accent);flex:none}
 .weather-temp{font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.weather-day{font-size:13px;color:var(--muted-2);margin-top:2px;text-transform:capitalize}
 .weather-condition{font-size:14px;color:var(--muted);margin-top:4px}
 .weather-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px}
 .weather-meta dt{font-size:12px;color:var(--muted-2);margin-bottom:2px}

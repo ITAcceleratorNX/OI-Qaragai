@@ -3,21 +3,32 @@ import { Link, useLocation } from 'react-router-dom';
 import { I } from '../icons.jsx';
 import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { ThemeToggle } from './ThemeToggle.jsx';
+import { useTheme } from '../theme/ThemeProvider.jsx';
 
-export const Logo = ({ onClick }) => (
-  <Link to="/" className="logo" onClick={onClick}>
-    <img
-      src="/images/header-logo-with-name.svg"
-      alt="OI·QARAGAI Mountain Resort"
-      className="logo-img"
-      height={44}
-    />
-  </Link>
-);
+export const Logo = ({ onClick }) => {
+  const { theme } = useTheme();
+  const src =
+    theme === 'dark'
+      ? '/images/header-logo-for-dark.svg'
+      : '/images/header-logo-with-name.svg';
+
+  return (
+    <Link to="/" className="logo" onClick={onClick}>
+      <img
+        src={src}
+        alt="OI·QARAGAI Mountain Resort"
+        className="logo-img"
+        height={44}
+      />
+    </Link>
+  );
+};
 
 export function TopBar() {
   const { t } = useTranslation();
-  const c = useOQ().contacts;
+  const { contacts: c, weather } = useOQ();
+  const { resort } = weather;
+
   return (
     <div className="topbar">
       <div className="wrap topbar-wrap">
@@ -32,6 +43,28 @@ export function TopBar() {
           </a>
         </div>
         <div className="topbar-r">
+          <Link
+            to="/weather"
+            className={
+              'topbar-status status-badge' + (resort.open ? '' : ' status-badge--closed')
+            }
+            aria-label={t('header.statusAria')}
+            title={
+              resort.open
+                ? t('header.statusTitle', { lifts: resort.lifts, slopes: resort.slopes })
+                : t('header.statusClosed')
+            }
+          >
+            <span className="dot" aria-hidden="true" />
+            <span className="topbar-status-text">
+              {resort.open ? t('header.statusOpen') : t('header.statusClosed')}
+            </span>
+            {resort.open && (
+              <span className="topbar-status-meta hide-xs">
+                {t('header.statusMeta', { lifts: resort.lifts, slopes: resort.slopes })}
+              </span>
+            )}
+          </Link>
           <a className="topbar-item" href={'tel:' + c.phone.replace(/\s/g, '')}>
             <I.phone size={14} />
             {c.phone}
