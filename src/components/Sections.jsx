@@ -158,6 +158,22 @@ export function Hero() {
             >
               <I.arrowRight size={20} />
             </button>
+            <div className="hero-dots">
+              {slides.map((slide, i) => (
+                <button
+                  key={slide.img}
+                  type="button"
+                  className={'hero-dot' + (i === active ? ' is-active' : '')}
+                  aria-label={slide.title}
+                  aria-current={i === active}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActive(i);
+                  }}
+                />
+              ))}
+            </div>
           </>
         )}
       </div>
@@ -513,12 +529,12 @@ export function Footer() {
               >
                 <I.insta size={18} />
               </a>
-              <a className="soc" href="#">
+              <Link className="soc" to="/3d-tour" aria-label={t('footer.tour3d')}>
                 <I.play size={16} />
-              </a>
-              <a className="soc" href="#">
+              </Link>
+              <Link className="soc" to="/cameras" aria-label={t('header.cameras')}>
                 <I.camera size={18} />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="foot-col">
@@ -537,7 +553,7 @@ export function Footer() {
                 <Link to="/guide">{t('footer.spa')}</Link>
               </li>
               <li>
-                <a href="#">{t('footer.tour3d')}</a>
+                <Link to="/3d-tour">{t('footer.tour3d')}</Link>
               </li>
             </ul>
           </div>
@@ -545,19 +561,21 @@ export function Footer() {
             <h5>{t('footer.info')}</h5>
             <ul>
               <li>
-                <a href="#">{t('footer.about')}</a>
+                <Link to="/guide">{t('footer.about')}</Link>
               </li>
               <li>
-                <a href="#rules">{t('footer.rules')}</a>
+                <Link to="/#rules">{t('footer.rules')}</Link>
               </li>
               <li>
                 <Link to="/events">{t('footer.events')}</Link>
               </li>
               <li>
-                <a href="#">{t('footer.jobs')}</a>
+                <a href={`mailto:${c.email}?subject=${encodeURIComponent(t('footer.jobs'))}`}>
+                  {t('footer.jobs')}
+                </a>
               </li>
               <li>
-                <a href="#">{t('footer.contactLink')}</a>
+                <a href={`mailto:${c.email}`}>{t('footer.contactLink')}</a>
               </li>
             </ul>
           </div>
@@ -586,9 +604,21 @@ export function Footer() {
         <div className="foot-bottom">
           <span>{c.copyright}</span>
           <div className="lk">
-            <a href="#">{t('footer.privacy')}</a>
-            <a href="#">{t('footer.offer')}</a>
-            <a href="#rules">{t('footer.rulesLink')}</a>
+            <a
+              href="https://oiqaragai.com/ru/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('footer.privacy')}
+            </a>
+            <a
+              href="https://oiqaragai.com/ru/user-agreement"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('footer.offer')}
+            </a>
+            <Link to="/#rules">{t('footer.rulesLink')}</Link>
           </div>
         </div>
       </div>

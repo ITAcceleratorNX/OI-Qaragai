@@ -177,8 +177,8 @@ export const RAW_OQ = {
     { t: 'Проживание', d: '8 объектов', icon: 'bed', href: '/guide' },
     { t: 'Рестораны', d: '15 заведений', icon: 'fork', href: '/guide' },
     { t: 'Активности', d: 'круглый год', icon: 'ski', href: '/guide' },
-    { t: 'Веб-камеры', d: '6 трансляций', icon: 'camera', href: '#' },
-    { t: '3D-тур', d: 'карта курорта', icon: 'cube', href: '#' },
+    { t: 'Веб-камеры', d: '12 трансляций', icon: 'camera', href: '/cameras' },
+    { t: '3D-тур', d: 'карта курорта', icon: 'cube', href: '/3d-tour' },
   ],
 
   hero: {
@@ -244,8 +244,6 @@ export const RAW_OQ = {
       body: 'Бесплатная гостевая парковка расположена у въезда на курорт. Трансфер от Алматы и обратно доступен по расписанию — бронируйте место заранее на стойке размещения или по телефону.',
     },
   ],
-
-  partners: ['KASPI', 'Visa', 'Air Astana', 'Beeline', 'Halyk', 'Almaty'],
 
   offersAll: [
     {

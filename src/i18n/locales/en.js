@@ -128,9 +128,6 @@ export default {
       iosSmall: 'Download on',
       androidSmall: 'Get it on',
     },
-    partners: {
-      label: 'Resort partners',
-    },
   },
   footer: {
     desc: 'Year-round mountain resort one hour from Almaty. Skiing, relaxation and events all year round.',
@@ -255,6 +252,22 @@ export default {
     resort: 'Resort',
   },
   pages: {
+    cameras: {
+      eyebrow: 'Live',
+      title: 'Resort webcams',
+      desc: 'Live streams from the slopes, lifts and venues of OI·QARAGAI — check the weather and slope conditions in real time.',
+      statCameras: 'cameras',
+      statLive: 'on air',
+      statAltitude: 'altitude',
+      allCameras: 'All cameras',
+    },
+    tour3d: {
+      eyebrow: 'Virtual walk',
+      title: '3D tour of the resort',
+      desc: '360° panoramas — explore the slopes, hotels and restaurants of OI·QARAGAI without leaving home.',
+      hint: 'Drag the panorama with your mouse or swipe, switch locations in the tour menu.',
+      openFull: 'Open full screen',
+    },
     offers: {
       eyebrow: 'Deals',
       title: 'All offers',

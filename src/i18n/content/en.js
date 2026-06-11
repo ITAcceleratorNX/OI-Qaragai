@@ -358,7 +358,7 @@ export default {
       '0': { t: 'Accommodation', d: '8 properties' },
       '1': { t: 'Restaurants', d: '15 venues' },
       '2': { t: 'Activities', d: 'year-round' },
-      '3': { t: 'Webcams', d: '6 live streams' },
+      '3': { t: 'Webcams', d: '12 live streams' },
       '4': { t: '3D Tour', d: 'resort map' },
     },
     mega: {

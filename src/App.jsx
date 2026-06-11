@@ -11,7 +11,6 @@ import {
   Lightbox,
   Rules,
   AppBanner,
-  Partners,
   Footer,
   QuickFab,
 } from './components/Sections.jsx';
@@ -22,6 +21,8 @@ import { EventsHubPage } from './pages/EventsHubPage.jsx';
 import { EventAfishaPage } from './pages/EventAfishaPage.jsx';
 import { CorporateEventsPage } from './pages/CorporateEventsPage.jsx';
 import { WeatherPage } from './pages/WeatherPage.jsx';
+import { CamerasPage } from './pages/CamerasPage.jsx';
+import { Tour3DPage } from './pages/Tour3DPage.jsx';
 import { RestaurantDetailPage } from './pages/RestaurantDetailPage.jsx';
 import { HotelDetailPage } from './pages/HotelDetailPage.jsx';
 import { ActivityDetailPage } from './pages/ActivityDetailPage.jsx';
@@ -36,10 +37,17 @@ import {
 } from './lib/cart.js';
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      // Ждём рендера целевой секции при переходе с другой страницы
+      const id = requestAnimationFrame(() => {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
+      });
+      return () => cancelAnimationFrame(id);
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 
@@ -55,7 +63,6 @@ function HomePage({ onBuy, onLightbox, cart, onBurger }) {
       <Gallery onOpen={onLightbox} />
       <Rules />
       <AppBanner />
-      <Partners />
       <Footer />
     </div>
   );
@@ -94,6 +101,8 @@ function AppRoutes({
       <Route path="/events/event" element={<EventAfishaPage {...shared} />} />
       <Route path="/events/corporate" element={<CorporateEventsPage {...shared} />} />
       <Route path="/weather" element={<WeatherPage cart={cart} onBurger={onBurger} />} />
+      <Route path="/cameras" element={<CamerasPage cart={cart} onBurger={onBurger} />} />
+      <Route path="/3d-tour" element={<Tour3DPage cart={cart} onBurger={onBurger} />} />
       <Route path="/restaurants/:id" element={<RestaurantDetailPage {...shared} />} />
       <Route path="/hotels/:id" element={<HotelDetailPage {...shared} />} />
       <Route path="/activities/:id" element={<ActivityDetailPage {...shared} />} />

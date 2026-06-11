@@ -28,44 +28,22 @@ export function TopBar() {
   const oq = useOQ();
   const { t } = useTranslation();
   const c = oq.contacts;
-  const { resort } = oq.weather;
   return (
     <div className="topbar">
       <div className="wrap topbar-wrap">
         <div className="topbar-l">
-          <a className="topbar-item" href="#">
+          <Link className="topbar-item" to="/cameras">
             <I.camera size={14} />
             {t('header.cameras')}
-          </a>
-          <a className="topbar-item" href="#">
+          </Link>
+          <Link className="topbar-item" to="/3d-tour">
             <I.cube size={14} />
             {t('header.tour3d')}
-          </a>
+          </Link>
         </div>
         <div className="topbar-r">
-          <Link
-            to="/weather"
-            className={
-              'topbar-status status-badge' + (resort.open ? '' : ' status-badge--closed')
-            }
-            aria-label={t('header.statusAria')}
-            title={
-              resort.open
-                ? t('header.statusTitle', { lifts: resort.lifts, slopes: resort.slopes })
-                : t('header.statusClosed')
-            }
-          >
-            <span className="dot" aria-hidden="true" />
-            <span className="topbar-status-text">
-              {resort.open ? t('header.statusOpen') : t('header.statusClosed')}
-            </span>
-            {resort.open && (
-              <span className="topbar-status-meta hide-xs">
-                · {resort.lifts} · {resort.slopes}
-              </span>
-            )}
-          </Link>
-          <a className="topbar-item" href={'tel:' + c.phone.replace(/\s/g, '')}>
+          <WeatherWidget />
+          <a className="topbar-item hide-xs" href={'tel:' + c.phone.replace(/\s/g, '')}>
             <I.phone size={14} />
             {c.phone}
           </a>
@@ -251,7 +229,6 @@ export function Header({ cart, onBurger }) {
         <Logo onClick={() => setMega(false)} />
 
         <div className="h-right">
-          <WeatherWidget />
           <ThemeToggle />
           <button
             className="icon-btn"
@@ -302,7 +279,7 @@ export function Header({ cart, onBurger }) {
 
 export function MobileDrawer({ open, onClose }) {
   const oq = useOQ();
-  const { t } = useTranslation();
+  const { lang, setLang, t } = useTranslation();
   const [sec, setSec] = useState(null);
 
   useEffect(() => {
@@ -344,9 +321,12 @@ export function MobileDrawer({ open, onClose }) {
       <aside className="drawer">
         <div className="drawer-head">
           <Logo onClick={onClose} />
-          <button className="icon-btn" onClick={onClose}>
-            <I.close size={20} />
-          </button>
+          <div className="drawer-head-actions">
+            <ThemeToggle />
+            <button className="icon-btn" onClick={onClose}>
+              <I.close size={20} />
+            </button>
+          </div>
         </div>
         <div className="drawer-body">
           {oq.mega.map((col, idx) => {
@@ -385,6 +365,19 @@ export function MobileDrawer({ open, onClose }) {
           })}
         </div>
         <div className="drawer-foot">
+          <div className="drawer-langs">
+            {LANGS.map((l) => (
+              <button
+                key={l.code}
+                className={'drawer-lang' + (l.code === lang ? ' sel' : '')}
+                onClick={() => setLang(l.code)}
+                aria-label={l.name}
+              >
+                <img className="lang-flag" src={l.flag} alt="" aria-hidden="true" />
+                {l.code}
+              </button>
+            ))}
+          </div>
           <div className="drawer-account">
             <Link className="drawer-account-link" to="/profile" onClick={onClose}>
               <I.user size={18} />
