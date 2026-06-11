@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
+import { pickPlural } from '../i18n/utils.js';
 import { I } from '../icons.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
@@ -154,22 +155,25 @@ function CartSummary({ items, promo, setPromo, onCheckout, t }) {
 }
 
 export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckout }) {
-  const { t } = useTranslation();
   const oq = useOQ();
+  const { t, lang } = useTranslation();
   const [promo, setPromo] = useState('');
   const isEmpty = cartItems.length === 0;
   const suggestions = oq.offersAll.slice(0, 3);
 
-  const countLabel =
-    cart === 1
-      ? t('pages.cart.itemOne')
-      : cart < 5
-        ? t('pages.cart.itemFew')
-        : t('pages.cart.itemMany');
+  const itemLabel = pickPlural(
+    cart,
+    {
+      one: t('pages.cart.itemOne'),
+      few: t('pages.cart.itemFew'),
+      many: t('pages.cart.itemMany'),
+    },
+    lang
+  );
 
   const heroDesc = isEmpty
     ? t('pages.cart.emptyHero')
-    : t('pages.cart.itemsReady', { count: `${cart} ${countLabel}` });
+    : t('pages.cart.itemsReady', { count: `${cart} ${itemLabel}` });
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
@@ -216,7 +220,7 @@ export function CartPage({ cart, cartItems, onBurger, onQty, onRemove, onCheckou
               </div>
               <div className="cart-suggest-grid">
                 {suggestions.map((o) => (
-                  <Link className="cart-suggest-card" to="/offers" key={o.id || o.title}>
+                  <Link className="cart-suggest-card" to="/offers" key={o.title}>
                     <img src={o.img} alt="" loading="lazy" />
                     <div>
                       <span>{o.tag || o.category}</span>

@@ -94,6 +94,15 @@ export function getDateLocale(lang) {
   return 'ru-RU';
 }
 
+export function pickPlural(count, { one, few, many }, lang = 'RU') {
+  if (lang === 'EN' || lang === 'KZ') return count === 1 ? one : many;
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+  if (mod10 === 1 && mod100 !== 11) return one;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return few;
+  return many;
+}
+
 export function enrichOQItem(item) {
   if (!item || typeof item !== 'object') return item;
   const next = { ...item };

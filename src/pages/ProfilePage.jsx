@@ -6,40 +6,37 @@ import { I } from '../icons.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { PageShell } from '../components/PageShell.jsx';
 
-const TAB_IDS = ['bookings', 'favorites', 'settings'];
-
-function ProfileHeroCard({ user, bookings, t, lang }) {
+function ProfileHeroCard({ profile, t, lang }) {
+  const u = profile.user;
   const locale = getDateLocale(lang);
   return (
     <div className="profile-hero-card">
       <div className="profile-hero-glow" aria-hidden="true" />
       <div className="profile-hero-inner">
         <div className="profile-avatar" aria-hidden="true">
-          <span>{user.initials}</span>
+          <span>{u.initials}</span>
           <div className="profile-avatar-ring" />
         </div>
         <div className="profile-hero-info">
           <span className="profile-tier">
             <I.star size={13} />
-            {user.tierLabel}
+            {u.tierLabel}
           </span>
-          <h2>{user.name}</h2>
-          <p>
-            {t('profile.memberSince', { year: user.memberSince })} · {user.email}
-          </p>
+          <h2>{u.name}</h2>
+          <p>{t('pages.profile.memberSince', { year: u.memberSince, email: u.email })}</p>
         </div>
         <div className="profile-stats">
           <div className="profile-stat">
-            <b>{user.points.toLocaleString(locale)}</b>
-            <span>{t('profile.bonuses')}</span>
+            <b>{u.points.toLocaleString(locale)}</b>
+            <span>{t('pages.profile.bonuses')}</span>
           </div>
           <div className="profile-stat">
-            <b>{user.nights}</b>
-            <span>{t('profile.nights')}</span>
+            <b>{u.nights}</b>
+            <span>{t('pages.profile.nights')}</span>
           </div>
           <div className="profile-stat">
-            <b>{bookings.filter((b) => b.status !== 'completed').length}</b>
-            <span>{t('profile.active')}</span>
+            <b>{profile.bookings.filter((b) => b.status !== 'completed').length}</b>
+            <span>{t('pages.profile.active')}</span>
           </div>
         </div>
       </div>
@@ -47,11 +44,11 @@ function ProfileHeroCard({ user, bookings, t, lang }) {
   );
 }
 
-function ProfileWallet({ wallet, t, lang }) {
-  const { deposit, skiPass } = wallet;
-  const locale = getDateLocale(lang);
+function ProfileWallet({ profile, t, lang }) {
+  const { deposit, skiPass } = profile.wallet;
   const passUsed = skiPass.totalDays - skiPass.daysLeft;
   const passProgress = Math.round((passUsed / skiPass.totalDays) * 100);
+  const locale = getDateLocale(lang);
 
   return (
     <div className="profile-wallet">
@@ -61,18 +58,18 @@ function ProfileWallet({ wallet, t, lang }) {
             <I.wallet size={22} />
           </span>
           <div>
-            <span className="profile-wallet-label">{t('profile.deposit')}</span>
+            <span className="profile-wallet-label">{t('pages.profile.deposit')}</span>
             <p className="profile-wallet-balance">
               <b>{deposit.balance.toLocaleString(locale)}</b> ₸
             </p>
           </div>
         </div>
         <p className="profile-wallet-note">
-          {t('profile.lastTopUp')} · {deposit.lastTopUp}
+          {t('pages.profile.lastTopUp')} {deposit.lastTopUp}
           <span>+{deposit.lastAmount} ₸</span>
         </p>
         <button type="button" className="btn btn-sm btn-accent profile-wallet-btn">
-          {t('profile.topUp')}
+          {t('pages.profile.topUp')}
           <I.plus size={14} />
         </button>
       </article>
@@ -83,7 +80,7 @@ function ProfileWallet({ wallet, t, lang }) {
             <I.ski size={22} />
           </span>
           <div className="profile-wallet-skipass-top">
-            <span className="profile-wallet-label">{t('profile.skiPass')}</span>
+            <span className="profile-wallet-label">{t('pages.profile.skiPass')}</span>
             <span className={'profile-wallet-status profile-wallet-status--' + skiPass.status}>
               {skiPass.statusLabel}
             </span>
@@ -94,7 +91,7 @@ function ProfileWallet({ wallet, t, lang }) {
           <div className="profile-wallet-progress-bar" style={{ width: passProgress + '%' }} />
         </div>
         <div className="profile-wallet-skipass-meta">
-          <span>{t('profile.daysOf', { left: skiPass.daysLeft, total: skiPass.totalDays })}</span>
+          <span>{t('pages.profile.daysOf', { left: skiPass.daysLeft, total: skiPass.totalDays })}</span>
           <span>
             {skiPass.validFrom} — {skiPass.validTo}
           </span>
@@ -102,7 +99,7 @@ function ProfileWallet({ wallet, t, lang }) {
         <div className="profile-wallet-skipass-foot">
           <span className="profile-wallet-pass">№ {skiPass.passNumber}</span>
           <Link className="link-arrow" to="/offers">
-            {t('profile.extend')} <I.arrowRight size={14} />
+            {t('pages.profile.extend')} <I.arrowRight size={14} />
           </Link>
         </div>
       </article>
@@ -131,7 +128,7 @@ function BookingCard({ booking, t }) {
           </span>
           <span>
             <I.user size={15} />
-            {t('profile.guests', { count: booking.guests })}
+            {t('pages.profile.guests', { count: booking.guests })}
           </span>
         </div>
         <div className="profile-booking-foot">
@@ -139,7 +136,7 @@ function BookingCard({ booking, t }) {
             <b>{booking.total}</b> ₸
           </span>
           <button type="button" className="btn btn-sm btn-ghost">
-            {t('cta.details')}
+            {t('pages.profile.details')}
             <I.arrowRight size={14} />
           </button>
         </div>
@@ -155,7 +152,7 @@ function FavoritesGrid({ favorites, t }) {
         <article className="profile-fav-card" key={f.id}>
           <div className="profile-fav-media">
             <img src={f.img} alt="" loading="lazy" />
-            <button type="button" className="profile-fav-heart" aria-label={t('profile.removeFavorite')}>
+            <button type="button" className="profile-fav-heart" aria-label={t('pages.profile.removeFavorite')}>
               <I.heart size={16} fill />
             </button>
           </div>
@@ -176,49 +173,49 @@ function SettingsPanel({ user, t }) {
   return (
     <div className="profile-settings">
       <div className="profile-settings-block">
-        <h3>{t('profile.personalData')}</h3>
+        <h3>{t('pages.profile.personalData')}</h3>
         <div className="profile-form-grid">
           <label>
-            <span>{t('profile.name')}</span>
+            <span>{t('pages.profile.name')}</span>
             <input type="text" defaultValue={user.name} />
           </label>
           <label>
-            <span>{t('profile.phone')}</span>
+            <span>{t('pages.profile.phone')}</span>
             <input type="tel" defaultValue={user.phone} />
           </label>
           <label className="profile-form-full">
-            <span>{t('profile.email')}</span>
+            <span>{t('pages.profile.email')}</span>
             <input type="email" defaultValue={user.email} />
           </label>
         </div>
         <button type="button" className="btn btn-accent btn-sm">
-          {t('profile.save')}
+          {t('pages.profile.save')}
         </button>
       </div>
 
       <div className="profile-settings-block">
-        <h3>{t('profile.notifications')}</h3>
+        <h3>{t('pages.profile.notifications')}</h3>
         <div className="profile-toggles">
           <label className="profile-toggle">
             <span>
-              <b>{t('profile.notifOffers')}</b>
-              <small>{t('profile.notifOffersDesc')}</small>
+              <b>{t('pages.profile.promoNotif')}</b>
+              <small>{t('pages.profile.promoNotifDesc')}</small>
             </span>
             <input type="checkbox" defaultChecked />
             <span className="profile-toggle-track" />
           </label>
           <label className="profile-toggle">
             <span>
-              <b>{t('profile.notifBooking')}</b>
-              <small>{t('profile.notifBookingDesc')}</small>
+              <b>{t('pages.profile.bookingNotif')}</b>
+              <small>{t('pages.profile.bookingNotifDesc')}</small>
             </span>
             <input type="checkbox" defaultChecked />
             <span className="profile-toggle-track" />
           </label>
           <label className="profile-toggle">
             <span>
-              <b>{t('profile.notifWeather')}</b>
-              <small>{t('profile.notifWeatherDesc')}</small>
+              <b>{t('pages.profile.weatherNotif')}</b>
+              <small>{t('pages.profile.weatherNotifDesc')}</small>
             </span>
             <input type="checkbox" />
             <span className="profile-toggle-track" />
@@ -229,42 +226,38 @@ function SettingsPanel({ user, t }) {
       <div className="profile-settings-block profile-settings-block--danger">
         <button type="button" className="btn btn-outline btn-sm profile-logout">
           <I.logout size={16} />
-          {t('profile.logout')}
+          {t('pages.profile.logout')}
         </button>
       </div>
     </div>
   );
 }
 
-export function ProfilePage({ cart, onBurger }) {
-  const { t, lang } = useTranslation();
-  const oq = useOQ();
-  const profile = oq.profile;
-  const [tab, setTab] = useState('bookings');
+const TAB_IDS = ['bookings', 'favorites', 'settings'];
+const TAB_ICONS = { bookings: 'calendar', favorites: 'heart', settings: 'settings' };
 
-  if (!profile) return null;
+export function ProfilePage({ cart, onBurger }) {
+  const oq = useOQ();
+  const { t, lang } = useTranslation();
+  const [tab, setTab] = useState('bookings');
+  const profile = oq.profile;
 
   return (
     <PageShell cart={cart} onBurger={onBurger}>
       <PageHero
-        eyebrow={t('profile.eyebrow')}
-        title={t('profile.title')}
-        desc={t('profile.desc')}
+        eyebrow={t('pages.profile.eyebrow')}
+        title={t('pages.profile.title')}
+        desc={t('pages.profile.desc')}
       />
 
       <section className="section page-section profile-section">
         <div className="wrap">
-          <ProfileHeroCard
-            user={profile.user}
-            bookings={profile.bookings}
-            t={t}
-            lang={lang}
-          />
-          <ProfileWallet wallet={profile.wallet} t={t} lang={lang} />
+          <ProfileHeroCard profile={profile} t={t} lang={lang} />
+          <ProfileWallet profile={profile} t={t} lang={lang} />
 
           <div className="profile-tabs" role="tablist">
             {TAB_IDS.map((id) => {
-              const Icon = I[id === 'bookings' ? 'calendar' : id === 'favorites' ? 'heart' : 'settings'];
+              const Icon = I[TAB_ICONS[id]];
               return (
                 <button
                   key={id}
@@ -275,7 +268,7 @@ export function ProfilePage({ cart, onBurger }) {
                   onClick={() => setTab(id)}
                 >
                   <Icon size={17} />
-                  {t(`profile.tabs.${id}`)}
+                  {t(`pages.profile.tabs.${id}`)}
                 </button>
               );
             })}
@@ -285,9 +278,9 @@ export function ProfilePage({ cart, onBurger }) {
             {tab === 'bookings' && (
               <>
                 <div className="profile-panel-head">
-                  <h2>{t('profile.myBookings')}</h2>
+                  <h2>{t('pages.profile.myBookings')}</h2>
                   <Link className="btn btn-accent btn-sm" to="/offers">
-                    {t('profile.newBooking')}
+                    {t('pages.profile.newBooking')}
                     <I.plus size={15} />
                   </Link>
                 </div>
@@ -302,9 +295,9 @@ export function ProfilePage({ cart, onBurger }) {
             {tab === 'favorites' && (
               <>
                 <div className="profile-panel-head">
-                  <h2>{t('profile.favoritesTitle')}</h2>
+                  <h2>{t('pages.profile.favorites')}</h2>
                   <span className="profile-panel-count">
-                    {t('profile.favoritesCount', { count: profile.favorites.length })}
+                    {t('pages.profile.favoritesCount', { count: profile.favorites.length })}
                   </span>
                 </div>
                 <FavoritesGrid favorites={profile.favorites} t={t} />
@@ -314,7 +307,7 @@ export function ProfilePage({ cart, onBurger }) {
             {tab === 'settings' && (
               <>
                 <div className="profile-panel-head">
-                  <h2>{t('profile.settingsTitle')}</h2>
+                  <h2>{t('pages.profile.settings')}</h2>
                 </div>
                 <SettingsPanel user={profile.user} t={t} />
               </>

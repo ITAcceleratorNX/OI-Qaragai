@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useTranslation } from './i18n/LanguageProvider.jsx';
 import { MobileDrawer } from './components/Header.jsx';
 import {
   Hero,
@@ -33,7 +34,6 @@ import {
   removeFromCart,
   updateQty,
 } from './lib/cart.js';
-import { useTranslation } from './i18n/LanguageProvider.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
