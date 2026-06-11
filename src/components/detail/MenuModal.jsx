@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
+import { useTranslation } from '../../i18n/LanguageProvider.jsx';
 import { I } from '../../icons.jsx';
 
 export function MenuModal({ open, onClose, title, menuPdf, menuPreview }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === 'Escape' && onClose();
@@ -22,11 +25,11 @@ export function MenuModal({ open, onClose, title, menuPdf, menuPreview }) {
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label={`Меню: ${title}`}
+        aria-label={t('detail.menuAria', { title })}
       >
         <div className="detail-modal-head">
-          <h2>Меню · {title}</h2>
-          <button type="button" className="icon-btn" onClick={onClose} aria-label="Закрыть">
+          <h2>{t('detail.menuTitle', { title })}</h2>
+          <button type="button" className="icon-btn" onClick={onClose} aria-label={t('common.close')}>
             <I.close size={20} />
           </button>
         </div>
@@ -43,9 +46,9 @@ export function MenuModal({ open, onClose, title, menuPdf, menuPreview }) {
           ))}
           {menuPdf && (
             <div className="menu-pdf">
-              <iframe src={menuPdf} title={`PDF меню ${title}`} />
+              <iframe src={menuPdf} title={t('detail.menuPdfTitle', { title })} />
               <a className="btn btn-outline btn-sm" href={menuPdf} target="_blank" rel="noopener noreferrer">
-                Открыть PDF в новой вкладке
+                {t('detail.menuOpenPdf')}
               </a>
             </div>
           )}

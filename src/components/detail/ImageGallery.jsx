@@ -1,20 +1,22 @@
 import { useState } from 'react';
-import { ImageLightbox } from '../ImageLightbox.jsx';
+import { DetailLightbox } from './DetailLightbox.jsx';
 
-export function ImageGallery({ images, alt }) {
+export function ImageGallery({ images, alt, large }) {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(null);
 
   if (!images?.length) return null;
 
+  const openLightbox = (i) => setLightbox(i);
+
   return (
     <>
-      <div className="detail-gallery">
+      <div className={'detail-gallery' + (large ? ' detail-gallery--large' : '')}>
         <button
           type="button"
-          className="detail-gallery-main"
-          onClick={() => setLightbox(active)}
-          aria-label="Открыть фото"
+          className="detail-gallery-main detail-gallery-open"
+          onClick={() => openLightbox(active)}
+          aria-label={alt}
         >
           <img src={images[active]} alt={alt} />
         </button>
@@ -26,7 +28,8 @@ export function ImageGallery({ images, alt }) {
                 type="button"
                 className={'detail-gallery-thumb' + (i === active ? ' active' : '')}
                 onClick={() => setActive(i)}
-                aria-label={`Фото ${i + 1}`}
+                onDoubleClick={() => openLightbox(i)}
+                aria-label={`${alt} ${i + 1}`}
               >
                 <img src={src} alt="" />
               </button>
@@ -35,15 +38,13 @@ export function ImageGallery({ images, alt }) {
         )}
       </div>
 
-      {lightbox !== null && (
-        <ImageLightbox
-          images={images}
-          index={lightbox}
-          alt={alt}
-          onClose={() => setLightbox(null)}
-          onIndex={setLightbox}
-        />
-      )}
+      <DetailLightbox
+        images={images}
+        index={lightbox}
+        onClose={() => setLightbox(null)}
+        onIndex={setLightbox}
+        caption={alt}
+      />
     </>
   );
 }
