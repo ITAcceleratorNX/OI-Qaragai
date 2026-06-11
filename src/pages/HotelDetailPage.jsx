@@ -7,6 +7,7 @@ import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
 import { DetailMeta } from '../components/detail/DetailMeta.jsx';
 import { I } from '../icons.jsx';
+import { ImageLightbox } from '../components/ImageLightbox.jsx';
 
 export function HotelDetailPage({ cart, onBurger }) {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ export function HotelDetailPage({ cart, onBurger }) {
   const [roomIdx, setRoomIdx] = useState(0);
   const [dates, setDates] = useState({ checkIn: '', checkOut: '' });
   const [booking, setBooking] = useState(false);
+  const [lightbox, setLightbox] = useState(null);
 
   if (!item) {
     return (
@@ -48,7 +50,14 @@ export function HotelDetailPage({ cart, onBurger }) {
             <div className="detail-main">
               <div className="detail-slider">
                 <div className="detail-slider-media">
-                  <img src={room.img} alt={room.name} />
+                  <button
+                    type="button"
+                    className="detail-media-open"
+                    onClick={() => setLightbox(roomIdx)}
+                    aria-label={t('detail.openPhoto')}
+                  >
+                    <img src={room.img} alt={room.name} />
+                  </button>
                   <button type="button" className="detail-slider-nav prev" onClick={prevRoom} aria-label={t('detail.prevRoom')}>
                     <I.arrowLeft size={20} />
                   </button>
@@ -149,6 +158,16 @@ export function HotelDetailPage({ cart, onBurger }) {
           </div>
         </div>
       </article>
+
+      {lightbox !== null && (
+        <ImageLightbox
+          images={item.rooms.map((r) => ({ src: r.img, caption: r.name }))}
+          index={lightbox}
+          alt={item.name}
+          onClose={() => setLightbox(null)}
+          onIndex={setLightbox}
+        />
+      )}
     </PageShell>
   );
 }

@@ -4,6 +4,7 @@ import { I } from '../icons.jsx';
 import { useOQ, useTranslation } from '../i18n/LanguageProvider.jsx';
 import { Logo } from './Header.jsx';
 import { Card } from './Card.jsx';
+import { ImageLightbox } from './ImageLightbox.jsx';
 
 /* углы: снизу вверх — Проживание → 3D-тур */
 const QUICK_ARC_ANGLES = [62, 31, 0, -31, -62];
@@ -373,56 +374,14 @@ export function Gallery({ onOpen }) {
 }
 
 export function Lightbox({ index, onClose, onIndex }) {
-  const g = useOQ().gallery;
-  useEffect(() => {
-    const k = (e) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') onIndex((index + 1) % g.length);
-      if (e.key === 'ArrowLeft') onIndex((index - 1 + g.length) % g.length);
-    };
-    window.addEventListener('keydown', k);
-    return () => window.removeEventListener('keydown', k);
-  }, [index, g.length, onClose, onIndex]);
-
-  const cur = g[index];
+  const images = useOQ().gallery.map((g) => ({ src: g.img, caption: g.cap }));
   return (
-    <div className="lightbox" onClick={onClose}>
-      <div className="lb-stage" onClick={(e) => e.stopPropagation()}>
-        <button className="lb-close" onClick={onClose}>
-          <I.close size={20} />
-        </button>
-        <button
-          className="lb-nav lb-prev"
-          onClick={() => onIndex((index - 1 + g.length) % g.length)}
-        >
-          <I.arrowLeft size={22} />
-        </button>
-        <img className="lb-img" src={cur.img} alt={cur.cap} />
-        <button
-          className="lb-nav lb-next"
-          onClick={() => onIndex((index + 1) % g.length)}
-        >
-          <I.arrowRight size={22} />
-        </button>
-        <div className="lb-cap">
-          <b>{cur.cap}</b>
-          <span>
-            {index + 1} / {g.length}
-          </span>
-        </div>
-        <div className="lb-thumbs">
-          {g.map((t, i) => (
-            <img
-              key={i}
-              src={t.img}
-              className={i === index ? 'sel' : ''}
-              onClick={() => onIndex(i)}
-              alt=""
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    <ImageLightbox
+      images={images}
+      index={index}
+      onClose={onClose}
+      onIndex={onIndex}
+    />
   );
 }
 

@@ -1,13 +1,16 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { findById } from '../data/details.js';
 import { PageShell } from '../components/PageShell.jsx';
 import { DetailBack } from '../components/detail/DetailBack.jsx';
 import { NotFoundDetail } from '../components/detail/NotFoundDetail.jsx';
 import { I } from '../icons.jsx';
+import { ImageLightbox } from '../components/ImageLightbox.jsx';
 
 export function ActivityDetailPage({ cart, onBurger, onBuy }) {
   const { id } = useParams();
   const item = findById('activities', id);
+  const [lightbox, setLightbox] = useState(false);
 
   if (!item) {
     return (
@@ -60,7 +63,14 @@ export function ActivityDetailPage({ cart, onBurger, onBuy }) {
                 {item.media.type === 'video' ? (
                   <video src={item.media.src} controls poster={item.media.poster} />
                 ) : (
-                  <img src={item.media.src} alt={item.name} />
+                  <button
+                    type="button"
+                    className="detail-media-open"
+                    onClick={() => setLightbox(true)}
+                    aria-label="Открыть фото"
+                  >
+                    <img src={item.media.src} alt={item.name} />
+                  </button>
                 )}
               </div>
               <p className="detail-desc">{item.description}</p>
@@ -117,6 +127,16 @@ export function ActivityDetailPage({ cart, onBurger, onBuy }) {
           </div>
         </div>
       </article>
+
+      {lightbox && item.media.type !== 'video' && (
+        <ImageLightbox
+          images={[item.media.src]}
+          index={0}
+          alt={item.name}
+          onClose={() => setLightbox(false)}
+          onIndex={() => {}}
+        />
+      )}
     </PageShell>
   );
 }

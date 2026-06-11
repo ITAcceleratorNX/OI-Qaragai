@@ -7,7 +7,7 @@ import { ListingToolbar } from '../components/ListingToolbar.jsx';
 import { ListingEmpty } from '../components/ListingEmpty.jsx';
 import { OfferSpotlight } from '../components/OfferSpotlight.jsx';
 
-const FILTER_IDS = ['all', 'packages', 'spa', 'skipass', 'activities'];
+const FILTER_IDS = ['all', 'packages', 'spa', 'activities'];
 
 export function OffersPage({ cart, onBuy, onBurger }) {
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ export function OffersPage({ cart, onBuy, onBurger }) {
         eyebrow={t('pages.offers.eyebrow')}
         title={t('pages.offers.title')}
         desc={t('pages.offers.desc')}
-        image="https://oq-prod.storage.yandexcloud.kz/media-test/b9412961e77379e1beedf84c8108ed65.jpg"
+        image="https://oq-prod.storage.yandexcloud.kz/media-test/3cbc915db86b87188ea60419d4c0b89b.jpg"
         stats={[
           { value: oq.offersAll.length, label: t('pages.offers.statOffers') },
           { value: '12 000 ₸', label: t('pages.offers.statFrom') },
